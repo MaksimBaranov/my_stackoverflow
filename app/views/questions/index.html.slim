@@ -1,0 +1,6 @@
+h1 List of Questions
+ul
+-@questions.each_with_index do |q, i|
+  li
+    span #{i+1}
+    = link_to "#{q.title}", "#"

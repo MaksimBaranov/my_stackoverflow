@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+3.times do |a|
+  a = Question.create(title: 'interesting question', body: 'bla-bla-bla-bla')
+end

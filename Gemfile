@@ -41,6 +41,8 @@ group :test do
   gem 'shoulda-matchers'
 end
 
+# Markdown
+gem 'slim'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
