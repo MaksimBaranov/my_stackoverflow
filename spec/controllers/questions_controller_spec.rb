@@ -14,4 +14,16 @@ describe QuestionsController do
       expect(response).to render_template :index
     end
   end
+
+  describe "GET #new" do
+    before { get :new }
+
+    it 'create a new Question at @question'  do
+      expect(assigns(:question)).to be_a_new(Question)
+    end
+
+    it 'renders new view' do
+      expect(response).to render_template :new
+    end
+  end
 end
