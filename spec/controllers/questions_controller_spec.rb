@@ -40,4 +40,28 @@ describe QuestionsController do
       end
     end
   end
+
+  describe "GET #show" do
+    shared_examples "checks @question and renders template new" do
+      let(:question) { create(:question) }
+      before(:each) {get :show, id: question}
+
+      it "checks @question" do
+        expect(assigns(:question)).to eq question
+      end
+
+      it "renders template new" do
+        expect(response).to render_template :show
+      end
+    end
+
+    context "user is a quest" do
+      it_should_behave_like "checks @question and renders template new"
+    end
+
+    context "user is sign in"do
+      login_user
+      it_should_behave_like "checks @question and renders template new"
+    end
+  end
 end
