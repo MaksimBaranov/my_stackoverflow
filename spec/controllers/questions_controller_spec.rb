@@ -42,7 +42,7 @@ describe QuestionsController do
   end
 
   describe "GET #show" do
-    shared_examples "checks @question and renders template new" do
+    shared_examples "checks @question and renders template show" do
       let(:question) { create(:question) }
       before(:each) {get :show, id: question}
 
@@ -56,12 +56,25 @@ describe QuestionsController do
     end
 
     context "user is a quest" do
-      it_should_behave_like "checks @question and renders template new"
+      it_should_behave_like "checks @question and renders template show"
     end
 
     context "user is sign in"do
       login_user
-      it_should_behave_like "checks @question and renders template new"
+      it_should_behave_like "checks @question and renders template show"
+    end
+  end
+
+  describe "POST #create" do
+    context 'with valid attributes' do
+      it "saves new question in the database" do
+        expect { post :create, question: attributes_for(:question) }.to change(Question, :count).by(1)
+      end
+
+      it "redirect to show view" do
+        post :create, question: attributes_for(:question)
+        expect(response).to redirect_to question_path(assigns(:question))
+      end
     end
   end
 end

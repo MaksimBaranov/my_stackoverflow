@@ -1,7 +1,6 @@
 MyStackoverflow::Application.routes.draw do
   devise_for :users
-  get '/questions/new', to: 'questions#new'
-  get '/questions/:id', to: 'questions#show', as: 'question'
+  resources :questions
   root 'questions#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
