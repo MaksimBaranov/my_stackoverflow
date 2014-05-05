@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe QuestionsController do
+
   describe "GET #index" do
     let(:questions) { create_list(:question, 2) }
 
@@ -16,14 +17,27 @@ describe QuestionsController do
   end
 
   describe "GET #new" do
-    before { get :new }
 
-    it 'create a new Question at @question'  do
-      expect(assigns(:question)).to be_a_new(Question)
+    context "user is sign in" do
+      login_user
+      before(:each) do
+        get :new
+      end
+
+      it 'assigns a new Question to @question'  do
+        expect(assigns(:question)).to be_a_new(Question)
+      end
+
+      it 'renders new view' do
+        expect(response).to render_template :new
+      end
     end
 
-    it 'renders new view' do
-      expect(response).to render_template :new
+    context "user is a quest" do
+      it "redirect to sign in page" do
+        get :new
+        expect(response).to redirect_to new_user_session_path
+      end
     end
   end
 end
