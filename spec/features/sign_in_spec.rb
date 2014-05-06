@@ -6,15 +6,16 @@ feature 'Sign in', %q{
   I want be able to sign in
 } do
 
+  let(:user){user = create(:user)}
+
   scenario "Existing user try to sign in" do
-    User.create!(email: "user@test.com", password: "12345678")
 
     visit new_user_session_path
-    fill_in "Email", with: "user@test.com"
-    fill_in 'Password', with: '12345678'
+    fill_in "Email", with: user.email
+    fill_in 'Password', with: user.password
     click_on 'Sign in'
 
-    save_and_open_page
+    #save_and_open_page
     expect(page).to have_content "Signed in successfully."
   end
 
