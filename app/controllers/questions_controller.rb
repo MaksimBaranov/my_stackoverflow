@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-  before_filter :authenticate_user!, only: [:new, :edit, :update, :delete]
+  before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :delete]
   before_filter :load_question, only: [:show]
   def index
     @questions = Question.all
