@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-  before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :delete]
+  before_filter :authenticate_user!, only: [:new, :edit, :update, :delete]
   before_filter :load_question, only: [:show]
   def index
     @questions = Question.all
@@ -14,8 +14,11 @@ class QuestionsController < ApplicationController
 
   def create
     @question = Question.new(question_params)
-    @question.save
-    redirect_to @question
+    if @question.save
+      redirect_to @question
+    else
+      render :new
+    end
   end
 
   private
