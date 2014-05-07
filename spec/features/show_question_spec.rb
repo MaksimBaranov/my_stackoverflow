@@ -6,7 +6,7 @@ feature "Show question", %q{
   I want to be able look into question
 } do
 
-  let(:question){question = create(:question)}
+  let(:question){create(:question)}
 
   scenario "Random user look current question." do
     visit question_path(question)

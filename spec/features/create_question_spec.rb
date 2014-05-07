@@ -10,7 +10,6 @@ feature "Create question", %q{
 
   scenario "Authenticated user create the question." do
     new_user_session
-
     visit questions_path
     click_on 'Ask question'
     fill_in 'Title', with: 'My title question.'
