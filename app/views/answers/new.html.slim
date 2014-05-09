@@ -1,0 +1,5 @@
+h1 Your Answer
+= form_for ([@question, @answer]) do |f|
+  = f.label :text, "Text"
+  = f.text_area :text
+  = f.submit 'Create'
