@@ -2,10 +2,6 @@ class AnswersController < ApplicationController
   before_filter :authenticate_user!
   before_filter :load_question_id
 
-  def new
-    @answer = Answer.new
-  end
-
   def create
 
   end

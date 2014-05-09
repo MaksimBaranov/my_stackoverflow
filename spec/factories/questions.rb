@@ -3,8 +3,8 @@
 FactoryGirl.define do
   factory :question do
   user
-    title "MyString"
-    body "MyText"
+    title "MyString"*5
+    body "MyText"*20
   end
 
   factory :invalid_question, class: "Question" do
