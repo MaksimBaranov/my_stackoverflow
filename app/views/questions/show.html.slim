@@ -1,10 +1,6 @@
 h2 = @question.title
 p = @question.body
 br
-h1 Your Answer
-= form_for ([@question, @question.answers.build]) do |f|
-  = f.label :text, "Text"
-  = f.text_area :text
-  = f.submit "Post Your Answer"
+= render 'answers/form', question:@question, answer:Answer.new
 
 
