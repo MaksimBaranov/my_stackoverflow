@@ -5,12 +5,11 @@ class AnswersController < ApplicationController
   def create
     @answer = current_user.answers.build(answer_params)
     @question.answers << @answer
-    @answer.save
-       flash[:notice] = 'Your answer is successfully created.'
-       redirect_to @question
-    # else
-    #   render
-    # end
+    if @answer.save
+      redirect_to @question, notice: 'Your answer was successfully created.'
+    else
+      redirect_to @question, alert: 'Your answer wasn`t created.'
+    end
   end
 
   private
