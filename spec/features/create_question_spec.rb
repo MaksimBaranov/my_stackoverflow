@@ -6,14 +6,14 @@ feature "Create question", %q{
   I want to be able to ask the question
 } do
 
-  let(:user) {create(:user)}
-
+  let(:user) { create(:user) }
+  let(:question) { create(:question) }
   scenario "Authenticated user create the question." do
     new_user_session
     visit questions_path
     click_on 'Ask question'
-    fill_in 'Title', with: 'My title question.'
-    fill_in 'Text', with: 'My text of question.'
+    fill_in 'Title', with: question.title
+    fill_in 'Text', with: question.body
     click_on 'Create'
     expect(page).to have_content 'Your question is successfully created.'
   end
