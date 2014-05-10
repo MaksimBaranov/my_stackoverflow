@@ -2,12 +2,12 @@
 
 FactoryGirl.define do
   factory :answer do
-  user
-  question
+    user
+    question
     text Faker::Lorem.paragraph(4)
   end
 
-  factory :invalid_answer, class: "Answer" do
-    text   nil
+  factory :invalid_answer, class: 'Answer' do
+    text nil
   end
 end
