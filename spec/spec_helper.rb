@@ -14,9 +14,9 @@ ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 RSpec.configure do |config|
   # Session helpers - For Capybara
-  config.include Features::SessionHelpers, type: :feature
   config.include FactoryGirl::Syntax::Methods
   config.extend ControllerMacros, :type => :controller
+  config.include Features::SessionHelpers, type: :feature
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
