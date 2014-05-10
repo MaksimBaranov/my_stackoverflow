@@ -1,14 +1,14 @@
 require 'spec_helper'
 
-feature "Show question", %q{
+feature 'Show question', %q(
   In order to get answer
   As an random user
   I want to be able look into question
-} do
+) do
 
-  let(:question){create(:question)}
+  let(:question) { create(:question) }
 
-  scenario "Random user look current question." do
+  scenario 'Random user look current question.' do
     visit question_path(question)
     expect(page).to have_content question.body
   end

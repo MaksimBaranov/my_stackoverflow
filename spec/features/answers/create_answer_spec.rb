@@ -8,7 +8,7 @@ feature 'Create answer', %q(
 
   given(:user) { create(:user) }
   given(:question) { create(:question) }
-  given(:answer) {create(:answer)}
+  given(:answer) { create(:answer) }
 
   scenario 'Authenticated user create the answer' do
     new_user_session
