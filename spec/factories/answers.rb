@@ -7,7 +7,7 @@ FactoryGirl.define do
     text "MyText"*20
   end
 
-  factory :invalid_answer, class: "Question" do
+  factory :invalid_answer, class: "Answer" do
     text   nil
   end
 end
