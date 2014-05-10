@@ -65,6 +65,31 @@ describe QuestionsController do
     end
   end
 
+  describe 'GET #edit' do
+    let(:question) { create(:question) }
+
+    context 'user is sign in' do
+      login_user
+      before(:each) { get :edit, id: question }
+
+      it 'assigns the requested question to @question' do
+        expect(assigns(:question)).to eq question
+      end
+
+      it 'renders edit view' do
+        expect(response).to render_template :edit
+      end
+    end
+
+    context 'user is a quest' do
+      before { get :edit, id: question }
+
+      it 'redirect to sign in page' do
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+  end
+
   describe 'POST #create' do
     context 'user is sign in' do
       login_user
@@ -103,6 +128,53 @@ describe QuestionsController do
       it 'redirect to sign in page' do
         post :create
         expect(response).to redirect_to new_user_session_path
+      end
+    end
+  end
+
+  describe 'PATCH #update' do
+    let(:question) { create(:question) }
+
+    context 'user is sign in' do
+      login_user
+
+      context 'with valid attributes' do
+        it 'assigns the requested question to @question' do
+          patch :update, id: question, question: attributes_for(:question)
+          expect(assigns(:question)).to eq question
+        end
+
+        it 'changes question attributes' do
+          patch :update, id: question, question: { title: 'new title edit now.', body: 'edit body'*10 }
+          question.reload
+          expect(question.title).to eq 'new title edit now.'
+          expect(question.body).to eq 'edit body'*10
+        end
+
+        it 'redirects to the updated question' do
+          patch :update, id: question, question: attributes_for(:question)
+          expect(response).to redirect_to question
+        end
+      end
+
+      context 'with invalid attributes' do
+        before { patch :update, id: question, question: { title: 'new title edit at now.', body: nil } }
+        it 'does not change question attributes' do
+          question.reload
+          expect(question.title).to eq question.title
+          expect(question.body).to eq question.body
+        end
+
+        it 're-renders edit view' do
+          expect(response).to render_template :edit
+        end
+      end
+    end
+
+    context 'user is a quest' do
+      it 'redirect to sign in page' do
+         patch :update, id: question, question: { title: 'new title edit now.', body: 'edit body'*10 }
+         expect(response).to redirect_to new_user_session_path
       end
     end
   end

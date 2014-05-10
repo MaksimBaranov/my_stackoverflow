@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
-  before_filter :load_question, only: [:show]
+  before_filter :load_question, only: [:show, :edit, :update]
   def index
     @questions = Question.all
   end
@@ -12,6 +12,9 @@ class QuestionsController < ApplicationController
   def show
   end
 
+  def edit
+  end
+
   def create
     @question = current_user.questions.build(question_params)
     if @question.save
@@ -19,6 +22,14 @@ class QuestionsController < ApplicationController
       redirect_to @question
     else
       render :new
+    end
+  end
+
+  def update
+    if @question.update(question_params)
+      redirect_to @question
+    else
+      render :edit
     end
   end
 
