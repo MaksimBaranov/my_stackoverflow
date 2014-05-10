@@ -14,7 +14,7 @@ feature 'Edit question', %q(
     visit question_path(question)
     click_on 'Improve Question'
     fill_in 'Title', with: 'Some other text title`s question.'
-    fill_in 'Text', with: 'Some other text body question.'
+    fill_in 'Text', with: 'Some other text body question.'*5
     click_on 'Edit Question'
 
     expect(page).to have_content %q(Your question has been
