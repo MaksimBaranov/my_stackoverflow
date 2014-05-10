@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :answer do
   user
   question
-    text "MyText"*20
+    text Faker::Lorem.paragraph(4)
   end
 
   factory :invalid_answer, class: "Answer" do

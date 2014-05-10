@@ -3,8 +3,8 @@
 FactoryGirl.define do
   factory :question do
   user
-    title "MyString"*5
-    body "MyText"*20
+    title Faker::Lorem.sentence
+    body Faker::Lorem.paragraph(4)
   end
 
   factory :invalid_question, class: "Question" do
