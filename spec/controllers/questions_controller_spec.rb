@@ -42,49 +42,27 @@ describe QuestionsController do
   end
 
   describe "GET #show" do
-    # describe 'User only checks question' do
-    #   shared_examples "checks @question and renders template show" do
-    #     let(:question) { create(:question) }
-    #     before(:each) {get :show, id: question}
+    shared_examples "checks @question and renders template show" do
+      let(:question) { create(:question) }
+      before(:each) {get :show, id: question}
 
-    #     it "checks @question" do
-    #       expect(assigns(:question)).to eq question
-    #     end
+      it "checks @question" do
+        expect(assigns(:question)).to eq question
+      end
 
-    #     it "renders template new" do
-    #       expect(response).to render_template :show
-    #     end
-    #   end
-
-    #   context "user is a quest" do
-    #     it_should_behave_like "checks @question and renders template show"
-    #   end
-
-    #   context "user is sign in"do
-    #     login_user
-    #     it_should_behave_like "checks @question and renders template show"
-    #   end
-    # end
-
-    describe 'User posts answer' do
-      # let(:question) { create(:question) }
-
-      context 'user is sign in' do
-        let(:question) { create(:question) }
-        login_user
-        before(:each) do
-          post :create, question_id: question
-        end
-        it 'assigns a new Answer to @answer' do
-          expect(assigns(:answer)).to be_a_new(Answer)
-        end
-
-        it 'renders a new' do
-          expect(response).to render_template :new
-        end
+      it "renders template new" do
+        expect(response).to render_template :show
       end
     end
 
+    context "user is a quest" do
+      it_should_behave_like "checks @question and renders template show"
+    end
+
+    context "user is sign in"do
+      login_user
+      it_should_behave_like "checks @question and renders template show"
+    end
   end
 
   describe "POST #create" do
