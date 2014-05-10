@@ -7,14 +7,14 @@ feature 'Create answer', %q(
   ) do
   let(:user) { create(:user) }
   let(:question) { create(:question) }
+  let(:answer) {create(:answer)}
   scenario 'Authenticated user create the answer' do
     new_user_session
     visit question_path(question)
+    fill_in 'Text', with: answer.text
     click_on 'Post Your Answer'
-    fill_in 'Text', with: 'Some answer text.'
-    click_on 'Create'
 
-    expect(page).to have_content 'Your answer is successfuly created.'
+    expect(page).to have_content 'Your answer was successfully created.'
   end
 
   scenario 'Non-authenticated user try to create answer' do

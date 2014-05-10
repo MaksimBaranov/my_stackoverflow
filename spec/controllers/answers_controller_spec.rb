@@ -42,7 +42,7 @@ describe AnswersController do
 
         it 'renders flash message about fail creation' do
           post :create, question_id: question, answer: attributes_for(:invalid_answer)
-          expect(flash[:alert]).to eq 'Your answer wasn`t created.'
+          expect(flash[:alert]).to eq 'Your answer wasn`t created. Try again.'
         end
       end
     end
