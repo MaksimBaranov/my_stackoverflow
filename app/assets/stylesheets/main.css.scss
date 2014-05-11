@@ -1,0 +1,25 @@
+body {
+  .nav-bar {
+    height: 100px;
+    width: auto;
+    background: blue;
+    text-align: center;
+  }
+  .wrapper {
+    margin:auto;
+    width: 1600px;
+    min-height: 800px;
+    background: green;
+    .notice {
+      text-align: left;
+      background: yellow;
+    }
+    .alert {
+      text-align: left;
+      background: red;
+    }
+  }
+
+}
+
+
