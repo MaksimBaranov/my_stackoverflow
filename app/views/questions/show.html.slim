@@ -1,6 +1,7 @@
 h2 = @question.title
 p = @question.body
 = link_to 'Improve Question', edit_question_path(@question)
+= link_to 'Add comment', '#'
 div
 - @answers.each_with_index do |answer, index|
   ul.list-answer
