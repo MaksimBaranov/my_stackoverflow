@@ -10,6 +10,7 @@ class QuestionsController < ApplicationController
   end
 
   def show
+    @answers = Answer.all
   end
 
   def edit

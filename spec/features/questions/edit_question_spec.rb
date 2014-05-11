@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 feature 'Edit question', %q(
-  In order to edit content of my question
+  In order to edit content of question
   As an authenticated user
   I want to be able to edit the question
 ) do

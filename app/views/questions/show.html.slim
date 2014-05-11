@@ -1,6 +1,13 @@
 h2 = @question.title
 p = @question.body
 = link_to 'Improve Question', edit_question_path(@question)
+div
+- @answers.each_with_index do |answer, index|
+  ul.list-answer
+    li
+      = answer. text
+      br
+      = link_to "Improve Answer1", edit_question_answer_path(@question, answer)
 = render 'answers/form', question: @question, answer: Answer.new
 
 
