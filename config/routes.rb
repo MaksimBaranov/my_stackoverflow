@@ -1,5 +1,8 @@
 MyStackoverflow::Application.routes.draw do
   devise_for :users
+
+  resources :comments
+
   resources :questions do
     resources :answers
   end

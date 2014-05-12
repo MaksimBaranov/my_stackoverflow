@@ -10,13 +10,13 @@ feature 'Edit answer', %q(
   given(:question) { create(:question) }
   given(:answer) { create(:answer) }
 
-  def  add_associations(user, question, answer)
+  def  user_has_question_with_answer
     user.questions << question
     answer.question = question
   end
 
   scenario 'Authenticated user edit the answer.' do
-    add_associations(user, question, answer)
+    user_has_question_with_answer
     new_user_session
     visit question_path(question)
     within "#answer-#{answer.id}" do
@@ -30,7 +30,7 @@ feature 'Edit answer', %q(
   end
 
   scenario 'Non-authenticated user try to edit question.' do
-    add_associations(user, question, answer)
+    user_has_question_with_answer
     visit question_path(question)
     within "#answer-#{answer.id}" do
       click_on('Improve Answer')
