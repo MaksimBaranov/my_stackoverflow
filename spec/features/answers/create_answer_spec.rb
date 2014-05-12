@@ -16,7 +16,7 @@ feature 'Create answer', %q(
     fill_in 'Text', with: answer.text
     click_on 'Post Your Answer'
 
-    expect(page).to have_content 'Your answer was successfully created.'
+    expect(page).to have_content 'Your answer has been successfully created.'
   end
 
   scenario 'Non-authenticated user try to create answer' do

@@ -30,7 +30,7 @@ describe AnswersController do
 
         it 'renders flash message about success creation' do
           request(:answer)
-          expect(flash[:notice]).to eq 'Your answer was successfully created.'
+          expect(flash[:notice]).to eq 'Your answer has been successfully created.'
         end
       end
 
@@ -46,7 +46,7 @@ describe AnswersController do
 
         it 'renders flash message about fail creation' do
           request(:invalid_answer)
-          expect(flash[:alert]).to eq 'Your answer wasn`t created. Try again.'
+          expect(flash[:alert]).to eq 'Your answer hasn`t been created. Try again.'
         end
       end
     end
@@ -85,5 +85,60 @@ describe AnswersController do
   end
 
   describe 'PATCH #update' do
+    let(:question) { create(:question) }
+    let(:answer) { create(:answer) }
+
+    context 'user is sign in' do
+      login_user
+
+      context 'with valid attributes' do
+        it 'assigns the requested answer to @answer' do
+          patch :update, question_id: question, id: answer, answer: attributes_for(:answer)
+          expect(assigns(:answer)).to eq answer
+        end
+
+        it 'changes answer attributes' do
+          patch :update, question_id: question, id: answer, answer: { text: "some text"*10 }
+          answer.reload
+          expect(answer.text).to eq "some text"*10
+        end
+
+        it 'redirects to view show question page' do
+          patch :update, question_id: question, id: answer, answer: attributes_for(:answer)
+          expect(response).to redirect_to question
+        end
+
+         it 'renders flash message about success updating' do
+          patch :update, question_id: question, id: answer, answer: { text: "some text"*10 }
+          expect(flash[:notice]).to eq 'Answer has been successfully updated.'
+        end
+      end
+
+      context 'with invalid attributes' do
+
+        it 'does not change answer attributes' do
+          patch :update, question_id: question, id: answer, answer: { text: "some text" }
+          answer.reload
+          expect(answer.text).to eq answer.text
+        end
+
+        it 're-renders edit view' do
+          patch :update, question_id: question, id: answer, answer: { text: "some text" }
+          expect(response).to render_template :edit
+        end
+
+        it 'renders flash message about fail updating' do
+          patch :update, question_id: question, id: answer, answer: { text: "some text" }
+          expect(flash[:alert]).to eq 'Answer hasn`t been updated. Try again.'
+        end
+      end
+    end
+
+    context 'user is a quest' do
+      it 'redirect to sign in page' do
+        patch :update, question_id: question, id: answer
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
   end
 end
