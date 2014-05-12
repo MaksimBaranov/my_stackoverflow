@@ -23,7 +23,6 @@ feature 'Edit answer', %q(
       click_on('Improve Answer')
     end
     fill_in 'Text', with: 'Some other text body answer.'*5
-    #save_and_open_page
     click_on 'Edit Answer'
 
     expect(page).to have_content %q(Answer has been
