@@ -58,4 +58,32 @@ describe AnswersController do
       end
     end
   end
+
+  describe 'GET #edit' do
+    let(:question) { create(:question) }
+    let(:answer) { create(:answer) }
+
+    context 'user is sign in' do
+      login_user
+      before(:each) { get :edit, question_id: question, id: answer }
+
+      it 'assigns the requested answer to @answer' do
+        expect(assigns(:answer)).to eq answer
+      end
+
+      it 'renders edit view' do
+        expect(response).to render_template :edit
+      end
+    end
+
+    context 'user is a quest' do
+      it 'redirect to sign in page' do
+        get :edit, question_id: question, id: answer
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+  end
+
+  describe 'PATCH #update' do
+  end
 end

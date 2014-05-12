@@ -12,6 +12,10 @@ class AnswersController < ApplicationController
     end
   end
 
+  def edit
+    @answer = Answer.find(params[:id])
+  end
+
   private
 
   def load_question

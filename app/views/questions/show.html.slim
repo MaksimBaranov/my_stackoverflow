@@ -5,10 +5,10 @@ p = @question.body
 div
 - @answers.each_with_index do |answer, index|
   ul.list-answer
-    li
+    li id="answer-#{answer.id}"
       = answer. text
       br
-      = link_to "Improve Answer1", edit_question_answer_path(@question, answer)
+      = link_to "Improve Answer", edit_question_answer_path(@question, answer)
 = render 'answers/form', question: @question, answer: Answer.new
 
 

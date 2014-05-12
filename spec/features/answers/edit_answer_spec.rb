@@ -11,18 +11,19 @@ feature 'Edit answer', %q(
   given(:answer) { create(:answer) }
 
 
+
+
   scenario 'Authenticated user edit the answer.' do
+    user.questions << question
+    answer.question = question
     new_user_session
     visit question_path(question)
-    fill_in 'Text', with: answer.text
-    click_on 'Post Your Answer'
-    find("a[href='#{edit_question_answer_path(question, answer)}']")
     save_and_open_page
-
-
-    # click_on("a[href='#{edit_question_answer_path(question,answer)}']")
-    #  fill_in 'Text', with: 'Some other text body answer.'*5
-    #  click_on 'Edit Answer'
+    within "#answer-#{answer.id}" do
+      click_on('Improve Answer')
+    end
+    fill_in 'Text', with: 'Some other text body answer.'*5
+    click_on 'Edit Answer'
 
     expect(page).to have_content %q(Your answer has been
      successfully updated.)
