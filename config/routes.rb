@@ -1,12 +1,16 @@
 MyStackoverflow::Application.routes.draw do
   devise_for :users
 
-  resources :comments
-
-  resources :questions do
-    resources :answers
+  concern :commentable do
+    resources :comments, only: [:new, :create, :edit, :update]
   end
-
+  resources :questions do
+    concerns :commentable
+    resources :answers, only: [:create, :edit, :update]
+  end
+  resources :answers  do
+    concerns :commentable
+  end
   root 'questions#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

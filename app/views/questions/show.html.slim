@@ -1,17 +1,21 @@
 h2 = @question.title
 p = @question.body
 
-= link_to 'Improve Question', edit_question_path(@question)
 br
-div.list-of-comments
-  = link_to 'Add Comment', new_comment_path
+div.list-question-comments
+  div.add-comment
+  = link_to 'Add Comment', new_question_comment_path(@question)
+br
+= link_to 'Improve Question', edit_question_path(@question)
 div.list-of-answers
   ul
     - @answers.each_with_index do |answer, index|
-        li id="answer-#{answer.id}"
-          = answer. text
-          br
-          = link_to "Improve Answer", edit_question_answer_path(@question, answer)
+      li id="answer-#{answer.id}"
+        = answer. text
+        div.list-answer-comments
+          div.add-comment
+          = link_to 'Add Comment', new_answer_comment_path(answer)
+        = link_to "Improve Answer", edit_question_answer_path(@question, answer)
     = render 'answers/form', question: @question, answer: Answer.new
 
 
