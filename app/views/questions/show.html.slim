@@ -7,13 +7,14 @@ div.list-question-comments
   = link_to 'Add Comment', new_question_comment_path(@question)
 br
 = link_to 'Improve Question', edit_question_path(@question)
-div.list-of-answers
+div.list-answer-comments
   ul
     - @answers.each_with_index do |answer, index|
       li id="answer-#{answer.id}"
         = answer. text
         div.list-answer-comments
-          div.add-comment
+        = link_to 'Add Comment', new_answer_comment_path(answer)
+        br
         = link_to "Improve Answer", edit_question_answer_path(@question, answer)
     = render 'answers/form', question: @question, answer: Answer.new
 

@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :load_question
+  before_filter :set_comment_object
 
   def new
     @comment = Comment.new
@@ -9,9 +9,9 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     @comment.user = current_user
-    @question.comments << @comment
+    @comment.commentable = @comment_object
     if @comment.save
-      redirect_to question_path(@question), notice: 'Your comment has been successfully created.'
+      redirect_to question_path(@question ||= @comment_object), notice: 'Your comment has been successfully created.'
     else
       flash[:alert] = 'Your comment hasn`t been created. Try again.'
       render :new
@@ -20,8 +20,18 @@ class CommentsController < ApplicationController
 
   private
 
-  def load_question
-    @question = Question.find(params[:question_id])
+  # def question
+  #   @question = Question.find(params[:question_id])
+  # end
+
+  def set_comment_object
+    case
+    when params[:question_id]
+      @comment_object = Question.find(params[:question_id])
+    when params[:answer_id]
+      @comment_object = Answer.find(params[:answer_id])
+      @question = @comment_object.question
+    end
   end
 
   def comment_params

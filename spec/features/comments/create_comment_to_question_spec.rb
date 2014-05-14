@@ -13,16 +13,20 @@ feature 'Add comment for question', %q(
   scenario 'Authenticated user create the comment' do
     new_user_session
     visit question_path(question)
-    click_on 'Add Comment'
+    within '.list-question-comments' do
+      click_on 'Add Comment'
+    end
     fill_in 'Text', with: comment.text
     click_on 'Create Comment'
+
     expect(page).to have_content('Your comment has been successfully created.')
-    save_and_open_page
   end
 
   scenario 'Non-authenticated user try to create comment' do
     visit question_path(question)
-    click_on('Add Comment')
+    within '.list-question-comments' do
+      click_on('Add Comment')
+    end
 
     expect(page).to have_content %q(You need to sign in
     or sign up before continuing.)
