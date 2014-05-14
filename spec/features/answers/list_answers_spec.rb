@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-feature 'Look list of answers', %q(
+feature 'Look at list of answers', %q(
   In order to look answers which related to question
-  As an random user
+  As a random user
   I want to be able to see answers
 ) do
 

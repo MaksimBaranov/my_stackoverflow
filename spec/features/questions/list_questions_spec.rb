@@ -11,7 +11,6 @@ feature 'Look list of questions', %q(
   scenario 'Random user see list of questions at root page' do
     questions
     visit root_path
-    save_and_open_page
     expect(page).to have_content questions.first.title
     expect(page).to have_content questions.last.title
   end
