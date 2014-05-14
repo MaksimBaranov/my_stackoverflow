@@ -8,8 +8,14 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(comment_params)
-    @comment.save
-    redirect_to root_path, notice: 'Your comment has been successfully created.'
+    @comment.user = current_user
+    @question.comments << @comment
+    if @comment.save
+      redirect_to question_path(@question), notice: 'Your comment has been successfully created.'
+    else
+      flash[:alert] = 'Your comment hasn`t been created. Try again.'
+      render :new
+    end
   end
 
   private
@@ -19,6 +25,6 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:text)
+    params.require(:comment).permit(:text, :commentable_id, :commentable_type, :user_id)
   end
 end

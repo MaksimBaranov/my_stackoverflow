@@ -2,7 +2,10 @@
 
 FactoryGirl.define do
   factory :comment do
-    user
     text Faker::Lorem.paragraph(4)
+  end
+
+  factory :invalid_comment, class: 'Comment' do
+    text nil
   end
 end

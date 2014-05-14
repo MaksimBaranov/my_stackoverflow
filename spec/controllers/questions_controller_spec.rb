@@ -108,7 +108,7 @@ describe QuestionsController do
           expect(response).to redirect_to question_path(assigns(:question))
         end
 
-        it 'saves the new question withattribute user_id' do
+        it 'saves the new question with attribute user_id' do
           expect { request(:question) }.to change(@user.questions, :count)
         end
       end
