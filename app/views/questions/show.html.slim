@@ -14,7 +14,6 @@ div.list-of-answers
         = answer. text
         div.list-answer-comments
           div.add-comment
-          = link_to 'Add Comment', new_answer_comment_path(answer)
         = link_to "Improve Answer", edit_question_answer_path(@question, answer)
     = render 'answers/form', question: @question, answer: Answer.new
 

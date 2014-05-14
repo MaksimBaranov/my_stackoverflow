@@ -6,6 +6,7 @@ gem 'rails', '4.1.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
 
+gem 'bootstrap-sass'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
@@ -37,8 +38,8 @@ group :test, :development do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'database_cleaner'
-  gem "better_errors"
-  gem "binding_of_caller"
+  #gem "better_errors"
+  #gem "binding_of_caller"
 end
 
 group :test do
