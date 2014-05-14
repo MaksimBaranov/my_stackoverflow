@@ -13,7 +13,9 @@ feature 'Add comment for answer', %q(
 
   def  user_has_question_with_answer
     user.questions << question
+    question.save
     answer.question = question
+    answer.save
   end
 
   scenario 'Authenticated user create comment' do

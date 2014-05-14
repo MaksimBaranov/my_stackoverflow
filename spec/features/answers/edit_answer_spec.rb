@@ -12,11 +12,14 @@ feature 'Edit answer', %q(
 
   def  user_has_question_with_answer
     user.questions << question
+    question.save
     answer.question = question
+    answer.save
   end
 
   scenario 'Authenticated user edit the answer.' do
     user_has_question_with_answer
+
     new_user_session
     visit question_path(question)
     save_and_open_page
