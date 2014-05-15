@@ -6,14 +6,14 @@ feature 'Add comment for answer', %q(
   I want to be able to create comment
 ) do
 
-  given(:user) { create(:user) }
-  given(:question) { create(:question) }
-  given(:answer) { create(:answer) }
-  given(:comment) { create(:comment) }
+  given!(:user) { create(:user) }
+  given!(:question) { create(:question) }
+  given!(:answer) { create(:answer) }
+  given!(:comment) { create(:comment) }
 
   def  user_has_question_with_answer
     user.questions << question
-    question.save
+    user.save
     answer.question = question
     answer.save
   end

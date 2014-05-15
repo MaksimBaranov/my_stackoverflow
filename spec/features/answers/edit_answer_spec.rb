@@ -6,13 +6,11 @@ feature 'Edit answer', %q(
   I want to be able to edit the answer
 ) do
 
-  given(:user) { create(:user) }
-  given(:question) { create(:question) }
-  given(:answer) { create(:answer) }
+  given!(:user) { create(:user) }
+  given!(:question) { create(:question) }
+  given!(:answer) { create(:answer) }
 
   def  user_has_question_with_answer
-    user.questions << question
-    question.save
     answer.question = question
     answer.save
   end
@@ -22,7 +20,6 @@ feature 'Edit answer', %q(
 
     new_user_session
     visit question_path(question)
-    save_and_open_page
     within "#answer-#{answer.id}" do
       click_on('Improve Answer')
     end

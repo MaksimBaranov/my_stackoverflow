@@ -11,6 +11,10 @@ MyStackoverflow::Application.routes.draw do
   resources :answers  do
     concerns :commentable
   end
+
+  resources :comments, only: [:edit, :update]
+
+  # get 'comments/:id/edit' => 'comments#edit', as: :edit_comment
   root 'questions#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
