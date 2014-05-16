@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :set_comment_object
+  before_filter :set_comment_object, only:  [:new, :create]
 
   def new
     @comment = Comment.new
@@ -25,17 +25,23 @@ class CommentsController < ApplicationController
   def update
     @comment = Comment.find(params[:id])
     if @comment.update(comment_params)
-      redirect_to :back, notice: 'Your comment has been succesfully updated.'
+      redirect_to question(@comment), notice: 'Your comment has been succesfully updated.'
     else
+      flash[:alert] = 'Comment hasn`t been updated. Try again.'
       render :edit
     end
   end
 
   private
 
-  # def question
-  #   @question = Question.find(params[:question_id])
-  # end
+  def question(comment)
+    if comment.commentable_type == 'Question'
+      question_path(comment.commentable.id)
+    else
+      answer = comment.commentable
+      question_path(answer.question.id)
+    end
+  end
 
   def set_comment_object
     case

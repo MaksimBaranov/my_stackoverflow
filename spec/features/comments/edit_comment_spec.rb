@@ -19,13 +19,25 @@ feature 'Edit comment', %q(
     answer.comments << comment2
   end
 
-  scenario 'Authenticated user edit comment' do
+  scenario 'Authenticated user edit comment for answer' do
     init_question_answer_comment
 
     new_user_session
     visit question_path(question)
-    save_and_open_page
     within "#answer-#{answer.id} #comment-#{comment2.id}" do
+      click_on('Improve Comment')
+    end
+    fill_in 'Text', with: comment2.text
+    click_on 'Edit Comment'
+    expect(page).to have_content %q(Your comment has been succesfully updated.)
+  end
+
+  scenario 'Authenticated user edit comment for question' do
+    init_question_answer_comment
+
+    new_user_session
+    visit question_path(question)
+    within ".list-question-comments #comment-#{comment1.id}" do
       click_on('Improve Comment')
     end
     fill_in 'Text', with: comment2.text

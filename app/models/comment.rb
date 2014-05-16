@@ -4,4 +4,7 @@ class Comment < ActiveRecord::Base
 
   validates_presence_of :text
   validates_length_of :text, in: 20..600
+
+
+
 end

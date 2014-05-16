@@ -177,4 +177,123 @@ describe CommentsController do
       end
     end
   end
+
+  describe 'PATCH #update' do
+    let(:comment) { create(:comment) }
+    let(:question) { create(:question) }
+    let(:answer) { create(:answer) }
+
+    def add_comment_to_question
+      comment.commentable = question
+      comment.save
+    end
+
+    def add_comment_to_answer
+      question.answers << answer
+      question.save
+      comment.commentable = answer
+      comment.save
+    end
+
+    context 'when user is a sign in' do
+      login_user
+
+      context 'when comments question' do
+        before(:each) { add_comment_to_question }
+
+        context 'with valid attributes' do
+          it 'assigns the requested comment to @comment' do
+            patch :update, id: comment, comment: { text: "some comment"*5 }
+            expect(assigns(:comment)).to eq comment
+          end
+
+          it 'changes comment attributes' do
+            patch :update, id: comment, comment: { text: "some comment"*5 }
+            comment.reload
+            expect(comment.text).to eq "some comment"*5
+         end
+
+          it 'redirects to view QuestionController#show' do
+            patch :update, id: comment, comment: { text: "some comment"*5 }
+            expect(response).to redirect_to question_path(comment.commentable.id)
+          end
+
+          it 'renders notice :success' do
+            patch :update, id: comment, comment: { text: "some comment"*5 }
+            expect(flash[:notice]).to eq 'Your comment has been succesfully updated.'
+          end
+        end
+
+        context 'with invalid attributes' do
+          it 'does not change comment attributes' do
+            patch :update, id: comment, comment: { text: "some text" }
+            answer.reload
+            expect(answer.text).to eq answer.text
+          end
+
+          it 're-renders edit view' do
+            patch :update, id: comment, comment: { text: "some text" }
+            expect(response).to render_template :edit
+          end
+
+          it 'renders alert :fail' do
+            patch :update, id: comment, comment: { text: "some text" }
+            expect(flash[:alert]).to eq 'Comment hasn`t been updated. Try again.'
+          end
+        end
+      end
+
+      context 'when comments answer' do
+        before(:each) { add_comment_to_answer }
+
+        context 'with valid attributes' do
+          it 'assigns the requested comment to @comment' do
+            patch :update, id: comment, comment: { text: "some comment"*5 }
+            expect(assigns(:comment)).to eq comment
+          end
+
+          it 'changes comment attributes' do
+            patch :update, id: comment, comment: { text: "some comment"*5 }
+            comment.reload
+            expect(comment.text).to eq "some comment"*5
+         end
+
+          it 'redirects to view QuestionController#show' do
+            patch :update, id: comment, comment: { text: "some comment"*5 }
+            expect(response).to redirect_to question_path(comment.commentable.question.id)
+          end
+
+          it 'renders notice :success' do
+            patch :update, id: comment, comment: { text: "some comment"*5 }
+            expect(flash[:notice]).to eq 'Your comment has been succesfully updated.'
+          end
+        end
+
+        context 'with invalid attributes' do
+          it 'does not change comment attributes' do
+            patch :update, id: comment, comment: { text: "some text" }
+            answer.reload
+            expect(answer.text).to eq answer.text
+          end
+
+          it 're-renders edit view' do
+            patch :update, id: comment, comment: { text: "some text" }
+            expect(response).to render_template :edit
+          end
+
+          it 'renders alert :fail' do
+            patch :update, id: comment, comment: { text: "some text" }
+            expect(flash[:alert]).to eq 'Comment hasn`t been updated. Try again.'
+          end
+        end
+      end
+    end
+
+    context 'when user is a quest' do
+      it 'redirects to sign in page' do
+        patch :update, id: comment, comment: attributes_for(:comment)
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+  end
 end
