@@ -46,6 +46,29 @@ describe CommentsController do
     end
   end
 
+  describe 'GET #edit' do
+    let(:comment) { create(:comment) }
+
+    context 'when user is sign in' do
+      login_user
+      before(:each) { get :edit, id: comment }
+      it 'assigns the requested comment to @comment' do
+        expect(assigns(:comment)).to eq comment
+      end
+
+      it 'renders view :edit' do
+        expect(response).to render_template :edit
+      end
+    end
+
+    context 'when user is a quest' do
+      it 'redirects to sign in page' do
+        get :edit, id: comment
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+  end
+
   describe 'POST #create' do
     let(:question) { create(:question) }
     let(:answer) { create(:answer) }
