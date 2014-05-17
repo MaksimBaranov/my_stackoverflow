@@ -1,10 +1,10 @@
 h2 = @question.title
 .text-question
-  .vote
-    = link_to 'Up Vote', up_vote_path, method: :patch
+  div id="vote-#{@question.vote.id}"
+    = link_to 'Up Vote', up_vote_path(@question.vote), method: :patch
     span.vote-count
-      | Some count
-    = link_to 'Down Vote', down_vote_path, method: :patch
+      = @question.vote.quantity if @question.vote
+    = link_to 'Down Vote', down_vote_path(@question.vote), method: :patch
   p = @question.body
 
 br
@@ -25,6 +25,11 @@ div.list-answers
   ul
     - @answers.each_with_index do |answer, index|
       li id="answer-#{answer.id}"
+        div id="vote-#{answer.vote.id}"
+          = link_to 'Up Vote', up_vote_path(answer.vote), method: :patch
+          span.vote-count
+            = answer.vote.quantity if answer.vote
+          = link_to 'Down Vote', down_vote_path(answer.vote), method: :patch
         = answer. text
         div.list-answer-comments
           h5 List of comments

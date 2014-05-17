@@ -16,13 +16,14 @@ describe VotesController do
       end
 
       it 'changes vote quantity by 1' do
+        old_vote_quantity = vote.quantity
         patch :up_vote, id: vote
         vote.reload
-        expect(assigns(:vote)).to eq vote.quantity + 1
+        expect(vote.quantity).to eq(old_vote_quantity + 1)
       end
 
       it 'redirects to view show question page' do
-        patch up_vote, id: vote
+        patch :up_vote, id: vote
         expect(response).to redirect_to root_path
       end
 

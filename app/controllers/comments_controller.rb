@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     @comment.user = current_user
-    @comment.commentable = comment_object
+    @comment.commentable = @comment_object
     if @comment.save
       redirect_to question_path(@question ||= @comment_object), notice: 'Your comment has been successfully created.'
     else

@@ -1,4 +1,5 @@
 class Vote < ActiveRecord::Base
-  belongs_to :voteable, polymorphic: true
+  has_one :question
+  has_one :answer
   validates_numericality_of :quantity, only_integer: true
 end
