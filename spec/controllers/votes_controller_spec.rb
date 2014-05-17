@@ -2,11 +2,13 @@ require 'spec_helper'
 
 describe VotesController do
   describe 'PATCH #up_vote' do
+    let(:user) { create(:user) }
+    let(:question) { create(:question) }
+    let(:vote) { create(:vote) }
+
     context 'when user is sign in' do
       login_user
 
-      let(:question) { create(:question) }
-      let(:vote) { create(:vote) }
 
       it 'assigns the requested vote to @vote' do
         patch :up_vote, id: vote
@@ -16,12 +18,12 @@ describe VotesController do
       it 'changes vote quantity by 1' do
         patch :up_vote, id: vote
         vote.reload
-        expect(vote.quantity).to eq vote.quantity + 1
+        expect(assigns(:vote)).to eq vote.quantity + 1
       end
 
       it 'redirects to view show question page' do
         patch up_vote, id: vote
-        expect(response).to redirect_to question
+        expect(response).to redirect_to root_path
       end
 
       it 'renders notice :success' do
