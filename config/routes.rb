@@ -12,6 +12,9 @@ MyStackoverflow::Application.routes.draw do
     concerns :commentable
   end
 
+  patch 'votes/:id/up_vote' => 'votes#up_vote', as: :up_vote
+  patch 'votes/:id/down_vote' => 'votes#down_vote', as: :down_vote
+
   resources :comments, only: [:edit, :update]
 
   # get 'comments/:id/edit' => 'comments#edit', as: :edit_comment

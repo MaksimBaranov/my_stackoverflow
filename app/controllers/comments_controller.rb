@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     @comment.user = current_user
-    @comment.commentable = @comment_object
+    @comment.commentable = comment_object
     if @comment.save
       redirect_to question_path(@question ||= @comment_object), notice: 'Your comment has been successfully created.'
     else
@@ -52,6 +52,26 @@ class CommentsController < ApplicationController
       @question = @comment_object.question
     end
   end
+
+  # def parent
+  #   @parent ||= %w(question answer).find {|p| request.path.split('/').include? p }
+  # end
+
+  # def parent_class
+  #   parent.classify.constantize
+  # end
+
+  # def comment_object
+  #   @comment_object ||= parent_class.find(params["#{parent}_id"])
+  # end
+
+  # def current_question
+  #   if parent == 'Question'
+  #     comment_object
+  #   else
+  #     commentable.question
+  #   end
+  # end
 
   def comment_params
     params.require(:comment).permit(:text, :commentable_id, :commentable_type, :user_id)

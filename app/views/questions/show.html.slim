@@ -1,5 +1,11 @@
 h2 = @question.title
-p = @question.body
+.text-question
+  .vote
+    = link_to 'Up Vote', up_vote_path, method: :patch
+    span.vote-count
+      | Some count
+    = link_to 'Down Vote', down_vote_path, method: :patch
+  p = @question.body
 
 br
 div.list-question-comments
