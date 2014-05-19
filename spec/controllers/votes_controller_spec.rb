@@ -1,21 +1,23 @@
 require 'spec_helper'
 
 describe VotesController do
-  describe 'PATCH #up_vote' do
-    #let!(:user) { create(:user) }
-    let!(:question) { create(:question) }
-    let!(:answer) { create(:answer) }
-    let!(:vote) { create(:vote) }
+  let!(:vote) { create(:vote) }
+  let!(:question) { create(:question) }
+  let!(:answer) { create(:answer) }
 
+    def add_vote
+      question.answers << answer
+      vote.question = question
+      vote.answer = answer
+    end
+
+  describe 'PATCH #up_vote' do
     context 'when user is sign in' do
       login_user
 
-      it 'assigns the requested vote to @vote' do
-        answer.question = question
-        answer.save
-        question.create_vote
-        answer.create_vote
+      before(:each) {add_vote}
 
+      it 'assigns the requested vote to @vote' do
         patch :up_vote, id: vote
         expect(assigns(:vote)).to eq vote
       end
@@ -29,7 +31,7 @@ describe VotesController do
 
       it 'redirects to view show question page' do
         patch :up_vote, id: vote
-        expect(response).to redirect_to question_path
+        expect(response).to redirect_to question_path(question)
       end
 
       it 'renders notice :success' do
@@ -47,13 +49,10 @@ describe VotesController do
   end
 
   describe 'PATCH #down_vote' do
-    let(:user) { create(:user) }
-    let(:question) { create(:question) }
-    let(:vote) { create(:vote) }
-
     context 'when user is sign in' do
       login_user
 
+      before(:each) {add_vote}
 
       it 'assigns the requested vote to @vote' do
         patch :down_vote, id: vote
@@ -69,7 +68,7 @@ describe VotesController do
 
       it 'redirects to view show question page' do
         patch :down_vote, id: vote
-        expect(response).to redirect_to question
+        expect(response).to redirect_to question_path(question)
       end
 
       it 'renders notice :success' do
