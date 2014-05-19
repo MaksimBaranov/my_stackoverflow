@@ -1,6 +1,6 @@
 h2 = @question.title
 .text-question
-  div id="vote-#{@question.vote.id}"
+  div id="vote-question-#{@question.vote.id}"
     = link_to 'Up Vote', up_vote_path(@question.vote), method: :patch
     span.vote-count
       = @question.vote.quantity if @question.vote
@@ -25,7 +25,7 @@ div.list-answers
   ul
     - @answers.each_with_index do |answer, index|
       li id="answer-#{answer.id}"
-        div id="vote-#{answer.vote.id}"
+        div id="vote-answer-#{answer.vote.id}"
           = link_to 'Up Vote', up_vote_path(answer.vote), method: :patch
           span.vote-count
             = answer.vote.quantity if answer.vote
