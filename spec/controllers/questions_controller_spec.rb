@@ -178,4 +178,10 @@ describe QuestionsController do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    let(:question) { create(:question) }
+    it 'deletes question'
+    it 'redirect to index view'
+  end
 end
