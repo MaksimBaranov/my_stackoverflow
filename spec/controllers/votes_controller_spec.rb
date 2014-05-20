@@ -5,11 +5,11 @@ describe VotesController do
   let!(:question) { create(:question) }
   let!(:answer) { create(:answer) }
 
-    def add_vote
-      question.answers << answer
-      vote.question = question
-      vote.answer = answer
-    end
+  def add_vote
+    question.answers << answer
+    vote.question = question
+    vote.answer = answer
+  end
 
   describe 'PATCH #up_vote' do
     context 'when user is sign in' do
@@ -68,7 +68,7 @@ describe VotesController do
 
       it 'redirects to view show question page' do
         patch :down_vote, id: vote
-        expect(response).to redirect_to question_path(question)
+        expect(response).to redirect_to question_path(question_path)
       end
 
       it 'renders notice :success' do
