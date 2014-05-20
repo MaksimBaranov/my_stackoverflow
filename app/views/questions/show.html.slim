@@ -15,7 +15,8 @@ div.list-question-comments
     li id= "comment-#{comment.id}"
       =comment.text
       br
-      =link_to 'Improve Comment', edit_comment_path(comment)
+      - if check_authority(comment, current_user)
+        = link_to 'Improve Comment', edit_comment_path(comment)
   div.add-comment
   = link_to 'Add Comment', new_question_comment_path(@question)
 br
@@ -39,11 +40,10 @@ div.list-answers
             li id= "comment-#{comment.id}"
               = comment.text
               br
-              = link_to 'Improve Comment', edit_comment_path(comment)
+              - if check_authority(comment, current_user)
+                = link_to 'Improve Comment', edit_comment_path(comment)
         = link_to 'Add Comment', new_answer_comment_path(answer)
         br
         - if check_authority(answer, current_user)
           = link_to "Improve Answer", edit_question_answer_path(@question, answer)
     = render 'answers/form', question: @question, answer: Answer.new
-
-
