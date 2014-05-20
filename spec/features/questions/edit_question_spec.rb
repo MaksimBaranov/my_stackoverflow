@@ -14,7 +14,7 @@ feature 'Edit question', %q(
     new_user_session
   end
 
-  scenario 'Authenticated user see edit-question-button' do
+  scenario 'Authenticated user see edit-question-button.' do
     auth_user_is_author_of_question
     visit question_path(question)
 

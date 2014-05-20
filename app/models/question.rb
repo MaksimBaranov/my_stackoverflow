@@ -9,6 +9,6 @@ class Question < ActiveRecord::Base
   validates :body, length: { in: 50..600 }
 
   def create_new_vote
-    Question.last.create_vote
+    self.create_vote
   end
 end

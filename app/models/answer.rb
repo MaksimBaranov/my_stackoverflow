@@ -8,6 +8,6 @@ class Answer < ActiveRecord::Base
   validates :text, length: { in: 10..600 }
 
   def create_new_vote
-    Answer.last.create_vote
+    self.create_vote
   end
 end
