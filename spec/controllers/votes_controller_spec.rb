@@ -68,7 +68,7 @@ describe VotesController do
 
       it 'redirects to view show question page' do
         patch :down_vote, id: vote
-        expect(response).to redirect_to question_path(question_path)
+        expect(response).to redirect_to question_path(question)
       end
 
       it 'renders notice :success' do

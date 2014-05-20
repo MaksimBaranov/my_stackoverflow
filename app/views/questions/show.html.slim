@@ -19,7 +19,8 @@ div.list-question-comments
   div.add-comment
   = link_to 'Add Comment', new_question_comment_path(@question)
 br
-= link_to 'Improve Question', edit_question_path(@question)
+- if @question.user == current_user
+  = link_to 'Improve Question', edit_question_path(@question)
 div.list-answers
   h3 List of answers
   ul

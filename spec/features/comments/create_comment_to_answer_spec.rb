@@ -22,7 +22,6 @@ feature 'Add comment for answer', %q(
     user_has_question_with_answer
     new_user_session
     visit question_path(question)
-    save_and_open_page
 
     within "#answer-#{answer.id}" do
       click_on('Add Comment')
