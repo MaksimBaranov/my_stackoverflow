@@ -100,7 +100,7 @@ describe CommentsController do
           end
           it 'redirects to show question view' do
             request(:comment)
-            expect(response).to redirect_to question_path(assigns(:question))
+            expect(response).to redirect_to question_path(assigns(:comment).question)
           end
         end
 
@@ -146,7 +146,7 @@ describe CommentsController do
           end
           it 'redirects to show question view' do
             request(:comment)
-            expect(response).to redirect_to question_path(assigns(:question))
+            expect(response).to redirect_to question_path(assigns(:comment).question)
           end
         end
 
@@ -320,7 +320,7 @@ describe CommentsController do
       context 'deletes comment of question' do
         before(:each) { add_comment_to_question }
 
-        it 'deletes comment' do
+        it 'deletes commetn' do
           comment
           expect { delete :destroy, id: comment }.to change(Comment, :count).by(-1)
         end
