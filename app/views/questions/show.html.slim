@@ -17,6 +17,7 @@ div.list-question-comments
       br
       - if check_authority(comment, current_user)
         = link_to 'Improve Comment', edit_comment_path(comment)
+        = link_to 'Delete Comment', comment_path(comment), method: :delete
   div.add-comment
   = link_to 'Add Comment', new_question_comment_path(@question)
 br
@@ -43,6 +44,7 @@ div.list-answers
               br
               - if check_authority(comment, current_user)
                 = link_to 'Improve Comment', edit_comment_path(comment)
+                = link_to 'Delete Comment', comment_path(comment), method: :delete
         = link_to 'Add Comment', new_answer_comment_path(answer)
         br
         - if check_authority(answer, current_user)

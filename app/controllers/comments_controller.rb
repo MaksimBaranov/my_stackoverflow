@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :set_comment_object, only:  [:new, :create]
+  before_filter :load_comment, only: [:edit, :update, :destroy]
 
   def new
     @comment = Comment.new
@@ -19,11 +20,9 @@ class CommentsController < ApplicationController
   end
 
   def edit
-    @comment = Comment.find(params[:id])
   end
 
   def update
-    @comment = Comment.find(params[:id])
     if @comment.update(comment_params)
       redirect_to question(@comment), notice: 'Your comment has been succesfully updated.'
     else
@@ -32,7 +31,16 @@ class CommentsController < ApplicationController
     end
   end
 
+  def destroy
+    @comment.destroy
+    redirect_to question(@comment), notice: 'Your comment has been removed.'
+  end
+
   private
+
+  def load_comment
+    @comment = Comment.find(params[:id])
+  end
 
   def question(comment)
     if comment.commentable_type == 'Question'

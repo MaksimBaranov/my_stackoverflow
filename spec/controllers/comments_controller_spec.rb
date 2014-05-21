@@ -296,4 +296,61 @@ describe CommentsController do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    let(:comment) { create(:comment) }
+    let(:question) { create(:question) }
+    let(:answer) { create(:answer) }
+
+    def add_comment_to_question
+      comment.commentable = question
+      comment.save
+    end
+
+    def add_comment_to_answer
+      question.answers << answer
+      question.save
+      comment.commentable = answer
+      comment.save
+    end
+
+    context 'user is sign in' do
+      login_user
+
+      context 'deletes comment of question' do
+        before(:each) { add_comment_to_question }
+
+        it 'deletes comment' do
+          comment
+          expect { delete :destroy, id: comment }.to change(Comment, :count).by(-1)
+        end
+
+        it 'redirect to index view' do
+          delete :destroy, id: comment
+          expect(response).to redirect_to question_path(question)
+        end
+      end
+
+      context 'deletes comment of answer' do
+        before(:each) { add_comment_to_answer }
+
+        it 'deletes comment' do
+          comment
+          expect { delete :destroy, id: comment }.to change(Comment, :count).by(-1)
+        end
+
+        it 'redirect to index view' do
+          delete :destroy, id: comment
+          expect(response).to redirect_to question_path(question)
+        end
+      end
+    end
+
+    context 'user is a quest' do
+      it 'redirects to sign in page' do
+        delete :destroy, question_id: question, id: answer
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+  end
 end

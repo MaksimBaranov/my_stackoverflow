@@ -2,7 +2,7 @@ MyStackoverflow::Application.routes.draw do
   devise_for :users
 
   concern :commentable do
-    resources :comments, only: [:new, :create, :edit, :update]
+    resources :comments, only: [:new, :create]
   end
   resources :questions do
     concerns :commentable
@@ -15,7 +15,7 @@ MyStackoverflow::Application.routes.draw do
   patch 'votes/:id/up_vote' => 'votes#up_vote', as: :up_vote
   patch 'votes/:id/down_vote' => 'votes#down_vote', as: :down_vote
 
-  resources :comments, only: [:edit, :update]
+  resources :comments, only: [:edit, :update, :destroy]
 
   # get 'comments/:id/edit' => 'comments#edit', as: :edit_comment
   root 'questions#index'
