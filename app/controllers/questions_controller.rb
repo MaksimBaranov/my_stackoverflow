@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
-  before_filter :load_question, only: [:show, :edit, :update]
+  before_filter :load_question, only: [:show, :edit, :update, :destroy]
   def index
     @questions = Question.all
   end
@@ -33,6 +33,11 @@ class QuestionsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    @question.destroy
+    redirect_to questions_path
   end
 
   private

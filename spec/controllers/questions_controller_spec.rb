@@ -180,8 +180,27 @@ describe QuestionsController do
   end
 
   describe 'DELETE #destroy' do
+
     let(:question) { create(:question) }
-    it 'deletes question'
-    it 'redirect to index view'
+
+    context 'user is sign in' do
+      login_user
+
+      it 'deletes question' do
+        question
+        expect { delete :destroy, id: question }.to change(Question, :count).by(-1)
+      end
+      it 'redirect to index view' do
+        delete :destroy, id: question
+        expect(response).to redirect_to questions_path
+      end
+    end
+
+    context 'user is a quest' do
+      it 'redirects to sign in page' do
+        delete :destroy, id: question
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
   end
 end
