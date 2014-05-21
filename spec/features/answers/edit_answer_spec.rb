@@ -25,7 +25,9 @@ feature 'Edit answer', %q(
     auth_user_is_author_of_answer
     visit question_path(question)
 
-    expect(page).to have_content 'Improve Answer'
+    within "#answer-#{answer.id}" do
+      expect(page).to have_content 'Improve Answer'
+    end
   end
 
   scenario 'Authenticated user edit the answer.' do

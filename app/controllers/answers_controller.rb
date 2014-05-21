@@ -26,6 +26,12 @@ class AnswersController < ApplicationController
     end
   end
 
+  def destroy
+    @answer = Answer.find(params[:id])
+    @answer.destroy
+    redirect_to question_path(@question), notice: 'Your answer has been removed.'
+  end
+
   private
 
   def load_question

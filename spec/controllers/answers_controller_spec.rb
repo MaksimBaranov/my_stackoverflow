@@ -141,4 +141,31 @@ describe AnswersController do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+
+    let(:question) { create(:question) }
+    let(:answer) { create(:answer) }
+
+    context 'user is sign in' do
+      login_user
+
+      it 'deletes answer' do
+        answer
+        expect { delete :destroy, question_id: question, id: answer }.to change(Answer, :count).by(-1)
+      end
+
+      it 'redirect to index view' do
+        delete :destroy, question_id: question, id: answer
+        expect(response).to redirect_to question_path(question)
+      end
+    end
+
+    context 'user is a quest' do
+      it 'redirects to sign in page' do
+        delete :destroy, question_id: question, id: answer
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+  end
 end

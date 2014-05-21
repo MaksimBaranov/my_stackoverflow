@@ -22,6 +22,7 @@ div.list-question-comments
 br
 - if check_authority(@question, current_user)
   = link_to 'Improve Question', edit_question_path(@question)
+  = link_to 'Delete Question', question_path(@question), method: :delete
 div.list-answers
   h3 List of answers
   ul
@@ -46,4 +47,5 @@ div.list-answers
         br
         - if check_authority(answer, current_user)
           = link_to "Improve Answer", edit_question_answer_path(@question, answer)
+          = link_to 'Delete Answer', question_answer_path(@question, answer), method: :delete
     = render 'answers/form', question: @question, answer: Answer.new

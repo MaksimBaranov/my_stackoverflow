@@ -6,7 +6,7 @@ MyStackoverflow::Application.routes.draw do
   end
   resources :questions do
     concerns :commentable
-    resources :answers, only: [:create, :edit, :update]
+    resources :answers, only: [:create, :edit, :update, :destroy]
   end
   resources :answers  do
     concerns :commentable
