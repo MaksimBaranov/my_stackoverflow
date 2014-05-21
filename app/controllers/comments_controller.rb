@@ -52,13 +52,9 @@ class CommentsController < ApplicationController
   end
 
   def set_comment_object
-    case
-    when params[:question_id]
-      @comment_object = Question.find(params[:question_id])
-    when params[:answer_id]
-      @comment_object = Answer.find(params[:answer_id])
-      @question = @comment_object.question
-    end
+    @comment_object = Question.find(params[:question_id]) if params[:question_id]
+    @comment_object ||= Answer.find(params[:answer_id])
+    @question = @comment_object.question if params[:answer_id]
   end
 
   # def parent

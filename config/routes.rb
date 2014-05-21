@@ -8,17 +8,13 @@ MyStackoverflow::Application.routes.draw do
     concerns :commentable
     resources :answers, only: [:create, :edit, :update, :destroy]
   end
-  resources :answers  do
-    concerns :commentable
-  end
+  resources :answers, only: [], concerns: :commentable
+  resources :comments, only: [:edit, :update, :destroy]
 
   patch 'votes/:id/up_vote' => 'votes#up_vote', as: :up_vote
   patch 'votes/:id/down_vote' => 'votes#down_vote', as: :down_vote
-
-  resources :comments, only: [:edit, :update, :destroy]
-
-  # get 'comments/:id/edit' => 'comments#edit', as: :edit_comment
   root 'questions#index'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   # You can have the root of your site routed with "root"
