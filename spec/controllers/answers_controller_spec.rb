@@ -5,7 +5,7 @@ describe AnswersController do
     let(:question) { create(:question) }
 
     def request(type_data)
-      post :create, question_id: question, answer: attributes_for(type_data)
+      post :create, question_id: question, answer: attributes_for(type_data), format: :js
     end
 
     context 'user is sign in' do
@@ -17,7 +17,7 @@ describe AnswersController do
 
         it 'redirects to show view of current question' do
           request(:answer)
-          expect(response).to redirect_to question_path(assigns(:question))
+          expect(response).to render_template :create
         end
 
         it 'saves new answer with attribute user_id' do
@@ -28,10 +28,10 @@ describe AnswersController do
           expect { request(:answer) }.to change(question.answers, :count)
         end
 
-        it 'renders flash message about success creation' do
-          request(:answer)
-          expect(flash[:notice]).to eq 'Your answer has been successfully created.'
-        end
+        # it 'renders flash message about success creation' do
+        #   request(:answer)
+        #   expect(flash[:notice]).to eq 'Your answer has been successfully created.'
+        # end
       end
 
       context 'with invalid attributes' do
@@ -41,19 +41,19 @@ describe AnswersController do
 
         it 'redirectes to view show of current question' do
           request(:invalid_answer)
-          expect(response).to redirect_to question_path(question)
+          expect(response).to  render_template :create
         end
 
-        it 'renders flash message about fail creation' do
-          request(:invalid_answer)
-          expect(flash[:alert]).to eq 'Your answer hasn`t been created. Try again.'
-        end
+        # it 'renders flash message about fail creation' do
+        #   request(:invalid_answer)
+        #   expect(flash[:alert]).to eq 'Your answer hasn`t been created. Try again.'
+        # end
       end
     end
 
     context 'user is a quest' do
       it 'redirect to sign in page' do
-        request(:answer)
+        post :create, question_id: question, answer: attributes_for(:answer)
         expect(response).to redirect_to new_user_session_path
       end
     end

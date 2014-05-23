@@ -3,12 +3,16 @@ class AnswersController < ApplicationController
   before_filter :load_question
 
   def create
-    @answer = current_user.answers.build(answer_params)
-    @question.answers << @answer
-    if @answer.save
-      redirect_to @question, notice: 'Your answer has been successfully created.'
-    else
-      redirect_to @question, alert: 'Your answer hasn`t been created. Try again.'
+    @answer = @question.answers.build(answer_params)
+    current_user.answers << @answer
+    respond_to do |format|
+      if @answer.save
+        format.html {  redirect_to @question, notice: 'Your answer has been successfully created.' }
+        format.js
+      else
+        format.html { redirect_to @question, alert: 'Your answer hasn`t been created. Try again.' }
+        format.js
+      end
     end
   end
 

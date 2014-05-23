@@ -6,7 +6,6 @@ h2 = @question.title
       = @question.vote.quantity if @question.vote
     = link_to 'Down Vote', down_vote_path(@question.vote), method: :patch
   p = @question.body
-
 br
 div.list-question-comments
   h3 List of comments
@@ -24,30 +23,6 @@ br
 - if check_authority(@question, current_user)
   = link_to 'Improve Question', edit_question_path(@question)
   = link_to 'Delete Question', question_path(@question), method: :delete
-div.list-answers
-  h3 List of answers
-  ul
-    - @answers.each_with_index do |answer, index|
-      li id="answer-#{answer.id}"
-        div id="vote-answer-#{answer.vote.id}"
-          = link_to 'Up Vote', up_vote_path(answer.vote), method: :patch
-          span.vote-count
-            = answer.vote.quantity if answer.vote
-          = link_to 'Down Vote', down_vote_path(answer.vote), method: :patch
-        = answer. text
-        div.list-answer-comments
-          h5 List of comments
-          ul
-          - answer.comments.each do |comment|
-            li id= "comment-#{comment.id}"
-              = comment.text
-              br
-              - if check_authority(comment, current_user)
-                = link_to 'Improve Comment', edit_comment_path(comment)
-                = link_to 'Delete Comment', comment_path(comment), method: :delete
-        = link_to 'Add Comment', new_answer_comment_path(answer)
-        br
-        - if check_authority(answer, current_user)
-          = link_to "Improve Answer", edit_question_answer_path(@question, answer)
-          = link_to 'Delete Answer', question_answer_path(@question, answer), method: :delete
-    = render 'answers/form', question: @question, answer: Answer.new
+.list-answers
+ = render 'answers'
+= render 'answers/form', question: @question, answer: Answer.new
