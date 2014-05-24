@@ -21,6 +21,8 @@ class VotesController < ApplicationController
     end
   end
 
+  # TODO - rewrite name of actions to up and down
+
   private
 
   def current_question(vote)
