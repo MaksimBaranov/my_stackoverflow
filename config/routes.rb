@@ -11,8 +11,8 @@ MyStackoverflow::Application.routes.draw do
   resources :answers, only: [], concerns: :commentable
   resources :comments, only: [:edit, :update, :destroy]
 
-  patch 'votes/:id/up_vote' => 'votes#up_vote', as: :up_vote
-  patch 'votes/:id/down_vote' => 'votes#down_vote', as: :down_vote
+  patch 'votes/:id/up' => 'votes#up', as: :up_vote
+  patch 'votes/:id/down' => 'votes#down', as: :down_vote
   root 'questions#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

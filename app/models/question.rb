@@ -1,7 +1,7 @@
 class Question < ActiveRecord::Base
   after_create :create_new_vote
   belongs_to :user
-  belongs_to :vote
+  has_one :vote, as: :voteable
   has_many :answers
   has_many :comments, as: :commentable
   validates :title, :body, presence: true
