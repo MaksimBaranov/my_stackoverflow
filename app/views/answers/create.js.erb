@@ -1,8 +1,8 @@
 <% if @answer.errors.present? %>
-  <% @answer.errors.full_messages.each do |message| %>
-    $('#answer_text').before('<%= j message %>');
-  <% end %>
+    $('.answer-error-messages').html('<%= j render 'answers/form_errors' %>');
 <% else %>
   $('.list-answers').html('<%= j render 'questions/answers' %>');
   $('#answer_text').val('');
+  // cleaning up error messages
+  $('.answer-error-messages').html('');
 <% end %>

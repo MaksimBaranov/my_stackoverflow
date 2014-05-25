@@ -26,4 +26,11 @@ class Vote < ActiveRecord::Base
     end
   end
 
+  def add_vote
+    self.quantity + 1
+  end
+
+  def down_vote
+    self.quantity - 1
+  end
 end
