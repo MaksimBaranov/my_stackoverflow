@@ -14,7 +14,7 @@ div.list-question-comments
     li id= "comment-#{comment.id}"
       =comment.text
       br
-      - if check_authority(comment, current_user)
+      - if check_authority(comment)
         = link_to 'Improve Comment', edit_comment_path(comment)
         = link_to 'Delete Comment', comment_path(comment), method: :delete
   div.add-comment

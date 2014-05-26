@@ -2,7 +2,7 @@ class Vote < ActiveRecord::Base
   belongs_to :voteable, polymorphic: true
   validates :quantity, numericality: { only_integer: true }
   # TODO list
-  # 2. Rewrite tests of editing answer to JS(fix bug with errors and complete check access of alias answer)
+  # 2. Rewrite tests of editing answer to JS(complete check access of alias answer)
   # 3. Rerite tests of editing questions to js
   # 4. Rewrite tests of editing comments to js
   # 5. Rerite tests of deleteion questions to js

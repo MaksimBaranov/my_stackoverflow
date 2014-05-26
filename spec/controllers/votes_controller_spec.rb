@@ -7,8 +7,9 @@ describe VotesController do
 
   def add_vote
     question.answers << answer
-    vote.question = question
-    vote.answer = answer
+    vote.voteable = question
+    vote.voteable = answer
+    vote.save
   end
 
   describe 'PATCH #up_vote' do

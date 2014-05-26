@@ -60,6 +60,7 @@ describe AnswersController do
   end
 
   describe 'GET #edit' do
+    let(:user) { create(:user) }
     let(:question) { create(:question) }
     let(:answer) { create(:answer) }
 
