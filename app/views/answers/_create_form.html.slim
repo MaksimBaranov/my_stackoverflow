@@ -1,6 +1,6 @@
 h1 Your Answer
 .answer-error-messages
-= form_for ([question, answer]), remote: true do |f|
+= form_for ([question, answer]), remote: true, html: { class: 'add-answer-form'} do |f|
   = f.label :text, 'Text'
   = f.text_area :text
   = f.submit 'Post Your Answer'

@@ -1,0 +1,6 @@
+div id="answer-error-#{answer.id}"
+br
+=form_for [question, answer], remote: true, html: { id: "edit-answer-#{answer.id}", class: 'edit-answer-form' } do |f|
+  = f.label :text
+  = f.text_area :text
+  = f.submit 'Edit Answer'

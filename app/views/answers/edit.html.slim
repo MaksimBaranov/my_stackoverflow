@@ -1,6 +1,2 @@
 h1 Improve answer
-
-=form_for [@question, @answer] do |f|
-  = f.label :text
-  = f.text_area :text
-  = f.submit 'Edit Answer'
+= render 'edit_form', question: @question, answer: @answer

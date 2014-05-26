@@ -1,9 +1,7 @@
 <% if @answer.errors.present? %>
-    $('.answer-error-messages').html('<%= j render 'answers/form_errors' %>');
+    $('#answer-error-<%= @answer.id %>').html('<%= j render 'answers/form_errors' %>');
 <% else %>
   $('.list-answers').html('<%= j render 'questions/answers' %>');
-  $('.add-answer-form textarea').val('');
   reload_edit();
-  // cleaning up error messages
   $('.answer-error-messages').html('');
 <% end %>

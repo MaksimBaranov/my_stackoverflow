@@ -93,25 +93,25 @@ describe AnswersController do
 
       context 'with valid attributes' do
         it 'assigns the requested answer to @answer' do
-          patch :update, question_id: question, id: answer, answer: attributes_for(:answer)
+          patch :update, question_id: question, id: answer, answer: attributes_for(:answer), format: :js
           expect(assigns(:answer)).to eq answer
         end
 
         it 'changes answer attributes' do
-          patch :update, question_id: question, id: answer, answer: { text: "some text"*10 }
+          patch :update, question_id: question, id: answer, answer: { text: "some text"*10 }, format: :js
           answer.reload
           expect(answer.text).to eq "some text"*10
         end
 
         it 'redirects to view show question page' do
-          patch :update, question_id: question, id: answer, answer: attributes_for(:answer)
-          expect(response).to redirect_to question
+          patch :update, question_id: question, id: answer, answer: attributes_for(:answer), format: :js
+          expect(response).to render_template :update
         end
 
-         it 'renders flash message about success updating' do
-          patch :update, question_id: question, id: answer, answer: { text: "some text"*10 }
-          expect(flash[:notice]).to eq 'Answer has been successfully updated.'
-        end
+        #  it 'renders flash message about success updating' do
+        #   patch :update, question_id: question, id: answer, answer: { text: "some text"*10 }
+        #   expect(flash[:notice]).to eq 'Answer has been successfully updated.'
+        # end
       end
 
       context 'with invalid attributes' do

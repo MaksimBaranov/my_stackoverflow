@@ -10,7 +10,10 @@ class AnswersController < ApplicationController
         format.html {  redirect_to @question, notice: 'Your answer has been successfully created.' }
         format.js
       else
-        format.html { redirect_to @question, alert: 'Your answer hasn`t been created. Try again.' }
+        format.html do
+          flash[:alert] = 'Your answer hasn`t been created. Try again.'
+          redirect_to @question
+         end
         format.js
       end
     end
@@ -22,11 +25,17 @@ class AnswersController < ApplicationController
 
   def update
     @answer = Answer.find(params[:id])
-    if @answer.update(answer_params)
-      redirect_to @question, notice: 'Answer has been successfully updated.'
-    else
-      flash[:alert] = 'Answer hasn`t been updated. Try again.'
-      render :edit
+    respond_to do |format|
+      if @answer.update(answer_params)
+        format.html { redirect_to @question, notice: 'Answer has been successfully updated.' }
+        format.js
+      else
+        format.html do
+          flash[:alert] = 'Answer hasn`t been updated. Try again.'
+          render :edit
+        end
+        format.js
+      end
     end
   end
 

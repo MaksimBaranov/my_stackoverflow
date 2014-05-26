@@ -16,11 +16,12 @@ ul
             li id= "comment-#{comment.id}"
               = comment.text
               br
-              - if check_authority(comment, current_user)
+              - if check_authority(comment)
                 = link_to 'Improve Comment', edit_comment_path(comment)
                 = link_to 'Delete Comment', comment_path(comment), method: :delete
         = link_to 'Add Comment', new_answer_comment_path(answer)
         br
-        - if check_authority(answer, current_user)
-          = link_to "Improve Answer", edit_question_answer_path(@question, answer)
+        - if check_authority(answer)
+          = link_to "Improve Answer", edit_question_answer_path(@question, answer), class: 'edit-answer-link', data: { answer_id: answer.id }
+          = render 'answers/edit_form', question: @question, answer: answer
           = link_to 'Delete Answer', question_answer_path(@question, answer), method: :delete
