@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController
   before_filter :authenticate_user!
   before_filter :load_question
-  before_filter :set_answer,  only: [:edit, :update, :destroy]
+  before_filter :set_answer, :check_authority,  only: [:edit, :update, :destroy]
 
   def create
     @answer = @question.answers.build(answer_params)
@@ -45,12 +45,12 @@ class AnswersController < ApplicationController
 
   private
 
-  # def check_authority
-  #   unless @answer.user_id == current_user.id
-  #     flash[:alert] = 'Unpermited action. Access denied.'
-  #     redirect_to @answer.question
-  #   end
-  # end
+  def check_authority
+    unless @answer.user_id == current_user.id
+      flash[:alert] = 'Unpermited action. Access denied.'
+      redirect_to @answer.question
+    end
+  end
 
   def set_answer
     @answer = Answer.find(params[:id])

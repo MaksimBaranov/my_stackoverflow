@@ -49,12 +49,11 @@ feature 'Edit answer', %q(
     end
 
     scenario 'try to edit alies answer through address bar' do
-      pending
-      # user.answers << answer
-      # new_another_user_session(another_user)
-      # visit edit_question_answer_path(question, answer)
+      user.answers << answer
+      new_another_user_session(another_user)
+      visit edit_question_answer_path(question, answer)
 
-      # expect(page).to have_content 'Unpermited action. Access denied.'
+      expect(page).to have_content 'Unpermited action. Access denied.'
     end
   end
 

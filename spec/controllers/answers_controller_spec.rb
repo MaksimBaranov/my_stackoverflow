@@ -60,13 +60,15 @@ describe AnswersController do
   end
 
   describe 'GET #edit' do
-    let(:user) { create(:user) }
     let(:question) { create(:question) }
     let(:answer) { create(:answer) }
 
     context 'user is sign in' do
       login_user
-      before(:each) { get :edit, question_id: question, id: answer }
+      before(:each) do
+         @user.answers << answer
+         get :edit, question_id: question, id: answer
+      end
 
       it 'assigns the requested answer to @answer' do
         expect(assigns(:answer)).to eq answer
@@ -91,6 +93,7 @@ describe AnswersController do
 
     context 'user is sign in' do
       login_user
+      before(:each) { @user.answers << answer }
 
       context 'with valid attributes' do
         it 'assigns the requested answer to @answer' do
@@ -150,6 +153,7 @@ describe AnswersController do
 
     context 'user is sign in' do
       login_user
+      before(:each) { @user.answers << answer }
 
       it 'deletes answer' do
         answer
