@@ -24,4 +24,4 @@ ul
         - if check_authority(answer)
           = link_to "Improve Answer", edit_question_answer_path(@question, answer), class: 'edit-answer-link', data: { answer_id: answer.id }
           = render 'answers/edit_form', question: @question, answer: answer
-          = link_to 'Delete Answer', question_answer_path(@question, answer), method: :delete
+          = link_to 'Delete Answer', question_answer_path(@question, answer), method: :delete, data: {  :confirm => "Are you sure?" }, :remote => true

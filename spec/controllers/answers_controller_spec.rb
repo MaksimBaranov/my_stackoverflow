@@ -157,12 +157,12 @@ describe AnswersController do
 
       it 'deletes answer' do
         answer
-        expect { delete :destroy, question_id: question, id: answer }.to change(Answer, :count).by(-1)
+        expect { delete :destroy, question_id: question, id: answer, format: :js }.to change(Answer, :count).by(-1)
       end
 
-      it 'redirect to index view' do
-        delete :destroy, question_id: question, id: answer
-        expect(response).to redirect_to question_path(question)
+      it 'render destroy.js.erb' do
+        delete :destroy, question_id: question, id: answer, format: :js
+        expect(response).to render_template :destroy
       end
     end
 

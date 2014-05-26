@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController
   before_filter :authenticate_user!
   before_filter :load_question
-  before_filter :set_answer, :check_authority,  only: [:edit, :update, :destroy]
+  before_filter :set_answer, :check_authority,  only: [:edit, :update]
 
   def create
     @answer = @question.answers.build(answer_params)
@@ -39,8 +39,12 @@ class AnswersController < ApplicationController
   end
 
   def destroy
+    @answer = Answer.find(params[:id])
     @answer.destroy
-    redirect_to question_path(@question), notice: 'Your answer has been removed.'
+    respond_to do |format|
+      format.html { redirect_to question_path(@question), notice: 'Your answer has been removed.' }
+      format.js
+    end
   end
 
   private
