@@ -21,7 +21,7 @@ div id="question-#{@question.id}"
       .edit-question
         = link_to 'Improve Question', edit_question_path(@question), :remote => true
       .delete-question
-      = link_to 'Delete Question', question_path(@question), method: :delete
+      = link_to 'Delete Question', question_path(@question), method: :delete, data: { :confirm => 'Are you sure?' }
   .list-answers
     = render 'answers'
   = render 'answers/create_form', question: @question, answer: Answer.new
