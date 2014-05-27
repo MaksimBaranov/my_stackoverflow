@@ -1,0 +1,8 @@
+h2 = @question.title
+.text-question
+  div id="vote-question-#{@question.vote.id}"
+    = link_to 'Up Vote', up_vote_path(@question.vote), method: :patch
+    span.vote-count
+      = @question.vote.quantity if @question.vote
+    = link_to 'Down Vote', down_vote_path(@question.vote), method: :patch
+  p = @question.body

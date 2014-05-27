@@ -70,7 +70,7 @@ describe QuestionsController do
 
     context 'user is sign in' do
       login_user
-      before(:each) { get :edit, id: question }
+      before(:each) { xhr :get, :edit, id: question, format: :js }
 
       it 'assigns the requested question to @question' do
         expect(assigns(:question)).to eq question
@@ -140,7 +140,7 @@ describe QuestionsController do
 
       context 'with valid attributes' do
         it 'assigns the requested question to @question' do
-          patch :update, id: question, question: attributes_for(:question)
+          patch :update, id: question, question: attributes_for(:question), format: :js
           expect(assigns(:question)).to eq question
         end
 
@@ -151,14 +151,14 @@ describe QuestionsController do
           expect(question.body).to eq 'edit body'*10
         end
 
-        it 'redirects to the updated question' do
-          patch :update, id: question, question: attributes_for(:question)
-          expect(response).to redirect_to question
+        it 'renders update.js.erb' do
+          patch :update, id: question, question: attributes_for(:question), format: :js
+          expect(response).to render_template :update
         end
       end
 
       context 'with invalid attributes' do
-        before { patch :update, id: question, question: { title: 'new title edit at now.', body: nil } }
+        before { patch :update, id: question, question: { title: 'new title edit at now.', body: nil }, format: :js }
         it 'does not change question attributes' do
           question.reload
           expect(question.title).to eq question.title
@@ -166,7 +166,7 @@ describe QuestionsController do
         end
 
         it 're-renders edit view' do
-          expect(response).to render_template :edit
+          expect(response).to render_template :update
         end
       end
     end

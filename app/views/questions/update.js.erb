@@ -1,0 +1,7 @@
+<% if @question.errors.present? %>
+    $('.question-error-messages').html('<%= j render 'form_errors' %>');
+<% else %>
+  $('.question-content').html('<%= j render 'question_content' %>');
+  $('.edit-question-form').html('');
+  $('.edit-question').show();
+<% end %>

@@ -19,6 +19,10 @@ class QuestionsController < ApplicationController
   end
 
   def edit
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def create
@@ -35,10 +39,14 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    if @question.update(question_params)
-      redirect_to @question, notice: 'Your question has been successfully updated.'
-    else
-      render :edit
+    respond_to do |format|
+      if @question.update(question_params)
+        format.html { redirect_to @question, notice: 'Your question has been successfully updated.' }
+        format.js
+      else
+        format.html { render :edit }
+        format.js
+      end
     end
   end
 
