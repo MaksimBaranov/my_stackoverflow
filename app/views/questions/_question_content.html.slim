@@ -1,8 +1,14 @@
 h2 = @question.title
 .text-question
-  div id="vote-question-#{@question.vote.id}"
-    = link_to 'Up Vote', up_vote_path(@question.vote), method: :patch
-    span.vote-count
+  div id="vote-#{@question.vote.id}"
+    -if user_signed_in?
+      = link_to 'Up Vote', up_vote_path(@question.vote), method: :patch,  :remote => true
+    - else
+      = link_to 'Up Vote', up_vote_path(@question.vote), method: :patch
+    span id="vote-#{@question.vote.id}-count"
       = @question.vote.quantity if @question.vote
-    = link_to 'Down Vote', down_vote_path(@question.vote), method: :patch
+    - if user_signed_in?
+      = link_to 'Down Vote', down_vote_path(@question.vote), method: :patch, :remote => true
+    - else
+      = link_to 'Down Vote', down_vote_path(@question.vote), method: :patch
   p = @question.body

@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :vote do
-    quantity 1
+    quantity 0
   end
 end

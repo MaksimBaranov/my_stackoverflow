@@ -3,11 +3,11 @@ ul
   - @question.answers.each_with_index do |answer, index|
     - if answer.persisted?
       li id="answer-#{answer.id}"
-        div id="vote-answer-#{answer.vote.id}"
-          = link_to 'Up Vote', up_vote_path(answer.vote), method: :patch
-          span.vote-count
+        div id="vote-#{answer.vote.id}"
+          = link_to 'Up Vote', up_vote_path(answer.vote), method: :patch,  :remote => true
+          span id="vote-#{answer.vote.id}-count"
             = answer.vote.quantity if answer.vote
-          = link_to 'Down Vote', down_vote_path(answer.vote), method: :patch
+          = link_to 'Down Vote', down_vote_path(answer.vote), method: :patch,  :remote => true
         = answer. text
         div.list-answer-comments
           h5 List of comments
