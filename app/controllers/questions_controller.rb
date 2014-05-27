@@ -7,6 +7,10 @@ class QuestionsController < ApplicationController
 
   def new
     @question = Question.new
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def show
@@ -19,11 +23,14 @@ class QuestionsController < ApplicationController
 
   def create
     @question = current_user.questions.build(question_params)
-    if @question.save
-      flash[:notice] = 'Your question is successfully created.'
-      redirect_to @question
-    else
-      render :new
+    respond_to do |format|
+      if @question.save
+        format.html { redirect_to @question, notice: 'Your question is successfully created.' }
+        format.js
+      else
+        format.html { render :new }
+        format.js
+      end
     end
   end
 

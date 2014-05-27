@@ -21,7 +21,7 @@ describe QuestionsController do
     context 'user is sign in' do
       login_user
       before(:each) do
-        get :new
+        xhr :get, :new, format: :js
       end
 
       it 'assigns a new Question to @question'  do
@@ -95,7 +95,7 @@ describe QuestionsController do
       login_user
 
       def request(type_data)
-        post :create, question: attributes_for(type_data)
+        post :create, question: attributes_for(type_data), format: :js
       end
 
       context 'with valid attributes' do
@@ -105,7 +105,7 @@ describe QuestionsController do
 
         it 'redirects to show view' do
           request(:question)
-          expect(response).to redirect_to question_path(assigns(:question))
+          expect(response).to render_template :create
         end
 
         it 'saves the new question with attribute user_id' do
@@ -119,7 +119,7 @@ describe QuestionsController do
         end
         it 're-renders new view' do
           request(:invalid_question)
-          expect(response).to render_template :new
+          expect(response).to render_template :create
         end
       end
     end
