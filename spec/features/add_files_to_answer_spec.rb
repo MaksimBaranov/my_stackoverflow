@@ -15,10 +15,10 @@ feature 'Add files to answer', %q(
     visit question_path(question)
   end
 
-  scenario 'User adds file when asks answer' do
+  scenario 'User adds file when asks answer', js: true do
     fill_in 'Text', with: answer.text
     attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
-    click_on 'Create'
+    click_on 'Post Your Answer'
 
     expect(page).to have_link 'spec_helper.rb', href: '/uploads/attachment/file/1/spec_helper.rb'
   end

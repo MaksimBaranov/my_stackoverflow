@@ -24,4 +24,4 @@ div id="question-#{@question.id}"
       = link_to 'Delete Question', question_path(@question), method: :delete, data: { :confirm => 'Are you sure?' }
   .list-answers
     = render 'answers'
-  = render 'answers/create_form', question: @question, answer: Answer.new
+  = render 'answers/create_form', question: @question

@@ -4,10 +4,10 @@ class AnswersController < ApplicationController
   before_filter :set_answer, :check_authority,  only: [:edit, :update]
 
   def create
-    @answer = @question.answers.build(answer_params)
+    @answer = @question.answers.create(answer_params)
     current_user.answers << @answer
     respond_to do |format|
-      if @answer.save
+      if  @answer.save
         format.html {  redirect_to @question, notice: 'Your answer has been successfully created.' }
         format.js
       else
@@ -65,6 +65,6 @@ class AnswersController < ApplicationController
   end
 
   def answer_params
-    params.require(:answer).permit(:text, :user_id, :question_id)
+    params.require(:answer).permit(:text, :user_id, :question_id, attachments_attributes: [:file])
   end
 end

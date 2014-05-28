@@ -54,6 +54,7 @@ end
 gem 'slim'
 gem 'devise'
 gem 'carrierwave'
+gem 'remotipart'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 

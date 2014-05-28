@@ -1,6 +1,11 @@
 h1 Your Answer
 .answer-error-messages
-= form_for ([question, answer]), remote: true, html: { class: 'add-answer-form'} do |f|
-  = f.label :text, 'Text'
-  = f.text_area :text
-  = f.submit 'Post Your Answer'
+= form_for ([question, @answer]), remote: true, html: { class: 'add-answer-form'} do |f|
+  p
+    = f.label :text, 'Text'
+    = f.text_area :text
+  p
+    = f.fields_for :attachments do |a|
+      = a.label :file
+      = a.file_field :file
+  p= f.submit 'Post Your Answer'
