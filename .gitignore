@@ -16,3 +16,6 @@
 /tmp
 # Ignore database.yml
 config/database.yml
+
+#Ignore uploaded files
+/public/uploads
