@@ -9,6 +9,8 @@ class Question < ActiveRecord::Base
   validates :title, length: { in: 10..100 }
   validates :body, length: { in: 50..600 }
 
+  accepts_nested_attributes_for :attachments
+
   def create_new_vote
     self.create_vote
   end
