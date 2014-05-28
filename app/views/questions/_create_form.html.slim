@@ -1,9 +1,16 @@
 .create-form
   h1 Create New Question
   .question-error-messages
-  = form_for @question, :remote => true do |f|
-    = f.label :title
-    = f.text_field :title
-    = f.label :body, "Text"
-    = f.text_area :body
-    = f.submit "Create"
+  = form_for @question do |f|
+    p
+      = f.label :title
+      = f.text_field :title
+    p
+      = f.label :body, "Text"
+      = f.text_area :body
+    p Attachments:
+    p
+      = f.fields_for :attachments do |a|
+        = a.label :file
+        = a.file_field :file
+    p= f.submit "Create"

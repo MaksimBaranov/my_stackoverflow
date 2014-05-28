@@ -4,6 +4,6 @@ h1 List of Questions
 .create-question-section
 .create-question-link
   - if user_signed_in?
-    = link_to "Ask question", new_question_path, :remote => true
+    = link_to "Ask question", new_question_path
   - else
     = link_to 'Login to ask question', new_user_session_path

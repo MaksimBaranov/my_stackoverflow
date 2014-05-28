@@ -7,6 +7,7 @@ class QuestionsController < ApplicationController
 
   def new
     @question = Question.new
+    @question.attachments.build
     respond_to do |format|
       format.html
       format.js
@@ -62,6 +63,6 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:title, :body, :user_id)
+    params.require(:question).permit(:title, :body, :user_id, attachments_attributes: [:file])
   end
 end

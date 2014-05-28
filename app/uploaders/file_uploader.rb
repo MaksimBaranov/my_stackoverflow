@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 class FileUploader < CarrierWave::Uploader::Base
+  delegate :identifier, to: :file
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
@@ -15,7 +16,6 @@ class FileUploader < CarrierWave::Uploader::Base
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
-
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url
   #   # For Rails 3.1+ asset pipeline compatibility:
