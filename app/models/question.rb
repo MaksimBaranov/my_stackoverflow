@@ -3,6 +3,7 @@ class Question < ActiveRecord::Base
   belongs_to :user
   has_one :vote, as: :voteable
   has_many :answers
+  has_many :attachments
   has_many :comments, as: :commentable
   validates :title, :body, presence: true
   validates :title, length: { in: 10..100 }
