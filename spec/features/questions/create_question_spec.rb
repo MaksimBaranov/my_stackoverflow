@@ -16,9 +16,7 @@ feature 'Create question', %q(
     fill_in 'Title', with: question.title
     fill_in 'Text', with: question.body
     click_on 'Create'
-    within '.list-questions' do
-      expect(page).to have_content question.title
-    end
+    expect(page).to have_content question.title
   end
 
   describe "Non-authenticated user" do

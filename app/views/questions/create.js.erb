@@ -4,4 +4,5 @@
   $('.list-questions').html('<%= j render 'questions', questions: @questions = Question.all %>');
   $('.create-form').remove();
   $('.create-question-link').show();
+  window.location.replace('<%= question_path(@question) %>')
 <% end %>
