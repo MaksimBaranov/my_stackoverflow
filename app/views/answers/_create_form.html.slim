@@ -1,6 +1,6 @@
 h1 Your Answer
 .answer-error-messages
-= form_for ([question, @answer]), remote: true, html: { class: 'add-answer-form'} do |f|
+= nested_form_for ([question, @answer]), remote: true, html: { class: 'add-answer-form'} do |f|
   p
     = f.label :text, 'Text'
     = f.text_area :text
@@ -8,4 +8,6 @@ h1 Your Answer
     = f.fields_for :attachments do |a|
       = a.label :file
       = a.file_field :file
+      = a.link_to_remove 'Remove this file'
+  p= f.link_to_add 'Add a file', :attachments
   p= f.submit 'Post Your Answer'

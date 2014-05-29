@@ -14,6 +14,7 @@ feature 'Create answer', %q(
     new_user_session
     visit question_path(question)
     fill_in 'Text', with: answer.text
+    click_on 'Remove this file'
     click_on 'Post Your Answer'
 
     expect(page).to have_content answer.text
