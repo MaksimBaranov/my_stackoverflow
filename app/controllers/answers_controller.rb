@@ -4,18 +4,20 @@ class AnswersController < ApplicationController
   before_filter :set_answer, :check_authority,  only: [:edit, :update]
 
   def create
-    @answer = @question.answers.create(answer_params)
+    @answer = @question.answers.build(answer_params)
     current_user.answers << @answer
     respond_to do |format|
       if  @answer.save
         format.html {  redirect_to @question, notice: 'Your answer has been successfully created.' }
         format.js
+        format.json { render json: @answer }
       else
         format.html do
           flash[:alert] = 'Your answer hasn`t been created. Try again.'
           redirect_to @question
          end
         format.js
+        format.json { render json: @answer.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end

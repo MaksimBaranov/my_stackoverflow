@@ -1,6 +1,6 @@
 h1 Your Answer
 .answer-error-messages
-= nested_form_for ([question, @answer]), remote: true, html: { class: 'add-answer-form'} do |f|
+= nested_form_for ([question, @answer]), remote: true, data: { type: :json }, html: { class: 'add-answer-form'} do |f|
   p
     = f.label :text, 'Text'
     = f.text_area :text
