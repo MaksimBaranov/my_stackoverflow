@@ -10,7 +10,7 @@ class AnswersController < ApplicationController
       if  @answer.save
         format.html {  redirect_to @question, notice: 'Your answer has been successfully created.' }
         format.js
-        format.json { render json: @answer }
+        format.json { render json: @answer.to_json(:include => [:vote, :comments, :attachments]) }
       else
         format.html do
           flash[:alert] = 'Your answer hasn`t been created. Try again.'

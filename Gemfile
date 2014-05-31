@@ -56,6 +56,11 @@ gem 'devise'
 gem 'carrierwave'
 gem 'remotipart'
 gem "nested_form"
+gem 'jquery-turbolinks'
+gem 'jquery-tmpl-rails'
+gem 'rails3-jquery-autocomplete'
+gem 'private_pub'
+gem 'thin'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
