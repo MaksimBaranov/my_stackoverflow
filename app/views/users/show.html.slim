@@ -5,7 +5,7 @@ h4 Your Details:
 p Email: #{@user.email}
 p Has joined #{ @user.joined_days_ago } days ago
 
-= link_to 'Edit Your Profile', edit_user_registration_path
+= link_to 'Edit Your Profile', edit_user_registration_path if current_user == @user
 
 
 

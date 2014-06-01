@@ -12,7 +12,6 @@ class User < ActiveRecord::Base
       day: 24
    }
 
-
   def joined_days_ago
     diff = Time.now - self.created_at
     ( diff / (CONVERTING[:hour]*CONVERTING[:day]) ).to_i
