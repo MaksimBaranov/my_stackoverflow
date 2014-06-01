@@ -1,5 +1,1 @@
-h1 Add New Comment
-= form_for [ @comment_object, @comment ] do |f|
-  = f.label :text
-  = f.text_area :text
-  = f.submit 'Create Comment'
+= render 'create_form', comment_object: @comment_object, comment: @comment

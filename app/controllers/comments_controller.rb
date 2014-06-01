@@ -5,17 +5,27 @@ class CommentsController < ApplicationController
 
   def new
     @comment = Comment.new
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def create
     @comment = Comment.new(comment_params)
     @comment.user = current_user
     @comment.commentable = @comment_object
-    if @comment.save
-      redirect_to @comment.question, notice: 'Your comment has been successfully created.'
-    else
-      flash[:alert] = 'Your comment hasn`t been created. Try again.'
-      render :new
+    respond_to do |format|
+      if @comment.save
+        format.html { redirect_to @comment.question, notice: 'Your comment has been successfully created.' }
+        format.js
+      else
+        format.html do
+          flash[:alert] = 'Your comment hasn`t been created. Try again.'
+          render :new
+        end
+        format.js
+      end
     end
   end
 

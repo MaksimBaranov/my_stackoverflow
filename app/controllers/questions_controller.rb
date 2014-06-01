@@ -18,7 +18,6 @@ class QuestionsController < ApplicationController
     @answers = @question.answers
     @answer = @question.answers.build
     @answer.attachments.build
-    @comments = @question.comments
   end
 
   def edit

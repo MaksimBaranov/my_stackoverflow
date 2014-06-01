@@ -1,0 +1,8 @@
+<% if @comment.errors.present? %>
+    $('.comment-error-messages').html('<%= j render 'form_errors' %>');
+<% else %>
+$('.list-question-comments').html('<%= j render 'list_question_comments', comment_object: @comment_object %>')
+$('.add-comment-form').html('');
+$('#add-question-comment').show();
+<% end %>
+

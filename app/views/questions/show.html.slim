@@ -2,18 +2,10 @@ div id="question-#{@question.id}"
   .question-content
     = render 'question_content', question: @question
   br
-  div.list-question-comments
-    h3 List of comments
-    ul
-    - @comments.each do |comment|
-      li id= "comment-#{comment.id}"
-        =comment.text
-        br
-        - if check_authority(comment)
-          = link_to 'Improve Comment', edit_comment_path(comment)
-          = link_to 'Delete Comment', comment_path(comment), method: :delete
-    div.add-comment
-    = link_to 'Add Comment', new_question_comment_path(@question)
+  .list-question-comments
+    = render 'comments/list_question_comments', comment_object: @question
+  .add-comment-form
+  = link_to 'Add Comment', new_question_comment_path(@question), remote: true, id: 'add-question-comment'
   br
   - if check_authority(@question)
     .manipulate-question-bar

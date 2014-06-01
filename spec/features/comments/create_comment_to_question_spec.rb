@@ -10,23 +10,22 @@ feature 'Add comment for question', %q(
   given(:question) { create(:question) }
   given(:comment) { create(:comment) }
 
-  scenario 'Authenticated user create the comment' do
+  scenario 'Authenticated user create the comment', js: true do
     new_user_session
     visit question_path(question)
-    within '.list-question-comments' do
       click_on 'Add Comment'
+      within '.add-comment-form' do
+        fill_in 'Text', with: comment.text
+        click_on 'Create Comment'
+      end
+    within '.list-question-comments' do
+      expect(page).to have_content comment.text
     end
-    fill_in 'Text', with: comment.text
-    click_on 'Create Comment'
-
-    expect(page).to have_content('Your comment has been successfully created.')
   end
 
   scenario 'Non-authenticated user try to create comment' do
     visit question_path(question)
-    within '.list-question-comments' do
-      click_on('Add Comment')
-    end
+    click_on('Add Comment')
 
     expect(page).to have_content %q(You need to sign in
     or sign up before continuing.)

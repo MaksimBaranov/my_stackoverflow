@@ -15,7 +15,7 @@ class AnswersController < ApplicationController
         format.html do
           flash[:alert] = 'Your answer hasn`t been created. Try again.'
           redirect_to @question
-         end
+        end
         format.js
         format.json { render json: @answer.errors.full_messages, status: :unprocessable_entity }
       end
