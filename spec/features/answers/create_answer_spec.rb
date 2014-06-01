@@ -10,13 +10,13 @@ feature 'Create answer', %q(
   given!(:question) { create(:question) }
   given!(:answer) { create(:answer) }
 
+
   scenario 'Authenticated user create the answer', js: true do
     new_user_session
     visit question_path(question)
     fill_in 'Text', with: answer.text
     click_on 'Remove this file'
     click_on 'Post Your Answer'
-
     expect(page).to have_content answer.text
   end
 

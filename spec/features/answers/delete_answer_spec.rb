@@ -26,7 +26,7 @@ feature 'Delete answer', %q(
       end
     end
 
-    scenario 'try to edit his answer', js: true do
+    scenario 'try to delete his answer', js: true do
       user_has_answer_question
       new_user_session
       visit question_path(question)
