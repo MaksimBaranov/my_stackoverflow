@@ -1,6 +1,6 @@
 MyStackoverflow::Application.routes.draw do
   devise_for :users
-
+  resources :users, only: [:show, :index]
   concern :commentable do
     resources :comments, only: [:new, :create]
   end

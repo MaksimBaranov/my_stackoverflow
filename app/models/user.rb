@@ -6,4 +6,15 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+   CONVERTING = {
+      hour: 3600,
+      day: 24
+   }
+
+
+  def joined_days_ago
+    diff = Time.now - self.created_at
+    ( diff / (CONVERTING[:hour]*CONVERTING[:day]) ).to_i
+  end
 end
