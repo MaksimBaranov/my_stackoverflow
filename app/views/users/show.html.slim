@@ -1,7 +1,9 @@
 h1 Hello User!
 
 h4 Your Details:
-
+div
+  = image_tag @user.avatar_url if @user.avatar?
+br
 p Email: #{@user.email}
 p Name: #{@user.name}
 p Nickname: #{@user.nickname}
