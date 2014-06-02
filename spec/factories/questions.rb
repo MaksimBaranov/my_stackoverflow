@@ -5,7 +5,7 @@ FactoryGirl.define do
     user
     title Faker::Lorem.sentence
     body Faker::Lorem.paragraph(4)
-    tag_names 'Some tag'
+    tag_names Faker::Lorem.word
   end
 
   factory :invalid_question, class: 'Question' do

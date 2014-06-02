@@ -14,6 +14,7 @@ MyStackoverflow::Application.routes.draw do
   patch 'votes/:id/up' => 'votes#up', as: :up_vote
   patch 'votes/:id/down' => 'votes#down', as: :down_vote
   get 'tags/:tag' => 'questions#index', as: :tag
+  get 'tags' => 'tags#index', as: :tags
   root 'questions#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
