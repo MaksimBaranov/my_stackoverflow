@@ -2,7 +2,11 @@ class QuestionsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
   before_filter :load_question, only: [:show, :edit, :update, :destroy]
   def index
-    @questions = Question.all
+    if params[:tag]
+      @questions = Question.with_tag(params[:tag])
+    else
+      @questions = Question.all
+    end
   end
 
   def new
@@ -64,6 +68,6 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:title, :body, :user_id, attachments_attributes: [:id, :file, :_destroy])
+    params.require(:question).permit(:title, :body, :user_id, :tag_names, attachments_attributes: [:id, :file, :_destroy] )
   end
 end

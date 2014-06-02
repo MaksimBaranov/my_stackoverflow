@@ -3,3 +3,6 @@ ul
     li id="#{i+1}-question-#{question.id}"
       span #{i+1}
       = link_to "#{question.title}", question
+      p
+        | Tags:
+        = raw tag_urls(question)

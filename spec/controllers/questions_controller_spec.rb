@@ -149,10 +149,11 @@ describe QuestionsController do
         end
 
         it 'changes question attributes' do
-          patch :update, id: question, question: { title: 'new title edit now.', body: 'edit body'*10 }
+          patch :update, id: question, question: { title: 'new title edit now.', body: 'edit body'*10, tag_names: 'Rails, Ruby' }
           question.reload
           expect(question.title).to eq 'new title edit now.'
           expect(question.body).to eq 'edit body'*10
+          expect(question.tags.map(&:name)).to eq ['Rails','Ruby']
         end
 
         it 'renders update.js.erb' do

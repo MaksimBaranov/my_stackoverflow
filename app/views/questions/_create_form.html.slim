@@ -8,6 +8,9 @@
     p
       = f.label :body, "Text"
       = f.text_area :body
+    p
+      = f.label :tag_names, "Tags (should be separated by commas)"
+      = f.text_field :tag_names
     p Attachments:
     p
       = f.fields_for :attachments do |a|

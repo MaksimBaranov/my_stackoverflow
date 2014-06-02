@@ -1,8 +1,13 @@
 h1 Make Question better
 .question-error-messages
 = form_for @question, :remote => true do |f|
-  = f.label :title, 'Title'
-  = f.text_field :title
-  = f.label :body, 'Text'
-  = f.text_area :body
+  p
+    = f.label :title, 'Title'
+    = f.text_field :title
+  p
+    = f.label :body, 'Text'
+    = f.text_area :body
+  p
+    = f.label :tag_names, "Tags (should be separated by commas)"
+    = f.text_field :tag_names
   = f.submit 'Edit Question'

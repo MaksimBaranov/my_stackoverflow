@@ -12,6 +12,8 @@ h2 = @question.title
     - else
       = link_to 'Down Vote', down_vote_path(@question.vote), method: :patch
   p = @question.body
+  | Tags:
+  = raw tag_urls(@question)
   p Attachments:
   ul#attachments
     - @question.attachments.each do |a|
