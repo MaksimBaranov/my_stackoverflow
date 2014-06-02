@@ -13,6 +13,7 @@ MyStackoverflow::Application.routes.draw do
 
   patch 'votes/:id/up' => 'votes#up', as: :up_vote
   patch 'votes/:id/down' => 'votes#down', as: :down_vote
+  patch 'answers/:question_id/:id/best' => 'answers#best', as: :best_answer
   get 'tags/:tag' => 'questions#index', as: :tag
   get 'tags' => 'tags#index', as: :tags
   root 'questions#index'

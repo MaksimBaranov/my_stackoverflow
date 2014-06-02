@@ -11,6 +11,7 @@ class Answer < ActiveRecord::Base
 
   accepts_nested_attributes_for :attachments
 
+
   def create_new_vote
     self.create_vote
   end

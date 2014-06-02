@@ -3,6 +3,12 @@ ul
   - @question.answers.each_with_index do |answer, index|
     - if answer.persisted?
       li id="answer-#{answer.id}"
+        - if answer.best == true
+          span#best-answer Best Answer
+        - else
+          - if @question.user == current_user && @question.answers.where(:best => true).count < 1
+              = link_to 'Make Best', best_answer_path(@question, answer), method: :patch
+        br
         div id="vote-#{answer.vote.id}"
           = link_to 'Up Vote', up_vote_path(answer.vote), method: :patch,  :remote => true
           span id="vote-#{answer.vote.id}-count"

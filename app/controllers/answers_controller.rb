@@ -49,6 +49,17 @@ class AnswersController < ApplicationController
     end
   end
 
+  def best
+    @answer = Answer.find(params[:id])
+    if @question.user == current_user
+      @answer.update_attributes(best: true)
+      redirect_to @question, notice: 'Your has been made answer best'
+    else
+      flash[:alert] = "Unpermited action. Access denied."
+      redirect_to @question
+    end
+  end
+
   private
 
   def check_authority
