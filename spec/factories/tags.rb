@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :tag do
-     ""
+     name 'Ruby Rails Javascript Coffeescript'
   end
 end

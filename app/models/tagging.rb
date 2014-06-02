@@ -1,4 +1,4 @@
 class Tagging < ActiveRecord::Base
-  belongs_to :questions
-  belongs_to :tags
+  belongs_to :question
+  belongs_to :tag
 end

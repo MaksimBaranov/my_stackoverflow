@@ -1,4 +1,4 @@
-require 'rspec_helper'
+require 'spec_helper'
 
 feature 'Add tags to question', %q(
 In order to improve search of answers
@@ -19,7 +19,7 @@ I would to add tags to question
   end
 
   scenario 'Create question and add new tag', js: true do
-    fill_in 'Tag', with: 'Rails Javascript Cofeescript Ruby'
+    fill_in 'Tag', with: 'Rails, Javascript, Cofeescript, Ruby'
     click_on 'Create'
 
     expect(find('.tags')).to have_content('Rails Javascript Cofeescript Ruby')
