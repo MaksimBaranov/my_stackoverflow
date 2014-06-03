@@ -1,9 +1,11 @@
 <% if @question.errors.present? %>
     $('.question-error-messages').html('<%= j render 'form_errors' %>');
 <% else %>
-  $('.list-questions').html('<%= j render 'questions', questions: @questions = Question.all %>');
-  $('.create-form').remove();
-  $('.create-question-link').show();
-  $('input[type=file]').val('');
-  window.location.replace('<%= question_path(@question) %>')
+    $('.create-form').remove();
+    $('.create-question-link').show();
+    $('input[type=file]').val('');
+    window.location.replace('<%= question_path(@question) %>')
+  <% publish_to "/questions" do %>
+    $('.list-questions').html('<%= j render 'questions', questions: @questions = Question.all %>');
+  <% end %>
 <% end %>

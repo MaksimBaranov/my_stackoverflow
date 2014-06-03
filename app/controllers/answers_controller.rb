@@ -9,7 +9,10 @@ class AnswersController < ApplicationController
     respond_to do |format|
       if  @answer.save
         format.html {  redirect_to @question, notice: 'Your answer has been successfully created.' }
-        format.js
+        format.js do
+          # PrivatePub.publish_to "/questions/#{@question.id}/answers", answer: @answer.to_json(:include => [:vote, :comments, :attachments])
+          # render nothing: true
+        end
         format.json { render json: @answer.to_json(:include => [:vote, :comments, :attachments]) }
       else
         format.html do

@@ -7,3 +7,5 @@ h1 List of Questions
     = link_to "Ask question", new_question_path, :remote => true
   - else
     = link_to 'Login to ask question', new_user_session_path
+
+= subscribe_to "/questions"

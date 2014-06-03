@@ -1,9 +1,10 @@
 <% if @answer.errors.present? %>
     $('.answer-error-messages').html('<%= j render 'answers/form_errors' %>');
 <% else %>
-  $('.list-answers').html('<%= j render 'questions/answers' %>');
-  $('.add-answer-form textarea').val('');
   reload_edit();
-  // cleaning up error messages
-  $('.answer-error-messages').html('');
+  <% publish_to "/questions/#{@question.id}/answers" do %>
+    $('.list-answers').html('<%= j render 'questions/answers' %>');
+  <% end %>
+    $('.add-answer-form textarea').val('');
+    $('.answer-error-messages').html('');
 <% end %>
