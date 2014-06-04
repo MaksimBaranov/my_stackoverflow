@@ -7,7 +7,6 @@ class CommentsController < ApplicationController
     @comment = Comment.new
     respond_to do |format|
       format.html
-      format.js
     end
   end
 
@@ -33,11 +32,17 @@ class CommentsController < ApplicationController
   end
 
   def update
-    if @comment.update(comment_params)
-      redirect_to @comment.question, notice: 'Your comment has been succesfully updated.'
-    else
-      flash[:alert] = 'Comment hasn`t been updated. Try again.'
-      render :edit
+    respond_to do |format|
+      if @comment.update(comment_params)
+        format.html { redirect_to @comment.question, notice: 'Your comment has been succesfully updated.' }
+        format.js
+      else
+        format.html do
+          flash[:alert] = 'Comment hasn`t been updated. Try again.'
+          render :edit
+        end
+        format.js
+      end
     end
   end
 

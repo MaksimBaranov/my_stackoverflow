@@ -1,0 +1,5 @@
+div id="vote-#{object.vote.id}"
+  = link_to 'Up Vote', up_vote_path(object.vote), method: :patch,  :remote => true
+  span id="vote-#{object.vote.id}-count"
+    = object.vote.quantity if object.vote
+  = link_to 'Down Vote', down_vote_path(object.vote), method: :patch,  :remote => true

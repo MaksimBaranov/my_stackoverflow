@@ -1,9 +1,18 @@
-<% if @comment.errors.present? %>
+<% if @comment_object.class == Question %>
+  <% if @comment.errors.present? %>
     $('.comment-error-messages').html('<%= j render 'form_errors' %>');
+  <% else %>
+    $('.list-question-comments').html('<%= j render 'list_comments', comment_object: @comment_object %>')
+    $('.js-add-comment-form.clone').remove();
+    $('#add-comment').show();
+  <% end %>
 <% else %>
-$('.list-question-comments').html('<%= j render 'list_question_comments', comment_object: @comment_object %>')
-$('.add-comment-form').html('');
-$('#add-question-comment').show();
+  <% if @comment.errors.present? %>
+    $('.comment-error-messages').html('<%= j render 'form_errors' %>');
+  <% else %>
+    $("#answer-<%= @comment_object.id %> .list-answer-comments").html('<%= j render 'list_comments', comment_object: @comment_object %>')
+    $('.js-add-comment-form.clone').remove();
+    $('#answer-<%= @comment_object.id %> .add-comment-link').show();
+  <% end %>
 <% end %>
-
 

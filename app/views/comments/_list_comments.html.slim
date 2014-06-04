@@ -1,0 +1,7 @@
+h3 List of comments
+ul
+- comment_object.comments.each do |comment|
+  li id= "comment-#{comment.id}"
+    = render 'comments/comment', comment: comment
+
+

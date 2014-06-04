@@ -1,0 +1,7 @@
+p
+  =comment.text
+br
+- if check_authority(comment)
+  = link_to 'Improve Comment', edit_comment_path(comment), id: "edit-comment-link-#{comment.id}", class: 'improve-comment-link', data: { comment_id: comment.id }
+  br
+  = link_to 'Delete Comment', comment_path(comment), method: :delete

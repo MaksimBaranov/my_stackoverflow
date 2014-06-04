@@ -1,5 +1,6 @@
-.comment-error-messages
-= form_for comment, remote: true do |f|
-  = f.label :text, 'Text'
-  = f.text_area :text
-  = f.submit 'Edit Comment'
+.edit-comment-form
+  .comment-error-messages
+  = form_for comment, remote: true do |f|
+    = f.label :text, 'Text'
+    = f.text_area :text
+    = f.submit 'Edit Comment'

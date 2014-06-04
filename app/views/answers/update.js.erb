@@ -4,4 +4,5 @@
   $('.list-answers').html('<%= j render 'questions/answers' %>');
   reload_edit();
   $('.answer-error-messages').html('');
+  $("form#edit-answer-<%= @answer.id %>").hide();
 <% end %>

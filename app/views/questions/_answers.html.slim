@@ -9,27 +9,15 @@ ul
           - if @question.user == current_user && @question.answers.where(:best => true).count < 1
               = link_to 'Make Best', best_answer_path(@question, answer), method: :patch
         br
-        div id="vote-#{answer.vote.id}"
-          = link_to 'Up Vote', up_vote_path(answer.vote), method: :patch,  :remote => true
-          span id="vote-#{answer.vote.id}-count"
-            = answer.vote.quantity if answer.vote
-          = link_to 'Down Vote', down_vote_path(answer.vote), method: :patch,  :remote => true
+        = render 'votes/voice_panel', object: answer
         = answer. text
         p Attachments:
         ul
           - answer.attachments.each do |a|
             li= link_to a.file.identifier, a.file.url
         div.list-answer-comments
-          h5 List of comments
-          ul
-          - answer.comments.each do |comment|
-            li id= "comment-#{comment.id}"
-              = comment.text
-              br
-              - if check_authority(comment)
-                = link_to 'Improve Comment', edit_comment_path(comment)
-                = link_to 'Delete Comment', comment_path(comment), method: :delete
-        = link_to 'Add Comment', new_answer_comment_path(answer)
+          = render 'comments/list_comments', comment_object: answer
+        = link_to 'Add Comment', new_answer_comment_path(answer), class: "add-comment-link", data: {answer_id: answer.id}
         br
         - if check_authority(answer)
           = link_to "Improve Answer", edit_question_answer_path(@question, answer), class: 'edit-answer-link', data: { answer_id: answer.id }

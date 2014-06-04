@@ -19,6 +19,7 @@ class QuestionsController < ApplicationController
   end
 
   def show
+    @comment = Comment.new
     @answers = @question.answers
     @answer = @question.answers.build
     @answer.attachments.build

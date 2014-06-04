@@ -1,0 +1,10 @@
+<% if @comment.errors.present? %>
+    $('.comment-error-messages').html('<%= j render 'comments/form_errors' %>');
+<% else %>
+  $('li#comment-<%= @comment.id %>').html('<%= j render 'comments/comment', comment: @comment %>');
+  reload_edit();
+  $('.comment-error-messages').html('');
+  $("form#edit-comment-form").hide();
+  $('.improve-comment-link').show();
+<% end %>
+
