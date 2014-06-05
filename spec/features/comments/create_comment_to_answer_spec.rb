@@ -18,18 +18,20 @@ feature 'Add comment for answer', %q(
     answer.save
   end
 
-  scenario 'Authenticated user create comment' do
+  scenario 'Authenticated user create comment', js: true do
     user_has_question_with_answer
     new_user_session
     visit question_path(question)
 
     within "#answer-#{answer.id}" do
       click_on('Add Comment')
+      fill_in 'Text', with: comment.text
+      click_on 'Create Comment'
     end
-    fill_in 'Text', with: comment.text
-    click_on 'Create Comment'
 
-    expect(page).to have_content 'Your comment has been successfully created.'
+    within '.list-answer-comments' do
+      expect(page).to have_content comment.text
+    end
   end
 
   scenario 'Unauthenticated user try to create comment' do

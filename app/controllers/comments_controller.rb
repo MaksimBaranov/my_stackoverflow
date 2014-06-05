@@ -47,8 +47,13 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment.destroy
-    redirect_to @comment.question, notice: 'Your comment has been removed.'
+    respond_to do |format|
+      @comment.destroy
+      format.html do
+        redirect_to @comment.question, notice: 'Your comment has been removed.'
+      end
+      format.js
+    end
   end
 
   private

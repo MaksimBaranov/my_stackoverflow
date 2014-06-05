@@ -14,7 +14,7 @@ feature 'Add comment for question', %q(
     new_user_session
     visit question_path(question)
       click_on 'Add Comment'
-      within '.add-comment-form' do
+      within '.js-add-comment-form.clone' do
         fill_in 'Text', with: comment.text
         click_on 'Create Comment'
       end

@@ -40,30 +40,34 @@ feature 'Edit comment', %q(
     end
   end
 
-  scenario 'Authenticated user edit comment for answer' do
+  scenario 'Authenticated user edit comment for answer', js: true do
     question_and_answer_have_comments
     auth_user_is_author_of_question_and_answer
     visit question_path(question)
     within "#answer-#{answer.id} #comment-#{comment2.id}" do
       click_on('Improve Comment')
+      fill_in 'Text', with: comment2.text
+      click_on 'Edit Comment'
     end
-    fill_in 'Text', with: comment2.text
-    click_on 'Edit Comment'
 
-    expect(page).to have_content %q(Your comment has been succesfully updated.)
+    within '.list-answer-comments' do
+      expect(page).to have_content comment2.text
+    end
   end
 
-  scenario 'Authenticated user edit comment for question' do
+  scenario 'Authenticated user edit comment for question', js: true do
     question_and_answer_have_comments
     auth_user_is_author_of_question_and_answer
     visit question_path(question)
     within ".list-question-comments #comment-#{comment1.id}" do
       click_on('Improve Comment')
+      fill_in 'Text', with: comment1.text
+      click_on 'Edit Comment'
     end
-    fill_in 'Text', with: comment2.text
-    click_on 'Edit Comment'
 
-    expect(page).to have_content %q(Your comment has been succesfully updated.)
+    within '.list-question-comments' do
+      expect(page).to have_content comment1.text
+    end
   end
 
   scenario 'Non-authenticated user try to edit comment from address bar.' do

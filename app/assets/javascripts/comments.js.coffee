@@ -35,4 +35,3 @@ $(document)
     # It will change when i add popup or dialog window
     $('.improve-comment-link').hide()
 
-

@@ -40,7 +40,7 @@ feature 'Delete comment', %q(
     end
   end
 
-  scenario 'Authenticated user delete comment for answer' do
+  scenario 'Authenticated user delete comment for answer', js: true do
     question_and_answer_have_comments
     auth_user_is_author_of_question_and_answer
     visit question_path(question)
@@ -48,10 +48,12 @@ feature 'Delete comment', %q(
       click_on('Delete Comment')
     end
 
-    expect(page).to have_content %q(Your comment has been removed.)
+    within '.list-answer-comments' do
+      expect(page).to_not have_content comment2.text
+    end
   end
 
-  scenario 'Authenticated user delete comment for question' do
+  scenario 'Authenticated user delete comment for question', js: true do
     question_and_answer_have_comments
     auth_user_is_author_of_question_and_answer
     visit question_path(question)
@@ -59,6 +61,8 @@ feature 'Delete comment', %q(
       click_on('Delete Comment')
     end
 
-    expect(page).to have_content %q(Your comment has been removed.)
+    within '.list-question-comments' do
+      expect(page).to_not have_content comment1.text
+    end
   end
 end
