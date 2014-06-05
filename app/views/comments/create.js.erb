@@ -4,7 +4,7 @@
   <% else %>
     $('.list-question-comments').html('<%= j render 'list_comments', comment_object: @comment_object %>')
     $('.js-add-comment-form.clone').remove();
-    $('#add-comment').show();
+    $('.add-comment-link').show();
   <% end %>
 <% else %>
   <% if @comment.errors.present? %>
@@ -12,7 +12,7 @@
   <% else %>
     $("#answer-<%= @comment_object.id %> .list-answer-comments").html('<%= j render 'list_comments', comment_object: @comment_object %>')
     $('.js-add-comment-form.clone').remove();
-    $('#answer-<%= @comment_object.id %> .add-comment-link').show();
+    $('.add-comment-link').show();
   <% end %>
 <% end %>
 

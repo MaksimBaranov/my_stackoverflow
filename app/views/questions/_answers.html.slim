@@ -15,8 +15,19 @@ ul
         ul
           - answer.attachments.each do |a|
             li= link_to a.file.identifier, a.file.url
-        div.list-answer-comments
-          = render 'comments/list_comments', comment_object: answer
+        .list-answer-comments
+          h3 List of comments
+          ul
+            - answer.comments.each do |comment|
+              li id= "comment-#{comment.id}"
+                p
+                  =comment.text
+                br
+                - if check_authority(comment)
+                  = link_to 'Improve Comment', edit_comment_path(comment), id: "edit-comment-link-#{comment.id}", class: 'improve-comment-link', data: { comment_id: comment.id }
+                  br
+                  = link_to 'Delete Comment', comment_path(comment), method: :delete
+
         = link_to 'Add Comment', new_answer_comment_path(answer), class: "add-comment-link", data: {answer_id: answer.id}
         br
         - if check_authority(answer)
