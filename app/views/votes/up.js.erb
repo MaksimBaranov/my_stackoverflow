@@ -1,2 +1,8 @@
 $("#vote-<%= @vote.id %>-count").html('<%= @vote.quantity %>')
-alert('Hello!');
+
+<% if flash[:warning] %>
+  $('.panel-info').append("<p class='warning'><%= j flash[:warning] %></p>")
+  $('p.warning').fadeOut( 3000, function() {
+    $(this).remove();
+  });
+<% end %>

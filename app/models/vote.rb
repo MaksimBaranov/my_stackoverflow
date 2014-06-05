@@ -19,12 +19,20 @@ class Vote < ActiveRecord::Base
   end
 
   def vote_up(user, num)
-      self.update_attributes(quantity: self.quantity + num)
-      self.users << user
+      if user.preferences.where(vote_id: self.id).empty?
+        self.update_attributes(quantity: self.quantity + num)
+        self.users << user
+      else
+        false
+      end
   end
 
   def vote_down(user, num)
-    self.update_attributes(quantity: self.quantity + num)
-    self.users << user
+    if user.preferences.where(vote_id: self.id).empty?
+      self.update_attributes(quantity: self.quantity + num)
+      self.users << user
+    else
+      false
+    end
   end
 end

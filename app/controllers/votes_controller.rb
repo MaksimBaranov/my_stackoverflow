@@ -9,7 +9,9 @@ class VotesController < ApplicationController
         format.js
       else
         format.html { redirect_to  @vote.question, alert: 'Try Again.' }
-        format.js
+        format.js {
+          flash[:warning] = 'You have been voted already!'
+        }
       end
     end
   end
@@ -21,7 +23,9 @@ class VotesController < ApplicationController
         format.js
       else
         format.html { redirect_to  @vote.question, alert: 'Try Again.' }
-        format.js
+        format.js {
+          flash[:warning] = 'You have been voted already!'
+        }
       end
     end
   end
