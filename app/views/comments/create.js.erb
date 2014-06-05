@@ -12,6 +12,7 @@
   <% else %>
     $("#answer-<%= @comment_object.id %> .list-answer-comments").html('<%= j render 'list_comments', comment_object: @comment_object %>')
     $('.js-add-comment-form.clone').remove();
+    // It will change when i add popup or dialog window
     $('.add-comment-link').show();
   <% end %>
 <% end %>

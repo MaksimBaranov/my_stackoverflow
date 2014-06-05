@@ -4,7 +4,8 @@
   $('li#comment-<%= @comment.id %>').html('<%= j render 'comments/comment', comment: @comment %>');
   reload_edit();
   $('.comment-error-messages').html('');
-  $("form#edit-comment-form").hide();
+  $('.js-edit-comment-form.clone').remove();
+  // It will change when i add popup or dialog window
   $('.improve-comment-link').show();
 <% end %>
 

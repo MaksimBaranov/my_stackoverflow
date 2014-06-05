@@ -19,16 +19,20 @@ $(document)
       create_form_clone2 =$('.js-add-comment-form').clone().addClass('clone')
       $('.list-question-comments').after( create_form_clone2.show() )
     #Hide 'Create Comment' link
+    # It will change when i add popup or dialog window
     $('.add-comment-link').hide()
   # Edit comment form
-  # .on 'click', '.improve-comment-link', (e) ->
-  #   e.preventDefault()
-  #   # Create edit form to target comment
-  #   comment_id = $(this).data('commentId')
-  #   $('form.edit-comment-form').attr('action', '/comments/' + comment_id)
-  #   $('form.edit-comment-form textarea').text( $('#comment-' + comment_id + ' p').text() )
-  #   $(this).after( $('.js-edit-comment-form').show() )
-  #   #Hide 'Improve Comment' link
-  #   $(this).hide()
+  .on 'click', '.improve-comment-link', (e) ->
+    e.preventDefault()
+    # Create edit form to target comment
+    comment_id = $(this).data('commentId')
+    $('form.edit-comment-form').attr('action', '/comments/' + comment_id)
+    $('form.edit-comment-form textarea').text( $('#comment-' + comment_id + ' p').text() )
+    edit_form_clone = $('.js-edit-comment-form').clone().addClass('clone')
+
+    $(this).after( edit_form_clone.show() )
+    #Hide 'Improve Comment' link
+    # It will change when i add popup or dialog window
+    $('.improve-comment-link').hide()
 
 
