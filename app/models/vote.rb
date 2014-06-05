@@ -1,12 +1,14 @@
 class Vote < ActiveRecord::Base
   belongs_to :voteable, polymorphic: true
+  has_many :preferences
+  has_many :users, through: :preferences
+
   validates :quantity, numericality: { only_integer: true }
-  # TODO list
-  # 4. Rewrite tests of editing comments to js
-  # 7. Rerite tests of deleteion comments to js
-  # 8. Tags
-  # 10. Add Bootstrap and make goodlooking perfomance of app
-  # 16. Write tests on models
+
+  VOTE = {
+        like: 1,
+    dislike: -1
+  }
 
   def question
     if self.voteable.class == Question
@@ -16,11 +18,13 @@ class Vote < ActiveRecord::Base
     end
   end
 
-  def add_vote
-    self.quantity + 1
+  def vote_up(user, num)
+      self.update_attributes(quantity: self.quantity + num)
+      self.users << user
   end
 
-  def down_vote
-    self.quantity - 1
+  def vote_down(user, num)
+    self.update_attributes(quantity: self.quantity + num)
+    self.users << user
   end
 end

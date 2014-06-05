@@ -14,6 +14,7 @@ feature 'Add files to questions', %q(
     click_on 'Ask question'
     fill_in 'Title', with: question.title
     fill_in 'Text', with: question.body
+    click_on 'Add a file'
     attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
     click_on 'Create'
 

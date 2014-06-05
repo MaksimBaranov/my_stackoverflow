@@ -15,7 +15,6 @@ feature 'Create question', %q(
     click_on 'Ask question'
     fill_in 'Title', with: question.title
     fill_in 'Text', with: question.body
-    click_on 'Remove this file'
     click_on 'Create'
     expect(page).to have_content question.title
   end

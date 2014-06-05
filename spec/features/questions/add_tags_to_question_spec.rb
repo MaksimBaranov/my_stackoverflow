@@ -17,7 +17,6 @@ I would to add tags to question
     click_on 'Ask question'
     fill_in 'Title', with: question.title
     fill_in 'Text', with: question.body
-    click_on 'Remove this file'
     fill_in 'Tag', with: 'Rails, Javascript, Cofeescript, Ruby'
     click_on 'Create'
     expect(page).to have_content('Rails Javascript Cofeescript Ruby')
