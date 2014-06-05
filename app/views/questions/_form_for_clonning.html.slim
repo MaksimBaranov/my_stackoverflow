@@ -1,0 +1,14 @@
+.js-add-comment-form
+  h4 Add New Comment
+  .comment-error-messages
+  = form_for [ question, comment ], remote: true do |f|
+    = f.label :text
+    = f.text_area :text
+    = f.submit 'Create Comment'
+.js-edit-comment-form
+  h4 Edit Your Comment
+  .comment-error-messages
+  = form_for [ question, comment ], html: { class: 'edit-comment-form'}, method: 'patch', remote: true do |f|
+    = f.label :text, 'Text'
+    = f.text_area :text
+    = f.submit 'Edit Comment'

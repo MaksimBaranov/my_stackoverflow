@@ -1,7 +1,9 @@
 <% if @comment.errors.present? %>
     $('.comment-error-messages').html('<%= j render 'comments/form_errors' %>');
 <% else %>
-  $('li#comment-<%= @comment.id %>').html('<%= j render 'comments/comment', comment: @comment %>');
+  <% publish_to "/questions/#{@comment.question.id}/comments" do %>
+    $('li#comment-<%= @comment.id %>').html('<%= j render 'comments/comment', comment: @comment %>');
+  <% end %>
   reload_edit();
   $('.comment-error-messages').html('');
   $('.js-edit-comment-form.clone').remove();
