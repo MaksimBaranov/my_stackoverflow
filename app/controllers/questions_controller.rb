@@ -11,7 +11,6 @@ class QuestionsController < ApplicationController
 
   def new
     @question = Question.new
-    @question.attachments.build
     respond_to do |format|
       format.html
       format.js
@@ -20,9 +19,6 @@ class QuestionsController < ApplicationController
 
   def show
     @comment = Comment.new
-    @answers = @question.answers
-    @answer = @question.answers.build
-    @answer.attachments.build
   end
 
   def edit
