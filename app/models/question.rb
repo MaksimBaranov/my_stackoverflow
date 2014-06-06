@@ -4,7 +4,6 @@ class Question < ActiveRecord::Base
 
   before_save :save_tags
 
-  after_create :create_new_vote
   belongs_to :user
   has_many :vote, as: :voteable
   has_many :answers
@@ -28,9 +27,5 @@ class Question < ActiveRecord::Base
 
   def save_tags
     self.tags = @tag_names.split(',').map { |n| Tag.where(name: n.strip).first_or_create! }
-  end
-
-  def create_new_vote
-    self.create_vote
   end
 end

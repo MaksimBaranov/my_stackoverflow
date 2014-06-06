@@ -4,15 +4,18 @@ MyStackoverflow::Application.routes.draw do
   concern :commentable do
     resources :comments, only: [:new, :create]
   end
+
+  concern :voteable do
+    post 'votes/up' => 'votes#up', as: :up_vote
+    post 'votes/down' => 'votes#down', as: :down_vote
+  end
+
   resources :questions do
-    concerns :commentable
+    concerns [ :commentable, :voteable ]
     resources :answers, only: [:create, :edit, :update, :destroy]
   end
-  resources :answers, only: [], concerns: :commentable
+  resources :answers, only: [], concerns: [ :commentable, :voteable ]
   resources :comments, only: [:edit, :update, :destroy]
-
-  patch 'votes/:id/up' => 'votes#up', as: :up_vote
-  patch 'votes/:id/down' => 'votes#down', as: :down_vote
   patch 'answers/:question_id/:id/best' => 'answers#best', as: :best_answer
   get 'tags/:tag' => 'questions#index', as: :tag
   get 'tags' => 'tags#index', as: :tags

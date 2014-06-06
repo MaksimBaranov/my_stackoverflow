@@ -1,5 +1,11 @@
-div id="vote-#{object.vote.id}"
-  = link_to 'Up Vote', up_vote_path(object.vote), method: :patch,  :remote => true
-  span id="vote-#{object.vote.id}-count"
-    = object.vote.quantity if object.vote
-  = link_to 'Down Vote', down_vote_path(object.vote), method: :patch,  :remote => true
+div id="vote-#{object}"
+  - if object.class ==Question
+    = link_to 'Up Vote', question_up_vote_path(object), method: :post,  :remote => true
+  - else
+    = link_to 'Up Vote', answer_up_vote_path(object), method: :post,  :remote => true
+  span id="vote-#{object}-count"
+    = object.vote.sum(:value)
+  - if object.class == Question
+    = link_to 'Down Vote', question_down_vote_path(object), method: :post,  :remote => true
+  - else
+    = link_to 'Down Vote', answer_down_vote_path(object), method: :post,  :remote => true

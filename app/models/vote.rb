@@ -3,7 +3,7 @@ class Vote < ActiveRecord::Base
   has_many :preferences
   belongs_to :user
 
-  validates :quantity, numericality: { only_integer: true }
+  validates :value, inclusion: {in: [-1, 1]}
 
   VOTE = {
         like: 1,
@@ -18,12 +18,24 @@ class Vote < ActiveRecord::Base
     end
   end
 
-  def voting(user, num)
-    if user.preferences.where(vote_id: self).empty?
-      self.users << user
-      self.update_attributes(quantity: self.quantity + num)
+  def voting(user, vote_object, num)
+    @vote ||= Vote.where(user_id: user, voteable_type: vote_object.class).first
+    if @vote.present?
+      if @vote.value == num
+        @vote.update(value: - num)
+      else
+        @vote.update(value: num)
+      end
     else
-      false
+      @vote ||= self
+      user.votes << @vote
+      @vote.voteable = vote_object
+      @vote.value = num
+      @vote.save
     end
+  end
+
+  def vote_sum
+    votes.sum(:value)
   end
 end
