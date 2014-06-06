@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   has_many :answers
   has_many :comments
   has_many :preferences
-  has_many :votes, through: :preferences
+  has_many :votes
 
   mount_uploader :avatar, AvatarUploader
   # Include default devise modules. Others available are:
