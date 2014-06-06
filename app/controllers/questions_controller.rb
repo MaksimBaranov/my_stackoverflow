@@ -1,30 +1,15 @@
-class QuestionsController < ApplicationController
+class QuestionsController < InheritedResources::Base
   before_filter :authenticate_user!, except: [:index, :show]
   before_filter :load_question, only: [:show, :edit, :update, :destroy]
+
+  respond_to :html, :js
+
+  #actions :index, :show, :create, :update, :destroy
   def index
     if params[:tag]
       @questions = Question.with_tag(params[:tag])
     else
       @questions = Question.all
-    end
-  end
-
-  def new
-    @question = Question.new
-    respond_to do |format|
-      format.html
-      format.js
-    end
-  end
-
-  def show
-    @comment = Comment.new
-  end
-
-  def edit
-    respond_to do |format|
-      format.html
-      format.js
     end
   end
 

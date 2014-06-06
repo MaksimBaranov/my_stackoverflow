@@ -4,7 +4,7 @@ class VotesController < ApplicationController
 
   def up
     respond_to do |format|
-      if @vote.vote_up(current_user, 1)
+      if @vote.voting(current_user, 1)
         format.html { redirect_to  @vote.question, notice: 'Your voice has been added.' }
         format.js
       else
@@ -18,7 +18,7 @@ class VotesController < ApplicationController
 
   def down
     respond_to do |format|
-      if @vote.vote_down(current_user, -1)
+      if @vote.voting(current_user, -1)
         format.html { redirect_to  @vote.question, notice: 'You have subtracted voice.' }
         format.js
       else

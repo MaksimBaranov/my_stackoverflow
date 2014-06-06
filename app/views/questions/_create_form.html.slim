@@ -1,7 +1,7 @@
 .create-form
   h1 Create New Question
   .question-error-messages
-  = nested_form_for @question, :remote => true do |f|
+  = nested_form_for question, :remote => true do |f|
     p
       = f.label :title
       = f.text_field :title

@@ -1,4 +1,4 @@
-= render 'form_for_clonning', question: @question, comment: @comment
+= render 'form_for_clonning', question: @question, comment: Comment.new
 div id="question-#{@question.id}"
   .question-content
     = render 'question_content', question: @question
