@@ -19,12 +19,10 @@ class Vote < ActiveRecord::Base
   end
 
   def voting(user, vote_object, num)
-    @vote ||= Vote.where(user_id: user, voteable_type: vote_object.class).first
+    @vote ||= Vote.where(user_id: user, voteable_id: vote_object).first
     if @vote.present?
-      if @vote.value == num
-        @vote.update(value: - num)
-      else
-        @vote.update(value: num)
+      unless @vote.value == num
+        @vote.destroy
       end
     else
       @vote ||= self

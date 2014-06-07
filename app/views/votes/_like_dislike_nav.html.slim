@@ -1,0 +1,4 @@
+= up_vote_link(object)
+span.vote-count
+  = object.vote.sum(:value)
+= down_vote_link(object)

@@ -1,4 +1,4 @@
-$("#vote-<%= @vote.id %>-count").html('<%= @vote.quantity %>')
+$("#vote-<%= object.class.name.downcase %>-<%= object.id %>").html('<%= j render 'votes/voice_panel', object: object %>');
 
 <% if flash[:warning] %>
   $('.panel-info').append("<p class='warning'><%= j flash[:warning] %></p>")

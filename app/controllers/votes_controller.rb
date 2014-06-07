@@ -7,7 +7,9 @@ class VotesController < ApplicationController
     respond_to do |format|
       if @vote.voting(current_user, @vote_object, 1 )
         # format.html { redirect_to  @vote.question, notice: 'Your voice has been added.' }
-        format.js
+        format.js {
+          render 'up', locals: {object: @vote_object }
+        }
       else
         # format.html { redirect_to  @vote.question, alert: 'Try Again.' }
         format.js {
@@ -21,7 +23,9 @@ class VotesController < ApplicationController
     respond_to do |format|
       if @vote.voting(current_user, @vote_object, -1 )
         # format.html { redirect_to  @vote.question, notice: 'You have subtracted voice.' }
-        format.js
+        format.js {
+          render 'down', locals: {object: @vote_object }
+        }
       else
         # format.html { redirect_to  @vote.question, alert: 'Try Again.' }
         format.js {

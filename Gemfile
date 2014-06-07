@@ -66,6 +66,7 @@ gem 'rails3-jquery-autocomplete'
 gem 'private_pub'
 gem 'thin'
 gem 'inherited_resources'
+gem 'impressionist'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
