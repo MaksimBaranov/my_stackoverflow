@@ -2,6 +2,15 @@ ul
   - questions.each_with_index do |question, i|
     li id="#{i+1}-question-#{question.id}"
       span #{i+1}
+      div id="statistics-#{question.id}"
+        span.votes-count
+          = question.vote.size
+        br
+        span.answers-count
+          = question.answers.size
+        br
+        span.views-count
+          = '0'
       = link_to "#{question.title}", question
       p
         | Tags:
