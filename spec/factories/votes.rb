@@ -2,5 +2,9 @@
 
 FactoryGirl.define do
   factory :vote do
+    value  { [1, -1].sample }
+    user_id nil
+    voteable_id nil
+    voteable_type nil
   end
 end

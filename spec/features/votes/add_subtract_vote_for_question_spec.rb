@@ -5,66 +5,68 @@ feature 'Voting', %q(
   As an authenticated user
   I want to be able to votes for question
 ) do
-  given(:user) { create(:user) }
-  given(:question) { create(:question) }
-  given(:answer) { create(:answer) }
-  given(:vote) { create(:vote) }
+  given!(:user) { create(:user) }
+  given!(:question) { create(:question) }
+  given!(:answer) { create(:answer) }
+  given!(:vote1) { create(:vote, user: user, voteable_id: question, voteable_type: question, value: 1) }
 
-  def vote_add
-    (vote.quantity + 1).to_s
-  end
 
-  def vote_substract
-    (vote.quantity - 1).to_s
-  end
-
-  scenario 'Authenticated user add voice', js: true  do
-    question.create_vote
+  scenario 'Authenticated user add voice to question', js: true  do
     new_user_session
 
     visit question_path(question)
-    within "#vote-#{question.vote.id}" do
+    within "#vote-#{question.class.name.downcase}-#{question.id}" do
       click_on 'Up Vote'
 
-      within "#vote-#{question.vote.id}-count" do
-        expect(page).to have_content  vote_add
+      within "#vote-#{question.class.name.downcase}-#{question.id} .vote-count" do
+        expect(page).to have_content  1
       end
     end
   end
 
-  scenario 'Authenticated user subtract voice', js: true do
-    question.create_vote
+  scenario 'Authenticated user subtract voice to question', js: true do
     new_user_session
 
     visit question_path(question)
-    within "#vote-#{question.vote.id}" do
+    within "#vote-#{question.class.name.downcase}-#{question.id}" do
       click_on 'Down Vote'
 
-      within "#vote-#{question.vote.id}-count" do
-        expect(page).to have_content  vote_substract
+      within "#vote-#{question.class.name.downcase}-#{question.id} .vote-count" do
+        expect(page).to have_content  -1
+      end
+    end
+  end
+
+  scenario "Authenticated user cancel his voice for question", js: true do
+    user.votes << vote1
+    question.vote << vote1
+    new_user_session
+
+    visit question_path(question)
+    within "#vote-#{question.class.name.downcase}-#{question.id}" do
+      click_on 'Down Vote'
+
+      within "#vote-#{question.class.name.downcase}-#{question.id} .vote-count" do
+        expect(page).to have_content  0
       end
     end
   end
 
   scenario 'Non-authenticated user try to up vote' do
-    question.create_vote
 
     visit question_path(question)
-    within "#vote-#{question.vote.id}" do
+    within "#vote-#{question.class.name.downcase}-#{question.id}" do
       click_on 'Up Vote'
     end
-    expect(page).to have_content %q(You need to sign in
-    or sign up before continuing.)
+    expect(page).to have_button 'Sign in'
   end
 
   scenario 'Non-authenticated user try to down vote' do
-    question.create_vote
 
     visit question_path(question)
-    within "#vote-#{question.vote.id}" do
+    within "#vote-#{question.class.name.downcase}-#{question.id}" do
       click_on 'Down Vote'
     end
-    expect(page).to have_content %q(You need to sign in
-    or sign up before continuing.)
+    expect(page).to have_button 'Sign in'
   end
 end

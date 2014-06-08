@@ -1,4 +1,5 @@
 module VotesHelper
+
   def up_vote_link(object)
     if current_user.votes.where(voteable_id: object, value: 1).empty?
       if object.class == Question

@@ -1,4 +1,10 @@
-= up_vote_link(object)
+- if current_user
+  = up_vote_link(object)
+- else
+  = link_to 'Up Vote', new_user_session_path, title: 'You need sign in|sign up'
 span.vote-count
   = object.vote.sum(:value)
-= down_vote_link(object)
+- if current_user
+  = down_vote_link(object)
+- else
+  =link_to 'Down Vote', new_user_session_path, title: 'You need sign in|sign up'

@@ -5,19 +5,6 @@ class Vote < ActiveRecord::Base
 
   validates :value, inclusion: {in: [-1, 1]}
 
-  VOTE = {
-        like: 1,
-    dislike: -1
-  }
-
-  def question
-    if self.voteable.class == Question
-      self.voteable
-    else self.voteable.class == Answer
-      self.voteable.question
-    end
-  end
-
   def voting(user, vote_object, num)
     @vote ||= Vote.where(user_id: user, voteable_id: vote_object).first
     if @vote.present?
