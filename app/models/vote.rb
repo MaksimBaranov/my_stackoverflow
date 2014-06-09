@@ -1,6 +1,5 @@
 class Vote < ActiveRecord::Base
   belongs_to :voteable, polymorphic: true
-  has_many :preferences
   belongs_to :user
 
   validates :value, inclusion: {in: [-1, 1]}

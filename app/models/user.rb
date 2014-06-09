@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  default_scope { order('name ASC') }
+
   has_many :questions
   has_many :answers
   has_many :comments

@@ -13,6 +13,12 @@ MyStackoverflow::Application.routes.draw do
   resources :questions do
     concerns [ :commentable, :voteable ]
     resources :answers, only: [:create, :edit, :update, :destroy]
+    collection do
+      get 'unanswered', to: 'questions#index', sort_by: 'unanswered'
+      get 'voted', to: 'questions#index', sort_by: 'voted'
+      get 'popular',    to: 'questions#index', sort_by: 'popular'
+      get 'newest',    to: 'questions#index', sort_by: 'newest'
+    end
   end
   resources :answers, only: [], concerns: [ :commentable, :voteable ]
   resources :comments, only: [:edit, :update, :destroy]

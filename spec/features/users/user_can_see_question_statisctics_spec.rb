@@ -31,7 +31,6 @@ feature 'Question Statistics', %q(
   scenario 'See count of votes' do
     visit root_path
 
-    save_and_open_page
     within "#statistics-#{question.id} .votes-count" do
       expect(page).to have_content 5
     end

@@ -1,4 +1,5 @@
 class Question < ActiveRecord::Base
+  default_scope { order(created_at: :desc) }
 
   attr_accessor :tag_names
 
@@ -6,19 +7,23 @@ class Question < ActiveRecord::Base
 
   belongs_to :user
   has_many :vote, as: :voteable
-  has_many :answers
-  has_many :attachments, as: :attachmentable
-  has_many :comments, as: :commentable
+  has_many :answers, dependent: :destroy
+  has_many :attachments, as: :attachmentable, dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
   has_many :taggings
   has_many :tags, through: :taggings
   validates :title, :body, presence: true
   validates :title, length: { in: 10..100 }
   validates :body, length: { in: 50..600 }
 
-  is_impressionable counter_cache: true, column_name: :views_count, unique: true
+  is_impressionable counter_cache: true, column_name: :views_count, unique: :true
 
+  accepts_nested_attributes_for :attachments, allow_destroy: true
 
-  accepts_nested_attributes_for :attachments
+  scope :newest, -> { order(created_at: :desc) }
+  scope :popular, -> { order(views_count: :desc) }
+  scope :voted, -> { joins(:vote).where('value > 0') }
+  scope :unanswered, -> { where(answers_count: 0) }
 
   def self.with_tag(name)
     Tag.find_by_name!(name).questions
@@ -30,5 +35,13 @@ class Question < ActiveRecord::Base
 
   def save_tags
     self.tags = @tag_names.split(',').map { |n| Tag.where(name: n.strip).first_or_create! }
+  end
+
+  def votes_count
+    self.vote.sum(:value)
+  end
+
+  def  self.eager_loading
+    includes(:tags)
   end
 end

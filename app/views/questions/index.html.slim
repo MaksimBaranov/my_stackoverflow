@@ -1,4 +1,14 @@
 h1 List of Questions
+.question-sort-bar
+  ul
+    li
+      = link_to 'newest', newest_questions_path
+    li
+      = link_to 'popular', popular_questions_path
+    li
+      = link_to 'voted', voted_questions_path
+    li
+      = link_to 'unanswered', unanswered_questions_path
 .list-questions
   = render 'questions', questions: @questions
 .create-question-section

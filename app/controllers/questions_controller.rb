@@ -10,9 +10,10 @@ class QuestionsController < InheritedResources::Base
   #actions :index, :show, :create, :update, :destroy
   def index
     if params[:tag]
-      @questions = Question.with_tag(params[:tag])
+      @questions = Question.eager_loading.with_tag(params[:tag])
     else
-      @questions = Question.all
+      @questions = Question.eager_loading.all
+      @questions = @questions.send params[:sort_by] if params[:sort_by]
     end
   end
 
@@ -49,7 +50,7 @@ class QuestionsController < InheritedResources::Base
   private
 
   def load_question
-    @question = Question.find(params[:id])
+    @question = Question.includes(:attachments, {comments: :user}, answers: [:attachments, :comments, :user]).find(params[:id])
   end
 
   def question_params
