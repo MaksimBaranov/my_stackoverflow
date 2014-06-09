@@ -59,7 +59,7 @@ class CommentsController < ApplicationController
   private
 
   def load_comment
-    @comment = Comment.includes(:users).find(params[:id])
+    @comment = Comment.find(params[:id])
   end
 
   def set_comment_object

@@ -18,7 +18,7 @@ class Question < ActiveRecord::Base
 
   is_impressionable counter_cache: true, column_name: :views_count, unique: :true
 
-  accepts_nested_attributes_for :attachments, allow_destroy: true
+  accepts_nested_attributes_for :attachments
 
   scope :newest, -> { order(created_at: :desc) }
   scope :popular, -> { order(views_count: :desc) }
