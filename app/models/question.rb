@@ -15,6 +15,9 @@ class Question < ActiveRecord::Base
   validates :title, length: { in: 10..100 }
   validates :body, length: { in: 50..600 }
 
+  is_impressionable counter_cache: true, column_name: :views_count, unique: true
+
+
   accepts_nested_attributes_for :attachments
 
   def self.with_tag(name)

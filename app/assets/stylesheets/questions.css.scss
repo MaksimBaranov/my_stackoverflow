@@ -1,4 +1,20 @@
 // Place all the styles related to the Questions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.edit-answer-form { display: none }
+.edit-answer-form { display: none; }
+
+.statistics {
+  float: left;
+  margin-left: 30px;
+  min-width: 150px;
+  min-height: 70px;
+  .votes-count, .answers-count, .views-count {
+    width: 50px;
+    padding: 5px;
+    margin: 5px;
+    float: left;
+    .quantity, .units {
+      text-align: center;
+    }
+  }
+}

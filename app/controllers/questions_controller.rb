@@ -2,6 +2,9 @@ class QuestionsController < InheritedResources::Base
   before_filter :authenticate_user!, except: [:index, :show]
   before_filter :load_question, only: [:show, :edit, :update, :destroy]
 
+  impressionist actions: [:show]
+
+
   respond_to :html, :js
 
   #actions :index, :show, :create, :update, :destroy

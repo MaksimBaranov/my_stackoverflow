@@ -2,15 +2,31 @@ ul
   - questions.each_with_index do |question, i|
     li id="#{i+1}-question-#{question.id}"
       span #{i+1}
-      div id="statistics-#{question.id}"
+      div id="statistics-#{question.id}" class="statistics"
         span.votes-count
-          = question.vote.size
-        br
+          table
+            tr.quantity
+              td
+                = question.vote.sum(:value)
+            tr.units
+              td
+                |Votes
         span.answers-count
-          = question.answers.size
-        br
+          table
+            tr.quantity
+              td
+                = question.answers.size
+            tr.units
+              td
+                |Answers
         span.views-count
-          = '0'
+          table
+            tr.quantity
+              td
+                = question.views_count
+            tr.units
+              td
+                |Views
       = link_to "#{question.title}", question
       p
         | Tags:

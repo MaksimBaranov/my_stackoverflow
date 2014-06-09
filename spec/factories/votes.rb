@@ -7,4 +7,11 @@ FactoryGirl.define do
     voteable_id nil
     voteable_type nil
   end
+
+  factory :vote_with_value, class: 'Vote' do
+    value 1
+    user_id nil
+    voteable_id nil
+    voteable_type nil
+  end
 end
