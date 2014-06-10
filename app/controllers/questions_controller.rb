@@ -1,53 +1,29 @@
 class QuestionsController < InheritedResources::Base
+  impressionist actions: [:show]
+  # custom_actions collection: [:voted, :popular, :unanswered, :newest]
   before_filter :authenticate_user!, except: [:index, :show]
   before_filter :load_question, only: [:show, :edit, :update, :destroy]
-
-  impressionist actions: [:show]
-
-
   respond_to :html, :js
 
-  #actions :index, :show, :create, :update, :destroy
-  def index
-    if params[:tag]
-      @questions = Question.eager_loading.with_tag(params[:tag])
-    else
-      @questions = Question.eager_loading.all
-      @questions = @questions.send params[:sort_by] if params[:sort_by]
-    end
-  end
-
-  def create
-    @question = current_user.questions.build(question_params)
-    respond_to do |format|
-      if @question.save
-        format.html { redirect_to @question, notice: 'Your question is successfully created.' }
-        format.js
-      else
-        format.html { render :new }
-        format.js
-      end
-    end
-  end
-
-  def update
-    respond_to do |format|
-      if @question.update(question_params)
-        format.html { redirect_to @question, notice: 'Your question has been successfully updated.' }
-        format.js
-      else
-        format.html { render :edit }
-        format.js
-      end
-    end
-  end
-
   def destroy
-    @question.destroy
-    redirect_to questions_path, notice: 'Your question has been removed.'
+    destroy!( notice: 'Your question has been removed.' ) { questions_path }
   end
 
-  private
+  protected
+
+  def collection
+    if params[:tag]
+      @questions ||= end_of_association_chain.eager_loading.with_tag(params[:tag])
+    else
+      @questions = end_of_association_chain.eager_loading.send params[:sort_by] if params[:sort_by]
+      @questions ||= end_of_association_chain.eager_loading.all
+    end
+  end
+
+  def create_resource(object)
+    object.user = current_user
+    super
+  end
 
   def load_question
     @question = Question.includes(:attachments, {comments: :user}, answers: [:attachments, {comments: :user}, :user]).find(params[:id])

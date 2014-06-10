@@ -11,9 +11,9 @@ div id="question-#{@question.id}"
     .manipulate-question-bar
       .edit-question-form
       .edit-question
-        = link_to 'Improve Question', edit_question_path(@question), remote: true
+        = link_to 'Improve Question', edit_question_path(resource), remote: true
       .delete-question
-      = link_to 'Delete Question', question_path(@question), method: :delete, data: { :confirm => 'Are you sure?' }
+      = link_to 'Delete Question', question_path(resource), method: :delete, data: { :confirm => 'Are you sure?' }
   .list-answers  data={question_id: "#{@question.id}"}
     = render 'answers'
   = render 'answers/create_form', question: @question

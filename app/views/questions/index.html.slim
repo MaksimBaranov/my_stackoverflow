@@ -10,7 +10,7 @@ h1 List of Questions
     li
       = link_to 'unanswered', unanswered_questions_path
 .list-questions
-  = render 'questions', questions: @questions
+  = render 'questions', questions: collection
 .create-question-section
 .create-question-link
   - if user_signed_in?
