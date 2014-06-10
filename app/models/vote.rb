@@ -20,6 +20,6 @@ class Vote < ActiveRecord::Base
   end
 
   def vote_sum
-    votes.sum(:value)
+    vote.sum(:value)
   end
 end

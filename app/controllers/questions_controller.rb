@@ -50,7 +50,7 @@ class QuestionsController < InheritedResources::Base
   private
 
   def load_question
-    @question = Question.includes(:attachments, {comments: :user}, answers: [:attachments, :comments, :user]).find(params[:id])
+    @question = Question.includes(:attachments, {comments: :user}, answers: [:attachments, {comments: :user}, :user]).find(params[:id])
   end
 
   def question_params
