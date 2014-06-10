@@ -1,22 +1,22 @@
-= render 'form_for_clonning', question: @question, comment: Comment.new
-div id="question-#{@question.id}"
+= render 'form_for_clonning', question: resource, comment: Comment.new
+div id="question-#{resource.id}"
   .question-content
-    = render 'question_content', question: @question
+    = render 'question_content', question: resource
   br
   .list-question-comments
-    = render 'comments/list_comments', comment_object: @question
-  = link_to 'Add Comment', new_question_comment_path(@question), id: 'add-comment', class: "add-comment-link", data: { question_id: @question.id }
+    = render 'comments/list_comments', comment_object: resource
+  = link_to 'Add Comment', new_question_comment_path(resource), id: 'add-comment', class: "add-comment-link", data: { question_id: resource.id }
   br
-  - if check_authority(@question)
+  - if check_authority(resource)
     .manipulate-question-bar
       .edit-question-form
       .edit-question
         = link_to 'Improve Question', edit_question_path(resource), remote: true
       .delete-question
       = link_to 'Delete Question', question_path(resource), method: :delete, data: { :confirm => 'Are you sure?' }
-  .list-answers  data={question_id: "#{@question.id}"}
+  .list-answers  data={question_id: "#{resource.id}"}
     = render 'answers'
-  = render 'answers/create_form', question: @question
+  = render 'answers/create_form', question: resource
 
-= subscribe_to "/questions/#{@question.id}/answers"
-= subscribe_to "/questions/#{@question.id}/comments"
+= subscribe_to "/questions/#{resource.id}/answers"
+= subscribe_to "/questions/#{resource.id}/comments"

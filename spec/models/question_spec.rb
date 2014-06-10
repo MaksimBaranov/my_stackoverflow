@@ -50,15 +50,5 @@ describe Question do
         expect{ new_question.save_tags }.to_not  change(Tag, :count)
       end
     end
-
-    # context 'when tag_names is a new' do
-    #   it 'save new record to DB' do
-    #     tag1
-    #     new_question = create(:question, tag_names: 'Hulk')
-
-
-    #     expect{  }.to  change(Tag, :count).by(1)
-    #   end
-    # end
   end
 end

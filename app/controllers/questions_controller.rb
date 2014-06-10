@@ -12,12 +12,9 @@ class QuestionsController < InheritedResources::Base
   protected
 
   def collection
-    if params[:tag]
-      @questions ||= end_of_association_chain.eager_loading.with_tag(params[:tag])
-    else
-      @questions = end_of_association_chain.eager_loading.send params[:sort_by] if params[:sort_by]
+      @questions ||= end_of_association_chain.eager_loading.with_tag(params[:tag]) if params[:tag]
+      @questions ||= end_of_association_chain.eager_loading.send params[:sort_by] if params[:sort_by]
       @questions ||= end_of_association_chain.eager_loading.all
-    end
   end
 
   def create_resource(object)

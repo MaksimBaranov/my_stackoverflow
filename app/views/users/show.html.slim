@@ -2,14 +2,14 @@ h1 Hello User!
 
 h4 Your Details:
 div
-  = image_tag @user.avatar_url if @user.avatar?
+  = image_tag resource.avatar_url if resource.avatar?
 br
-p Email: #{@user.email}
-p Name: #{@user.name}
-p Nickname: #{@user.nickname}
-p Has joined #{ @user.joined_days_ago } days ago
+p Email: #{resource.email}
+p Name: #{resource.name}
+p Nickname: #{resource.nickname}
+p Has joined #{ resource.joined_days_ago } days ago
 
-= link_to 'Edit Your Profile', edit_user_registration_path if current_user == @user
+= link_to 'Edit Your Profile', edit_user_registration_path if current_user ==resource
 
 
 

@@ -1,5 +1,3 @@
-class TagsController < ApplicationController
-  def index
-    @tags = Tag.all
-  end
+class TagsController < InheritedResources::Base
+  respond_to :html
 end
