@@ -1,1 +1,1 @@
-$("#vote-<%= object.class.name.downcase %>-<%= object.id %>").html('<%= j render 'votes/voice_panel', object: object %>');
+$("#vote-<%= parent_class.name.downcase %>-<%= parent.id %>").html('<%= j render 'votes/voice_panel', object: parent %>');

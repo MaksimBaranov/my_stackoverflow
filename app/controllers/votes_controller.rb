@@ -1,49 +1,20 @@
-class VotesController < ApplicationController
+class VotesController < InheritedResources::Base
+  respond_to :js
   before_filter :authenticate_user!
-  before_filter :load_vote
-  before_filter :set_vote_object
+  before_filter :build_vote, only: [:up, :down]
+  belongs_to :answer, :question, polymorphic: true
 
   def up
-    respond_to do |format|
-      if @vote.voting(current_user, @vote_object, 1 )
-        # format.html { redirect_to  @vote.question, notice: 'Your voice has been added.' }
-        format.js {
-          render 'up', locals: {object: @vote_object }
-        }
-      else
-        # format.html { redirect_to  @vote.question, alert: 'Try Again.' }
-        format.js {
-          flash[:warning] = 'You have been voted already!'
-        }
-      end
-    end
+    @vote.voting(current_user, parent, 1 )
   end
 
   def down
-    respond_to do |format|
-      if @vote.voting(current_user, @vote_object, -1 )
-        # format.html { redirect_to  @vote.question, notice: 'You have subtracted voice.' }
-        format.js {
-          render 'down', locals: {object: @vote_object }
-        }
-      else
-        # format.html { redirect_to  @vote.question, alert: 'Try Again.' }
-        format.js {
-          flash[:warning] = 'You have been voted already!'
-        }
-      end
-    end
+    @vote.voting(current_user, parent, -1 )
   end
 
-  private
+  protected
 
-  def load_vote
+  def build_vote
     @vote = Vote.new
-  end
-
-
-  def set_vote_object
-    parent = %w(questions answers).find {|p| request.path.split('/').include? p }[0..-2]
-    @vote_object = parent.classify.constantize.find(params["#{parent}_id"])
   end
 end
