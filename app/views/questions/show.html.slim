@@ -15,7 +15,7 @@ div id="question-#{resource.id}"
       .delete-question
       = link_to 'Delete Question', question_path(resource), method: :delete, data: { :confirm => 'Are you sure?' }
   .list-answers  data={question_id: "#{resource.id}"}
-    = render 'answers'
+    = render 'answers', question: resource
   = render 'answers/create_form', question: resource
 
 = subscribe_to "/questions/#{resource.id}/answers"

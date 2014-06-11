@@ -1,8 +1,8 @@
-<% if @answer.errors.present? %>
-    $('#answer-error-<%= @answer.id %>').html('<%= j render 'answers/form_errors' %>');
+<% if resource.errors.present? %>
+    $('#answer-error-<%= resource.id %>').html('<%= j render 'answers/form_errors' %>');
 <% else %>
-  $('.list-answers').html('<%= j render 'questions/answers' %>');
+  $('.list-answers').html('<%= j render 'questions/answers', question: parent %>');
   reload_edit();
   $('.answer-error-messages').html('');
-  $("form#edit-answer-<%= @answer.id %>").hide();
+  $("form#edit-answer-<%= resource.id %>").hide();
 <% end %>

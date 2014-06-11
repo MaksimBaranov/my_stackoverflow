@@ -1,13 +1,13 @@
 h3 List of answers
 ul
-  - @question.answers.each_with_index do |answer, index|
+  - question.answers.each_with_index do |answer, index|
     - if answer.persisted?
       li id="answer-#{answer.id}"
         - if answer.best == true
           span#best-answer Best Answer
         - else
-          - if @question.user == current_user && @question.answers.where(:best => true).count < 1
-              = link_to 'Make Best', best_answer_path(@question, answer), method: :patch
+          - if question.user == current_user && question.answers.where(:best => true).count < 1
+              = link_to 'Make Best', best_answer_path(question, answer), method: :patch
         br
         = render 'votes/voice_panel', object: answer
         = answer. text
@@ -31,6 +31,6 @@ ul
         = link_to 'Add Comment', new_answer_comment_path(answer), class: "add-comment-link", data: {answer_id: answer.id}
         br
         - if check_authority(answer)
-          = link_to "Improve Answer", edit_question_answer_path(@question, answer), class: 'edit-answer-link', data: { answer_id: answer.id }
-          = render 'answers/edit_form', question: @question, answer: answer
-          = link_to 'Delete Answer', question_answer_path(@question, answer), method: :delete, data: {  :confirm => "Are you sure?" }, :remote => true
+          = link_to "Improve Answer", edit_question_answer_path(question, answer), class: 'edit-answer-link', data: { answer_id: answer.id }
+          = render 'answers/edit_form', question: question, answer: answer
+          = link_to 'Delete Answer', question_answer_path(question, answer), method: :delete, data: {  :confirm => "Are you sure?" }, :remote => true
