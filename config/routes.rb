@@ -1,5 +1,5 @@
 MyStackoverflow::Application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
   resources :users, only: [:show, :index]
   concern :commentable do
     resources :comments, only: [:new, :create]

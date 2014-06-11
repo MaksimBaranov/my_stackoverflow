@@ -54,7 +54,6 @@ group :test do
   gem 'shoulda-matchers'
 end
 
-# Markdown
 gem 'slim'
 gem 'devise'
 gem 'carrierwave'
@@ -67,6 +66,8 @@ gem 'private_pub'
 gem 'thin'
 gem 'inherited_resources'
 gem 'impressionist'
+gem 'omniauth'
+gem 'omniauth-facebook'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
