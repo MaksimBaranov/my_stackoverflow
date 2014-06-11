@@ -1,8 +1,8 @@
-<% if @comment.errors.present? %>
+<% if resource.errors.present? %>
     $('.comment-error-messages').html('<%= j render 'comments/form_errors' %>');
 <% else %>
-  <% publish_to "/questions/#{@comment.question.id}/comments" do %>
-    $('li#comment-<%= @comment.id %>').html('<%= j render 'comments/comment', comment: @comment %>');
+  <% publish_to "/questions/#{resource.question.id}/comments" do %>
+    $('li#comment-<%= resource.id %>').html('<%= j render 'comments/comment', comment: resource %>');
   <% end %>
   reload_edit();
   $('.comment-error-messages').html('');

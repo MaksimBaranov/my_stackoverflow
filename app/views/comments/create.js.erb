@@ -1,19 +1,19 @@
-<% if @comment_object.class == Question %>
-  <% if @comment.errors.present? %>
+<% if parent_type == :question %>
+  <% if resource.errors.present? %>
     $('.comment-error-messages').html('<%= j render 'form_errors' %>');
   <% else %>
-   <% publish_to "/questions/#{@comment_object.id}/comments" do %>
-    $('.list-question-comments').html('<%= j render 'list_comments', comment_object: @comment_object %>')
+   <% publish_to "/questions/#{parent.id}/comments" do %>
+    $('.list-question-comments').html('<%= j render 'list_comments', comment_object: parent %>')
   <% end %>
     $('.js-add-comment-form.clone').remove();
     $('.add-comment-link').show();
   <% end %>
 <% else %>
-  <% if @comment.errors.present? %>
+  <% if resource.errors.present? %>
     $('.comment-error-messages').html('<%= j render 'form_errors' %>');
   <% else %>
-    <% publish_to "/questions/#{@comment_object.question.id}/comments" do %>
-      $("#answer-<%= @comment_object.id %> .list-answer-comments").html('<%= j render 'list_comments', comment_object: @comment_object %>')
+    <% publish_to "/questions/#{parent.question.id}/comments" do %>
+      $("#answer-<%= parent.id %> .list-answer-comments").html('<%= j render 'list_comments', comment_object: parent %>')
     <% end %>
     $('.js-add-comment-form.clone').remove();
     // It will change when i add popup or dialog window
