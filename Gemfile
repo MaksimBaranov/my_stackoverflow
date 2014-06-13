@@ -5,6 +5,7 @@ gem 'rails', '4.1.0'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
+gem 'rails_12factor', group: :production
 
 gem 'bootstrap-sass'
 # Use SCSS for stylesheets
@@ -68,6 +69,8 @@ gem 'inherited_resources'
 gem 'impressionist'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
