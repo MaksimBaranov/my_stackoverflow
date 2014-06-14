@@ -28,17 +28,28 @@ class User < ActiveRecord::Base
     authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first
     return authorization.user if authorization
 
-    email = auth.info[:email]
-    user = User.where(email: email).first
-    if user
-      user.create_authorization(auth)
-    else
-      password = Devise.friendly_token[0, 20]
-      user = User.create!(email: email, password: password, password_confirmation: password)
-      user.create_authorization(auth)
-    end
+    if auth.info.has_key?(:email)
+      email = auth.info[:email]
+      user = User.where(email: email).first
+      if user
+        user.create_authorization(auth)
+      else
+        password = Devise.friendly_token[0, 20]
+        user = User.create!(email: email, password: password, password_confirmation: password)
+        user.create_authorization(auth)
+      end
 
-    user
+      user
+    else
+      fake_email = 'fake_email@user.com'
+      checksum =  Array.new(20){[*'A'..'Z', *0..9, *'a'..'z'].sample}.join
+
+      password = Devise.friendly_token[0, 20]
+      user = User.create!(email: fake_email, password: password, password_confirmation: password)
+      user.authorizations.create(provider: auth.provider, uid: auth.uid.to_s, checksum: checksum )
+
+      user
+    end
   end
 
   def create_authorization(auth)

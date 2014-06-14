@@ -134,6 +134,8 @@ GEM
     jwt (1.0.0)
     launchy (2.4.2)
       addressable (~> 2.3)
+    letter_opener (1.2.0)
+      launchy (~> 2.2)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -288,6 +290,7 @@ DEPENDENCIES
   jquery-tmpl-rails
   jquery-turbolinks
   launchy
+  letter_opener
   nested_form
   omniauth
   omniauth-facebook
