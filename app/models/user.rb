@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   has_many :votes
   has_many :authorizations
 
+  attr_accessor :new_email
+
   mount_uploader :avatar, AvatarUploader
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -54,6 +56,10 @@ class User < ActiveRecord::Base
 
   def create_authorization(auth)
     self.authorizations.create(provider: auth.provider, uid: auth.uid)
+  end
+
+  def change_email(new_email)
+    self.update!(email: new_email)
   end
 end
 

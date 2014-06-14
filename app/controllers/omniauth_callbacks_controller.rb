@@ -5,7 +5,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       sign_in_and_redirect @user, event: :authentication
       set_flash_message(:notice, :success, kind: 'Facebook') if is_navigational_format?
     else
-      redirect_to :controller => 'verifications', action: 'get_mail', id: @user
+      redirect_to :controller => 'verifications', action: 'take_email', id: @user
     end
   end
 end
