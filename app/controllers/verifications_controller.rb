@@ -21,6 +21,7 @@ class VerificationsController < ApplicationController
     if params[:checksum] == authorization.checksum
       authorization.update(confirmed: true)
       sign_in_and_redirect @user, event: :authentication
+      flash[:nitice] = 'You have been registered successfully'
     else
       @user.destroy
       flash[:alert] = 'You do not verify your account, try again.'
