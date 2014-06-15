@@ -1,0 +1,11 @@
+h1  Verification
+p In order to be member of your web service input to form and check your email. We will send your verification url
+
+= form_for @user, :url => { controller: 'verifications', :action => "send_letter" }, method: 'patch' do |f|
+  p
+    = f.label :new_email, 'Your Email'
+  p
+    = f.text_field :new_email
+  p
+    = f.submit 'Send'
+

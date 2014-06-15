@@ -36,6 +36,7 @@ end
 
 group :development do
   gem "bullet"
+  gem "letter_opener"
 end
 
 group :test, :development do

@@ -45,16 +45,16 @@ describe User do
 
       context 'user does not exist' do
         let(:auth) { OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456', info: { email: 'new@user.com' }) }
-        let(:auth1) { OmniAuth::AuthHash.new(provider: 'twitter', uid: '123456' }
-        it 'creates new user' do
-          expect { User.find_for_oauth(auth) }.to change(User, :count).by(1)
-        end
 
-        it 'returns new user' do
-          expect(User.find_for_oauth(auth)).to be_a(User)
-        end
+        context 'provider gives email' do
+          it 'creates new user' do
+            expect { User.find_for_oauth(auth) }.to change(User, :count).by(1)
+          end
 
-        context 'omniauth-data with email' do
+          it 'returns new user' do
+            expect(User.find_for_oauth(auth)).to be_a(User)
+          end
+
           it 'fills user email' do
             user = User.find_for_oauth(auth)
             expect(user.email).to eq auth.info[:email]
@@ -65,7 +65,7 @@ describe User do
             expect(user.authorizations).to_not be_empty
           end
 
-          it 'creates authorization with provider and uid' do
+          it 'creates authorization with provider, uid, checksum' do
             authorization = User.find_for_oauth(auth).authorizations.first
 
             expect(authorization.provider).to eq auth.provider
@@ -73,15 +73,20 @@ describe User do
           end
         end
 
-        context 'omniauth-data without email' do
-          it 'fills user fake-email' do
-            user = User.find_for_oauth(oauth)
-            expect(user.email).to eq auth.info[:email]
+        context 'provider does not give email' do
+          let(:auth) { OmniAuth::AuthHash.new(provider: 'twitter', uid: '123456', info: {}) }
+
+          it 'creates new user' do
+            expect { User.find_for_oauth(auth) }.to change(User, :count).by(1)
           end
 
-          it 'gives unconfirmed status' do
+          it 'returns new user' do
+            expect(User.find_for_oauth(auth)).to be_a(User)
+          end
+
+          it 'fills user fake-email' do
             user = User.find_for_oauth(auth)
-            expect(user.confirm_status).to eq false
+            expect(user.email).to eq 'fake_email@user.com'
           end
 
           it 'creates authorization for user' do
@@ -89,17 +94,13 @@ describe User do
             expect(user.authorizations).to_not be_empty
           end
 
-          it 'creates authorization with provider and uid' do
+          it 'creates authorization with provider, uid, checksum' do
             authorization = User.find_for_oauth(auth).authorizations.first
-
+            authorization.checksum = 'random_string'
+            authorization.save
             expect(authorization.provider).to eq auth.provider
             expect(authorization.uid).to eq auth.uid
-          end
-
-          it 'creates authorization with check_code' do
-            authorization = User.find_for_oauth(auth).authorizations.first
-
-            expect(authorization.check_code).to_not be_nil
+            expect(authorization.checksum).to_not be_nil
           end
         end
       end

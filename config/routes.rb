@@ -1,4 +1,8 @@
 MyStackoverflow::Application.routes.draw do
+  get 'verifications/take'
+
+  get 'verifications/verify'
+
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
   resources :users, only: [:show, :index]
   concern :commentable do
@@ -25,6 +29,9 @@ MyStackoverflow::Application.routes.draw do
   patch 'answers/:question_id/:id/best' => 'answers#best', as: :best_answer
   get 'tags/:tag' => 'questions#index', as: :tag
   get 'tags' => 'tags#index', as: :tags
+  get 'verifications/:id/take' => 'verifications#take_email', as: :take_email
+  patch 'verifications/send_letter/:id', to: 'verifications#send_letter', as: :send_letter
+  get 'verifications/:id/:authorization/:checksum/verify', to: 'verifications#verify', as: :verify
   root 'questions#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

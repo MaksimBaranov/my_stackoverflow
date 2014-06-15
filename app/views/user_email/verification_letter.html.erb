@@ -1,0 +1,9 @@
+<h1>Verification letter</h1>
+
+<p>
+  Go through this url and verify your account.
+</p>
+<%= @user.email %>
+<p>Url</p>
+<br/>
+<%= link_to 'Click me to verify your account', @url, method: 'patch' %>
