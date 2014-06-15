@@ -14,8 +14,12 @@ MyStackoverflow::Application.routes.draw do
     post 'votes/down' => 'votes#down', as: :down_vote
   end
 
+  concern :favoriteable do
+    post 'favorites/favor', to: 'favorites#favor', as: :favor
+  end
+
   resources :questions do
-    concerns [ :commentable, :voteable ]
+    concerns [ :commentable, :voteable, :favoriteable ]
     resources :answers, only: [:create, :edit, :update, :destroy]
     collection do
       get 'unanswered', to: 'questions#index', sort_by: 'unanswered'
@@ -24,7 +28,7 @@ MyStackoverflow::Application.routes.draw do
       get 'newest',    to: 'questions#index', sort_by: 'newest'
     end
   end
-  resources :answers, only: [], concerns: [ :commentable, :voteable ]
+  resources :answers, only: [], concerns: [ :commentable, :voteable, :favoriteable ]
   resources :comments, only: [:edit, :update, :destroy]
   patch 'answers/:question_id/:id/best' => 'answers#best', as: :best_answer
   get 'tags/:tag' => 'questions#index', as: :tag

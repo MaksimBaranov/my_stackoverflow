@@ -4,8 +4,8 @@ describe User do
   it { should have_many(:questions) }
   it { should have_many(:answers) }
   it { should have_many(:votes) }
+  it { should have_many(:favorites) }
   it { should have_many(:comments) }
-  it { should have_many(:votes) }
   it { should validate_presence_of :email }
   it { should validate_presence_of :password }
 
@@ -82,7 +82,7 @@ describe User do
 
           it 'returns new user' do
             expect(User.find_for_oauth(auth)).to be_a(User)
-          end
+            end
 
           it 'fills user fake-email' do
             user = User.find_for_oauth(auth)

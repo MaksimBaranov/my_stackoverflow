@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :preferences
   has_many :votes
+  has_many :favorites
   has_many :authorizations
 
   attr_accessor :new_email

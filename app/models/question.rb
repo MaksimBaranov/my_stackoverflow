@@ -7,6 +7,7 @@ class Question < ActiveRecord::Base
 
   belongs_to :user
   has_many :vote, as: :voteable
+  has_many :favorites, as: :favoriteable
   has_many :answers, dependent: :destroy
   has_many :attachments, as: :attachmentable, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy

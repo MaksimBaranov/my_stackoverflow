@@ -9,6 +9,13 @@ ul
           - if question.user == current_user && question.answers.where(:best => true).count < 1
               = link_to 'Make Best', best_answer_path(question, answer), method: :patch
         br
+        div id="favorites-answer-id-#{answer.id}"
+          .favorites
+            - if current_user.favorites.exists?(favoriteable_id: answer.id)
+              .add-to-favorites
+                | Favorite
+            -else
+              = link_to 'Add to Favorites', answer_favor_path(answer), method: :post if current_user
         = render 'votes/voice_panel', object: answer
         = answer. text
         p Attachments:

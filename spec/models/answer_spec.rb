@@ -4,6 +4,7 @@ describe Answer do
   it { should belong_to(:user) }
   it { should belong_to(:question), counter_cache: true }
   it { should have_many(:vote) }
+  it { should have_many(:favorites) }
   it { should have_many :attachments }
   it { should have_many(:comments) }
 
