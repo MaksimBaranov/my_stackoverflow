@@ -2,10 +2,11 @@ h2 = @question.title
 .text-question
   div id="favorites-question-id-#{@question.id}"
     .favorites
-      - if current_user.favorites.exists?(favoriteable_id: @question.id)
-        | Favorite
-      -else
-        = link_to 'Add to Favorites', question_favor_path(@question), method: :post if current_user
+      - if current_user
+        - if current_user.favorites.exists?(favoriteable_id: @question.id)
+          | Favorite
+        -else
+          = link_to 'Add to Favorites', question_favor_path(@question), method: :post
   = render 'votes/voice_panel', object: @question
   p = @question.body
   | Tags:

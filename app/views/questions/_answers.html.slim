@@ -11,11 +11,12 @@ ul
         br
         div id="favorites-answer-id-#{answer.id}"
           .favorites
-            - if current_user.favorites.exists?(favoriteable_id: answer.id)
-              .add-to-favorites
-                | Favorite
-            -else
-              = link_to 'Add to Favorites', answer_favor_path(answer), method: :post if current_user
+            - if current_user
+              - if current_user.favorites.exists?(favoriteable_id: answer.id)
+                .add-to-favorites
+                  | Favorite
+              -else
+                = link_to 'Add to Favorites', answer_favor_path(answer), method: :post
         = render 'votes/voice_panel', object: answer
         = answer. text
         p Attachments:
