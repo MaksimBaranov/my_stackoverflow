@@ -37,12 +37,29 @@ scenario 'User adds question to favourities' do
     user.favorites << favorite
     question.favorites << favorite
 
-    within '.add-to-favorites' do
-      expect(page).to have_co 'Favorite'
+    save_and_open_page
+    within '.favorites' do
+      expect(page).to have_content 'Favorite'
     end
   end
 end
-scenario 'User adds answer to favoritties'
+
+scenario 'User adds answer to favorites' do
+  new_user_session
+  question.answers << answer
+  visit question_path(question)
+  within "#favorites-answer-id-#{answer.id}" do
+    click_on 'Add to Favorites'
+    user.favorites << favorite
+    answer.favorites << favorite
+
+    save_and_open_page
+    within '.favorites' do
+      expect(page).to have_content 'Favorite'
+    end
+  end
+end
+
 scenario 'Non-authenticated user try to add to favorites' do
   visit question_path(question)
 
