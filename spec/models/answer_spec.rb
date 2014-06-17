@@ -12,4 +12,19 @@ describe Answer do
   it { should ensure_length_of(:text).is_at_least(10).is_at_most(600) }
 
   it { should accept_nested_attributes_for :attachments }
+
+  let!(:user) { create(:user) }
+  let!(:user1){ create(:user) }
+  let!(:question){ create(:question) }
+  let!(:answer){ create(:answer) }
+
+  context ".after create" do
+    it "add point to user's reputation" do
+      user.questions << question
+      question.answers << answer
+      old_reputation = user1.reputation
+      user1.answers << answer
+      expect(user1.reputation).to eq old_reputation + ReputationConstant::ONEPOINT
+    end
+  end
 end
