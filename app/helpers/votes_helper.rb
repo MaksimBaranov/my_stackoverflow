@@ -1,7 +1,7 @@
 module VotesHelper
 
   def up_vote_link(object)
-    if current_user.votes.where(voteable_id: object, value: 1).empty?
+    if current_user.votes.where(voteable_id: object, value: 1).empty? && current_user != object.user
       if object.class == Question
           link_to 'Up Vote', question_up_vote_path(object), method: :post,  :remote => true
       else
@@ -14,7 +14,7 @@ module VotesHelper
 
 
   def down_vote_link(object)
-    if current_user.votes.where(voteable_id: object, value: -1).empty?
+    if current_user.votes.where(voteable_id: object, value: -1).empty? && current_user != object.user
       if object.class == Question
           link_to 'Down Vote', question_down_vote_path(object), method: :post,  :remote => true
       else
