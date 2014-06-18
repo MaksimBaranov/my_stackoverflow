@@ -6,7 +6,7 @@ class Question < ActiveRecord::Base
   before_save :save_tags
 
   belongs_to :user
-  has_many :vote, as: :voteable
+  has_many :votes, as: :voteable
   has_many :favorites, as: :favoriteable
   has_many :answers, dependent: :destroy
   has_many :attachments, as: :attachmentable, dependent: :destroy
@@ -39,7 +39,7 @@ class Question < ActiveRecord::Base
   end
 
   def votes_count
-    self.vote.sum(:value)
+    self.votes.sum(:value)
   end
 
   def  self.eager_loading

@@ -1,9 +1,9 @@
 class QuestionsController < InheritedResources::Base
   impressionist actions: [:show]
-  # custom_actions collection: [:voted, :popular, :unanswered, :newest]
   before_filter :authenticate_user!, except: [:index, :show]
   before_filter :load_question, only: [:show, :edit, :update, :destroy]
   respond_to :html, :js
+  load_and_authorize_resource
 
   def destroy
     destroy!( notice: 'Your question has been removed.' ) { questions_path }

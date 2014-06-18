@@ -24,7 +24,7 @@ describe Vote do
 
       it "destroy users record if voting value not  equal record value" do
         vote1 =create(:vote, value: 1)
-        question.vote << vote1
+        question.votes << vote1
         user.votes << vote1
 
         expect{ vote1.voting(user, question, -1) }.to  change(Vote, :count).by(-1)
@@ -42,7 +42,7 @@ describe Vote do
 
       it "destroy users record if voting value not  equal record value" do
         vote1 =create(:vote, value: -1)
-        answer.vote << vote1
+        answer.votes<< vote1
         user.votes << vote1
 
         expect{ vote1.voting(user, answer, 1) }.to  change(Vote, :count).by(-1)

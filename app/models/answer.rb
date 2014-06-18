@@ -7,18 +7,18 @@ class Answer < ActiveRecord::Base
     if first_answer == answer
       if user == author_question
         reputation = author_question.reputation
-        author_question.update(reputation: reputation + ReputationConstant::THREEPOINTS)
+        author_question.update(reputation: reputation + 3)
       else
         reputation = user.reputation
-        user.update(reputation: reputation + ReputationConstant::TWOPOINTS)
+        user.update(reputation: reputation + 2)
       end
     else
       if user == author_question
         reputation = author_question.reputation
-        author_question.update(reputation: reputation + ReputationConstant::TWOPOINTS)
+        author_question.update(reputation: reputation + 2)
       else
         reputation = user.reputation
-        user.update(reputation: reputation + ReputationConstant::ONEPOINT)
+        user.update(reputation: reputation + 1)
       end
     end
   end
@@ -27,12 +27,12 @@ class Answer < ActiveRecord::Base
     user = answer.user
     if answer.best == true
       reputation = user.reputation
-      user.update(reputation: reputation + ReputationConstant::THREEPOINTS)
+      user.update(reputation: reputation + 3)
     end
   end
   belongs_to :user
   belongs_to :question, :counter_cache => true
-  has_many :vote, as: :voteable
+  has_many :votes, as: :voteable
   has_many :favorites, as: :favoriteable
   has_many :comments, as: :commentable
   has_many :attachments, as: :attachmentable

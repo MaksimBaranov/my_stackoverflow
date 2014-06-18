@@ -58,6 +58,7 @@ end
 
 gem 'slim'
 gem 'devise'
+gem 'cancan'
 gem 'carrierwave'
 gem 'remotipart'
 gem "nested_form"

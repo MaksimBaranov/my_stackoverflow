@@ -5,6 +5,7 @@ FactoryGirl.define do
     user
     question
     text Faker::Lorem.paragraph(4)
+    best false
   end
 
   factory :invalid_answer, class: 'Answer' do

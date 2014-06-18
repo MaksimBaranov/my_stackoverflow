@@ -10,15 +10,15 @@ class Vote < ActiveRecord::Base
     reputation = user.reputation
     if vote.voteable_type == 'Question'
       if vote.value == 1
-        user.update(reputation: reputation + ReputationConstant::TWOPOINTS)
+        user.update(reputation: reputation + 2)
       else
-        user.update(reputation: reputation - ReputationConstant::TWOPOINTS)
+        user.update(reputation: reputation - 2)
       end
     else
       if vote.value == 1
-        user.update(reputation: reputation + ReputationConstant::ONEPOINT)
+        user.update(reputation: reputation + 1)
       else
-        user.update(reputation: reputation - ReputationConstant::ONEPOINT)
+        user.update(reputation: reputation - 1)
       end
     end
   end

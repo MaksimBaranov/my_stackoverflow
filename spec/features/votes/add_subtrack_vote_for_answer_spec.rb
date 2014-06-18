@@ -8,7 +8,6 @@ feature 'Voting', %q(
   given!(:user) { create(:user) }
   given!(:question) { create(:question) }
   given!(:answer) { create(:answer) }
-  given!(:vote1) { create(:vote, user: user, voteable_id: answer, voteable_type: answer, value: 1) }
 
   before(:each) { question.answers << answer }
 
@@ -39,8 +38,6 @@ feature 'Voting', %q(
   end
 
   scenario "Authenticated user cancel his voice for answer", js: true do
-    user.votes << vote1
-    answer.vote << vote1
     new_user_session
 
     visit question_path(question)

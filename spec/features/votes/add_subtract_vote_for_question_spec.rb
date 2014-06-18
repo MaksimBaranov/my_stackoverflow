@@ -8,8 +8,6 @@ feature 'Voting', %q(
   given!(:user) { create(:user) }
   given!(:question) { create(:question) }
   given!(:answer) { create(:answer) }
-  given!(:vote1) { create(:vote, user: user, voteable_id: question, voteable_type: question, value: 1) }
-
 
   scenario 'Authenticated user add voice to question', js: true  do
     new_user_session
@@ -38,10 +36,7 @@ feature 'Voting', %q(
   end
 
   scenario "Authenticated user cancel his voice for question", js: true do
-    user.votes << vote1
-    question.vote << vote1
     new_user_session
-
     visit question_path(question)
     within "#vote-#{question.class.name.downcase}-#{question.id}" do
       click_on 'Down Vote'

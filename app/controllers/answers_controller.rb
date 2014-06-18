@@ -3,6 +3,7 @@ class AnswersController < InheritedResources::Base
   before_action :build_answer, only: :create
   respond_to :js, :html
   belongs_to :question
+  load_and_authorize_resource
 
   def best
     if parent.user == current_user

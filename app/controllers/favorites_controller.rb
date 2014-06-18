@@ -3,7 +3,7 @@ class FavoritesController < InheritedResources::Base
   actions :favor
   before_filter :authenticate_user!
   belongs_to :answer, :question, polymorphic: true
-
+  load_and_authorize_resource
 
   def favor
     resource = Favorite.new

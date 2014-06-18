@@ -3,6 +3,7 @@ class CommentsController < InheritedResources::Base
   before_filter :authenticate_user!
   actions :all
   belongs_to :answer, :question, polymorphic: true, :optional => true
+  load_and_authorize_resource
 
   protected
 
