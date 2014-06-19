@@ -6,8 +6,8 @@ gem 'rails', '4.1.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
 #gem 'rails_12factor', group: :production
-
 gem 'bootstrap-sass'
+gem "twitter-bootstrap-rails"
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 

@@ -1,25 +1,67 @@
 body {
-  .nav-bar {
-    height: 100px;
-    width: auto;
-    background: blue;
-    text-align: center;
+  background:  #929292;
+  .brand {
+    font-size: small !important;
   }
-  .wrapper {
-    margin:auto;
-    width: 1600px;
-    min-height: 800px;
-    background: green;
-    .notice {
-      text-align: left;
-      background: yellow;
+  .wrapper.container {
+    h1 {
+      float: left;
+      width: 35%;
+      margin: 0 10px 0 0;
     }
-    .alert, .warning {
-      text-align: left;
-      background: red;
+    .nav.nav-tabs {
+      border-bottom: 2px solid #ddd;
+      a:hover {
+        color: #555;
+      }
+    }
+    .question-sort-bar {
+      float: left;
+      width:40%;
+      .nav.nav-pills {
+        a:hover {
+          color: #555;
+        }
+        .sort-by {
+          a {
+            background-color: #fff;
+            color: black;
+            border-radius: 5px;
+            margin-bottom: 2px;
+            margin-top: 2px;
+            padding-bottom: 8px;
+            padding-top: 8px;
+          }
+        }
+      }
+    }
+    .create-question-link {
+      a:hover {
+        color: black;
+      }
+    }
+    .create-question-section {
+      display: block;
+      width: 300px;
+      height: 400px;
+      z-index: 9999;
+      // margin: auto;
+      // position: absolute;
+      // top: 100px; left: 0; bottom: 0; right: 0;
+    }
+    .question-list {
+      float:left;
+      width: 70%;
+    }
+    .left-content-bar {
+      width: 20%;
+      float: left;
+      margin-left: 30px;
+    }
+    .question-container {
+      padding-top: 10px;
     }
   }
-
 }
 
 

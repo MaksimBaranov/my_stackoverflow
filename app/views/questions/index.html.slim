@@ -1,21 +1,21 @@
 h1 List of Questions
 .question-sort-bar
-  ul
-    li
+  ul.nav.nav-pills
+    li class="#{ params[:sort_by] == "newest" ? 'sort-by' : ''}"
       = link_to 'newest', newest_questions_path
-    li
+    li class="#{ params[:sort_by] == "popular" ? 'sort-by' : ''}"
       = link_to 'popular', popular_questions_path
-    li
+    li class="#{ params[:sort_by] == "voted" ? 'sort-by' : ''}"
       = link_to 'voted', voted_questions_path
-    li
+    li class="#{ params[:sort_by] == "unanswered" ? 'sort-by' : ''}"
       = link_to 'unanswered', unanswered_questions_path
-.list-questions
-  = render 'questions', questions: collection
-.create-question-section
-.create-question-link
+.create-question-link.btn
   - if user_signed_in?
     = link_to "Ask question", new_question_path, :remote => true
   - else
     = link_to 'Login to ask question', new_user_session_path
+.list-questions
+  = render 'questions', questions: collection
 
 = subscribe_to "/questions"
+.create-question-section

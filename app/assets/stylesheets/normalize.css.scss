@@ -1,8 +1,12 @@
 body, ul, li, a, ol, p, span, div, tr, td, th, h1, h2, h3, h4, h5, h6  {
   margin: 0;
   padding: 0;
+  color: black;
   a {
-    text-decoration: none;
+    text-decoration: none !important;
+  }
+  a:hover {
+    color: ghostwhite;
   }
 
   li {

@@ -7,14 +7,23 @@ html
     = csrf_meta_tags
   body
     = render 'layouts/navigation'
-    .wrapper
-      .panel-info
-        - if notice
-          p.notice = notice
-        - if alert
-          p.alert = alert
+    - if notice
+      .alert.alert-success
+        button type="button" class="close" data-dismiss="alert"
+          | &times;
+        p= notice
+    - if alert
+      .alert.alert-error
+        button type="button" class="close" data-dismiss="alert"
+          | &times;
+        p= alert
+    .wrapper.container
       .content
-        = link_to 'Users', users_path
-        = link_to 'Questions', questions_path
-        = link_to 'Tags', tags_path
+        ul class="nav nav-tabs"
+          li class="#{params[:controller] == 'users' ? 'active' : ''}"
+            = link_to 'Users', users_path
+          li class="#{params[:controller] == 'questions' ? 'active' : ''}"
+            = link_to 'Questions', questions_path
+          li class="#{params[:controller] == 'tags' ? 'active' : ''}"
+            = link_to 'Tags', tags_path
         = yield

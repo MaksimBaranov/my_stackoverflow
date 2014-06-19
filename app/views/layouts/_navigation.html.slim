@@ -1,12 +1,20 @@
-.nav-bar
-  .logo
-    =link_to 'MyStackoverflow', root_path
-  -if user_signed_in?
-    ul
-      li = current_user.email
-      li = link_to 'Your profile', user_path(current_user)
-      li = link_to 'Sign out', destroy_user_session_path, data: {confirm: "Are you sure?"}, method: :delete
-  -else
-      ul
-        li = link_to 'Log up', new_user_registration_path
-        li = link_to 'Log in', new_user_session_path
+.navbar.navbar-inverse style="position: static;"
+  .navbar-inner
+    .container
+      button.btn.btn-navbar data-target=".navbar-inverse-collapse" data-toggle="collapse"
+        span class="icon-bar"
+        span class="icon-bar"
+        span class="icon-bar"
+      = link_to 'MyStackoverflow', root_path, class: 'brand'
+      .nav-collapse.collapse.navbar-inverse-collapse
+        ul.nav
+          -if user_signed_in?
+            li class="#{params[:action] == 'show' ? 'active' : ''}"
+              = link_to 'Your profile', user_path(current_user)
+            li class="#{params[:action] == 'sign_out' ? 'active' : ''}"
+              = link_to 'Sign out', destroy_user_session_path, data: {confirm: "Are you sure?"}, method: :delete
+          -else
+            li class="#{params[:action] == 'new' && params[:controller] == 'devise/registrations' ? 'active' : ''}"
+              = link_to 'Log up', new_user_registration_path
+            li class="#{params[:action] == 'new' && params[:controller] == 'devise/sessions' ? 'active' : ''}"
+              = link_to 'Log in', new_user_session_path
