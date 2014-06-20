@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Question do
   it { should belong_to(:user) }
-  it { should have_many(:vote) }
+  it { should have_many(:votes) }
   it { should have_many(:favorites) }
   it { should have_many(:answers) }
   it { should have_many(:comments) }

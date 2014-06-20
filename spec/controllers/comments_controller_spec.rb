@@ -177,12 +177,14 @@ describe CommentsController do
           end
 
           it 'changes comment attributes' do
+            @user.comments << comment
             patch :update, id: comment, comment: { text: "some comment"*5 }
             comment.reload
             expect(comment.text).to eq "some comment"*5
          end
 
           it 'renders to view QuestionController#show' do
+            @user.comments << comment
             patch :update, id: comment, comment: { text: "some comment"*5 }, format: :js
             expect(response).to render_template :update
           end
@@ -196,6 +198,7 @@ describe CommentsController do
           end
 
           it 're-renders edit view' do
+           @user.comments << comment
             patch :update, id: comment, comment: { text: "some text" }
             expect(response).to render_template :edit
           end
@@ -212,12 +215,14 @@ describe CommentsController do
           end
 
           it 'changes comment attributes' do
+            @user.comments << comment
             patch :update, id: comment, comment: { text: "some comment"*5 }
             comment.reload
             expect(comment.text).to eq "some comment"*5
          end
 
           it 'renders to view QuestionController#show' do
+           @user.comments << comment
             patch :update, id: comment, comment: { text: "some comment"*5 }, format: :js
             expect(response).to render_template :update
           end
@@ -225,12 +230,14 @@ describe CommentsController do
 
         context 'with invalid attributes' do
           it 'does not change comment attributes' do
+           @user.comments << comment
             patch :update, id: comment, comment: { text: "some text" }
             answer.reload
             expect(answer.text).to eq answer.text
           end
 
           it 're-renders edit view' do
+           @user.comments << comment
             patch :update, id: comment, comment: { text: "some text" }
             expect(response).to render_template :edit
           end
@@ -267,7 +274,10 @@ describe CommentsController do
       login_user
 
       context 'deletes comment of question' do
-        before(:each) { add_comment_to_question }
+        before(:each) do
+          add_comment_to_question
+         @user.comments << comment
+        end
 
         it 'deletes commetn' do
           comment
@@ -281,7 +291,10 @@ describe CommentsController do
       end
 
       context 'deletes comment of answer' do
-        before(:each) { add_comment_to_answer }
+        before(:each) do
+          @user.comments << comment
+          add_comment_to_answer
+        end
 
         it 'deletes comment' do
           comment

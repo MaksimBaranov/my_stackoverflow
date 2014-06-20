@@ -9,7 +9,7 @@ h1 List of Questions
       = link_to 'voted', voted_questions_path
     li class="#{ params[:sort_by] == "unanswered" ? 'sort-by' : ''}"
       = link_to 'unanswered', unanswered_questions_path
-.create-question-link.btn
+.create-question-link.btn.link-call-form
   - if user_signed_in?
     = link_to "Ask question", new_question_path, :remote => true
   - else

@@ -15,7 +15,7 @@ class Ability
 
   def user_abilities(user)
     can :read, :all
-    can :create, [Question, Answer, Comment, Tag]
+    can :create, [Question, Answer, Comment, Tag, Vote]
     can :update, [Question, Answer, Comment], user_id: user.id
     can :destroy, [Question, Answer, Comment], user_id: user.id
     can :best, Answer
