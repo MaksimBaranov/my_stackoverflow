@@ -40,6 +40,7 @@ group :development do
 end
 
 group :test, :development do
+  gem 'jazz_hands'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'faker'

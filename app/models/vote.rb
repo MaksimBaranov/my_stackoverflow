@@ -34,7 +34,7 @@ class Vote < ActiveRecord::Base
       user.votes << @vote
       @vote.voteable = vote_object
       @vote.value = num
-      @vote.save
+      @vote.save!
     end
   end
 

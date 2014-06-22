@@ -8,7 +8,7 @@ describe Vote do
   describe '#voting' do
     # let!(:vote) { build(:vote) }
     let!(:user) { create(:user) }
-    let!(:question) { create(:question) }
+    let!(:question) { create(:question), user: user }
     let!(:answer) { create(:answer) }
 
     context 'Question' do
