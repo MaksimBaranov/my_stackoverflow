@@ -22,8 +22,8 @@ class Ability
     cannot :best, Answer, user_id: user.id
     can :up, Vote
     can :down, Vote
-    cannot :up, Vote, user_id: user.id
-    cannot :down, Vote, user_id: user.id
+    # cannot :up, Vote, user_id: user.id
+    # cannot :down, Vote, user_id: user.id
     can :favor, Favorite
   end
 

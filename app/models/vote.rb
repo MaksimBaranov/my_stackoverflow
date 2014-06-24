@@ -4,24 +4,24 @@ class Vote < ActiveRecord::Base
 
   validates :value, inclusion: {in: [-1, 1]}
 
-  after_create do |vote|
-    voteable_object = vote.voteable
-    user = voteable_object.user
-    reputation = user.reputation
-    if vote.voteable_type == 'Question'
-      if vote.value == 1
-        user.update(reputation: reputation + 2)
-      else
-        user.update(reputation: reputation - 2)
-      end
-    else
-      if vote.value == 1
-        user.update(reputation: reputation + 1)
-      else
-        user.update(reputation: reputation - 1)
-      end
-    end
-  end
+  # after_create do |vote|
+  #   voteable_object = vote.voteable
+  #   user = voteable_object.user
+  #   reputation = user.reputation
+  #   if vote.voteable_type == 'Question'
+  #     if vote.value == 1
+  #       user.update(reputation: reputation + 2)
+  #     else
+  #       user.update(reputation: reputation - 2)
+  #     end
+  #   else
+  #     if vote.value == 1
+  #       user.update(reputation: reputation + 1)
+  #     else
+  #       user.update(reputation: reputation - 1)
+  #     end
+  #   end
+  # end
 
   def voting(user, vote_object, num)
     @vote ||= Vote.where(user_id: user, voteable_id: vote_object).first
