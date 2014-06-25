@@ -6,18 +6,18 @@ describe Vote do
   it { should ensure_inclusion_of(:value).in_array([-1, 1]) }
 
   describe '#voting' do
-    # let!(:vote) { build(:vote) }
     let!(:user) { create(:user) }
-    let!(:question) { create(:question), user: user }
+    let!(:question) { create(:question) }
     let!(:answer) { create(:answer) }
 
-    context 'Question' do
+    context 'for question' do
       it "create new vote record if User didn`t vote for it " do
-        build(:vote).voting(user, question, 1)
-        expect(vote[:user_id]).to eq user.id
-        expect(vote[:voteable_id]).to eq question.id
-        expect(vote[:voteable_type]).to eq 'Question'
-        expect(vote[:value]).to eq 1
+        vote = build(:vote)
+        vote.voting(user, question, 1)
+        expect(vote.user_id).to eq user.id
+        expect(vote.voteable_id).to eq question.id
+        expect(vote.voteable_type).to eq 'Question'
+        expect(vote.value).to eq 1
       end
 
       it "destroy users record if voting value not  equal record value" do
@@ -29,13 +29,14 @@ describe Vote do
       end
     end
 
-    context 'Answer' do
+    context 'for answer' do
       it "create new vote record if User didn`t vote for it " do
-        build(:vote).voting(user, answer, -1)
-        expect(vote[:user_id]).to eq user.id
-        expect(vote[:voteable_id]).to eq answer.id
-        expect(vote[:voteable_type]).to eq 'Answer'
-        expect(vote[:value]).to eq -1
+        vote = build(:vote)
+        vote.voting(user, answer, -1)
+        expect(vote.user_id).to eq user.id
+        expect(vote.voteable_id).to eq answer.id
+        expect(vote.voteable_type).to eq 'Answer'
+        expect(vote.value).to eq -1
       end
 
       it "destroy users record if voting value not  equal record value" do

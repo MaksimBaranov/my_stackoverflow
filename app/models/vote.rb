@@ -4,18 +4,20 @@ class Vote < ActiveRecord::Base
 
   validates :value, inclusion: {in: [-1, 1]}
 
-  after_create do |vote|
-    voteable_object = vote.voteable
+  after_create :change_reputation
+
+  def change_reputation
+    voteable_object = self.voteable
     user = voteable_object.user
     reputation = user.reputation
-    if vote.voteable_type == 'Question'
-      if vote.value == 1
+    if self.voteable_type == 'Question'
+      if self.value == 1
         user.update(reputation: reputation + 2)
       else
         user.update(reputation: reputation - 2)
       end
     else
-      if vote.value == 1
+      if self.value == 1
         user.update(reputation: reputation + 1)
       else
         user.update(reputation: reputation - 1)
@@ -26,14 +28,12 @@ class Vote < ActiveRecord::Base
   def voting(user, vote_object, num)
     @vote ||= Vote.where(user_id: user, voteable_id: vote_object).first
     if @vote.present?
-      unless @vote.value == num
-        @vote.destroy
-      end
+      @vote.destroy unless @vote.value == num
     else
       @vote ||= self
-      user.votes << @vote
       @vote.voteable = vote_object
       @vote.value = num
+      user.votes << @vote
       @vote.save!
     end
   end
