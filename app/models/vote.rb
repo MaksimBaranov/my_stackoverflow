@@ -6,7 +6,7 @@ class Vote < ActiveRecord::Base
   def voting(user, vote_object, num)
     @vote ||= Vote.where(user_id: user, voteable_id: vote_object).first
     if @vote.present?
-      @vote.destroy unless @vote.value == num
+      @vote.destroy! unless @vote.value == num
     else
       @vote ||= self
       @vote.voteable = vote_object
