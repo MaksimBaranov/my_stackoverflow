@@ -25,6 +25,12 @@ describe Ability do
   describe 'for user' do
     let(:user) { create(:user) }
     let(:user1) { create(:user) }
+    let(:question) { create(:question, user: user) }
+    let(:answer) { create(:answer, user: user) }
+
+    # before(:each) do
+    #   question
+    # end
 
     it { should_not be_able_to :manage, :all }
     it { should be_able_to :read, :all }
@@ -55,10 +61,10 @@ describe Ability do
    it { should be_able_to :best, create(:answer, user: user1),  user_id: user.id }
    it { should_not be_able_to :best, create(:answer, user: user),  user_id: user.id }
 
-   # it { should be_able_to :up, create(:vote, user_id: user1),  user_id: user.id }
-   # it { should_not be_able_to :up, create(:vote, user: user),  user_id: user.id }
+   it { should be_able_to :up, create(:vote, user_id: user1),  user_id: user.id }
+   it { should_not be_able_to :up, create(:vote, user_id: user),  user_id: user.id }
 
-   # it { should be_able_to :down, create(:vote, user: user1),  user_id: user.id }
-   # it { should_not be_able_to :down, create(:vote, user: user),  user_id: user.id }
+   it { should be_able_to :down, create(:vote, user_id: user1),  user_id: user.id }
+   it { should_not be_able_to :down, create(:vote, user_id: user),  user_id: user.id }
   end
 end

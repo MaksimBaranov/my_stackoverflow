@@ -3,7 +3,7 @@ class VotesController < InheritedResources::Base
   before_filter :authenticate_user!
   before_filter :build_vote, only: [:up, :down]
   belongs_to :answer, :question, polymorphic: true
-  # load_and_authorize_resource
+  load_and_authorize_resource
 
   def up
     @vote.voting(current_user, parent, 1 )

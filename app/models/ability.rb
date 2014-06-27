@@ -20,8 +20,8 @@ class Ability
     can :destroy, [Question, Answer, Comment], user_id: user.id
     can :best, Answer
     cannot :best, Answer, user_id: user.id
-    # can :up, Vote
-    # can :down, Vote
+    can :up, Vote
+    can :down, Vote
     # cannot :up, Vote, user_id: user.id
     # cannot :down, Vote, user_id: user.id
     can :favor, Favorite
