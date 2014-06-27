@@ -38,6 +38,7 @@ class ReputationObserver < ActiveRecord::Observer
     end
   end
 
+# constant = vote.votable_type.is_a?(Question) ? :two : :one
 # TODO: refactoring if-statments
 #            on the all callbacks via
 #            method change_reputation

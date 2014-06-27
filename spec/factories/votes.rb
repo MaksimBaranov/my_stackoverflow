@@ -2,7 +2,6 @@
 
 FactoryGirl.define do
   factory :vote do
-    user
     value  { [1, -1].sample }
     user_id nil
     voteable_id nil
@@ -10,7 +9,6 @@ FactoryGirl.define do
   end
 
   factory :vote_with_value, class: 'Vote' do
-    user
     value 1
     user_id nil
     voteable_id nil
