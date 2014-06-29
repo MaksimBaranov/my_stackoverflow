@@ -1,4 +1,5 @@
 MyStackoverflow::Application.routes.draw do
+  use_doorkeeper
   get 'verifications/take'
 
   get 'verifications/verify'
@@ -36,6 +37,14 @@ MyStackoverflow::Application.routes.draw do
   get 'verifications/:id/take' => 'verifications#take_email', as: :take_email
   patch 'verifications/send_letter/:id', to: 'verifications#send_letter', as: :send_letter
   get 'verifications/:id/:authorization/:checksum/verify', to: 'verifications#verify', as: :verify
+
+  namespace :api do
+    namespace :v1 do
+      resources :profiles do
+        get :me, on: :collection
+      end
+    end
+  end
   root 'questions#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

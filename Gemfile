@@ -44,6 +44,7 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'faker'
+  gem 'json_spec'
   #gem 'selenium-webdriver'
   gem 'database_cleaner'
   gem 'capybara-webkit'
@@ -74,6 +75,7 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'rails-observers'
+gem 'doorkeeper'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
